@@ -1,0 +1,3477 @@
+diff --git a/index.html b/index.html
+index a6e348e..1809ec2 100644
+--- a/index.html
++++ b/index.html
+@@ -1,5 +1,5 @@
+ <!doctype html>
+-<html lang="en">
++<html lang="zh-CN">
+   <head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+diff --git a/src/components/code/CliInstallation.jsx b/src/components/code/CliInstallation.jsx
+index e20ccb8..61a4363 100644
+--- a/src/components/code/CliInstallation.jsx
++++ b/src/components/code/CliInstallation.jsx
+@@ -62,7 +62,7 @@ const CliModeSwitch = ({ mode, hasManual, setMode }) => (
+           disabled={!hasManual}
+           aria-disabled={!hasManual}
+         >
+-          Manual
++          手动
+         </button>
+       ) : (
+         <Tooltip.Root openDelay={200} positioning={{ placement: 'right' }}>
+@@ -75,7 +75,7 @@ const CliModeSwitch = ({ mode, hasManual, setMode }) => (
+                 aria-disabled="true"
+                 type="button"
+               >
+-                Manual
++                手动
+               </button>
+             </span>
+           </Tooltip.Trigger>
+@@ -92,7 +92,7 @@ const CliModeSwitch = ({ mode, hasManual, setMode }) => (
+               borderRadius="8px"
+               textAlign="center"
+             >
+-              No dependencies, head to the &quot;Code&quot; section
++              无需额外依赖，请查看“代码”部分
+             </Tooltip.Content>
+           </Tooltip.Positioner>
+         </Tooltip.Root>
+@@ -104,7 +104,7 @@ const CliModeSwitch = ({ mode, hasManual, setMode }) => (
+ const InstallOptionsMenu = ({ pkg, setPkg, cliLib, setCliLib, showRegistry }) => (
+   <Menu.Root positioning={{ placement: 'bottom-start', gutter: 8 }}>
+     <Menu.Trigger asChild>
+-      <button type="button" className="install-options-trigger" aria-label="Choose installation options">
++      <button type="button" className="install-options-trigger" aria-label="选择安装选项">
+         <span>{pkg}</span>
+         {showRegistry && (
+           <>
+@@ -120,7 +120,7 @@ const InstallOptionsMenu = ({ pkg, setPkg, cliLib, setCliLib, showRegistry }) =>
+     <Portal>
+       <Menu.Positioner>
+         <Menu.Content className="install-options-menu">
+-          <div className="install-options-label">Package manager</div>
++          <div className="install-options-label">包管理器</div>
+           {PKG_MANAGERS.map(manager => (
+             <Menu.Item
+               key={manager}
+@@ -135,7 +135,7 @@ const InstallOptionsMenu = ({ pkg, setPkg, cliLib, setCliLib, showRegistry }) =>
+           {showRegistry && (
+             <>
+               <Menu.Separator className="install-options-separator" />
+-              <div className="install-options-label">Registry</div>
++              <div className="install-options-label">组件源</div>
+               {CLI_TOOLS.map(tool => (
+                 <Menu.Item
+                   key={tool}
+@@ -282,7 +282,7 @@ const CliInstallation = ({ deps }) => {
+ 
+   return (
+     <CodeSection
+-      title="Install"
++      title="安装"
+       className="cli-install"
+       actions={
+         <div className="cli-install-actions">
+diff --git a/src/components/code/CodeExample.jsx b/src/components/code/CodeExample.jsx
+index eb28666..c3fd53c 100644
+--- a/src/components/code/CodeExample.jsx
++++ b/src/components/code/CodeExample.jsx
+@@ -126,7 +126,7 @@ const CodeExample = ({ codeObject, componentName }) => {
+ 
+       {dynamicUsage && (
+         <CodeSection
+-          title="Usage"
++          title="使用方法"
+           note={hasChanges ? 'With your settings' : null}
+           actions={<CodeCopyButton codeString={dynamicUsage} />}
+         >
+diff --git a/src/components/code/Dependencies.jsx b/src/components/code/Dependencies.jsx
+index e037e72..31f65aa 100644
+--- a/src/components/code/Dependencies.jsx
++++ b/src/components/code/Dependencies.jsx
+@@ -38,16 +38,16 @@ const Dependencies = ({ dependencyList = [] }) => {
+   return (
+     <section className="dependencies-panel" aria-labelledby="dependencies-title">
+       <div className="dependencies-summary">
+-        <h2 id="dependencies-title">Dependencies</h2>
++        <h2 id="dependencies-title">所需依赖</h2>
+         <p>
+-          {dependencies.length} required {dependencies.length === 1 ? 'package' : 'packages'}
++          需要安装 {dependencies.length} 个依赖包
+         </p>
+       </div>
+       <div className="dependencies-command">
+         <code title={command}>{command}</code>
+-        <button type="button" onClick={copyCommand} aria-label={copied ? 'Install command copied' : 'Copy install command'}>
++        <button type="button" onClick={copyCommand} aria-label={copied ? '安装命令已复制' : '复制安装命令'}>
+           {copied ? <Check size={15} aria-hidden="true" /> : <Copy size={15} aria-hidden="true" />}
+-          <span aria-live="polite">{copied ? 'Copied' : 'Copy'}</span>
++          <span aria-live="polite">{copied ? '已复制' : '复制'}</span>
+         </button>
+       </div>
+     </section>
+diff --git a/src/components/common/ComponentList.jsx b/src/components/common/ComponentList.jsx
+index 788b322..cab759a 100644
+--- a/src/components/common/ComponentList.jsx
++++ b/src/components/common/ComponentList.jsx
+@@ -26,6 +26,7 @@ import usePreviewMediaAllowed from '../../hooks/usePreviewMediaAllowed';
+ import { useColorMode } from '../setup/color-mode';
+ import { FluidSelectContent } from './FluidMenuContent';
+ import '../../css/docs-overview.css';
++import { zhLabel, componentLabel } from '../../utils/zh';
+ 
+ const CARD_RADIUS = 16;
+ const SORT_NAME = 'A to Z';
+@@ -84,7 +85,7 @@ const ToolbarSelect = ({ collection, value, onChange, name, width, disabled, ...
+     <Select.HiddenSelect name={name} />
+     <Select.Control>
+       <Select.Trigger className="docs-tool docs-select-trigger">
+-        <Select.ValueText>{value}</Select.ValueText>
++        <Select.ValueText>{zhLabel(value)}</Select.ValueText>
+         <HugeiconsIcon
+           icon={ArrowDown01Icon}
+           size={14}
+@@ -99,7 +100,7 @@ const ToolbarSelect = ({ collection, value, onChange, name, width, disabled, ...
+         <FluidSelectContent>
+           {collection.items.map(option => (
+             <Select.Item key={option} item={option} className="docs-menu-item">
+-              {option}
++              {zhLabel(option)}
+               <Select.ItemIndicator className="docs-menu-check">
+                 <HugeiconsIcon icon={Tick02Icon} size={16} strokeWidth={1.6} aria-hidden="true" />
+               </Select.ItemIndicator>
+@@ -365,13 +366,13 @@ const ComponentList = ({
+                   type="button"
+                   onClick={() => setNewOnly(value => !value)}
+                   aria-pressed={newOnly}
+-                  title={newOnly ? 'Show all components' : 'Show new components'}
++                  title={newOnly ? '显示全部组件' : '显示新增组件'}
+                 >
+-                  {newOnly ? filtered.length : newSinceLastVisitCount} new since your last visit
++                  {newOnly ? filtered.length : newSinceLastVisitCount} 个组件自上次访问后新增
+                 </button>
+               ) : hasActiveFilters ? (
+                 <span>
+-                  {filtered.length} {filtered.length === 1 ? 'component' : 'components'} found
++                  找到 {filtered.length} 个组件
+                 </span>
+               ) : null}
+             </div>
+@@ -393,8 +394,8 @@ const ComponentList = ({
+               type="search"
+               value={search}
+               onChange={e => setSearch(e.target.value)}
+-              placeholder="Search..."
+-              aria-label="Search components"
++              placeholder="搜索…"
++              aria-label="搜索组件"
+               disabled={controlsDisabled}
+               tabIndex={controlsDisabled ? -1 : 0}
+             />
+@@ -434,7 +435,7 @@ const ComponentList = ({
+             <button
+               ref={clearBtnRef}
+               type="button"
+-              aria-label="Clear filters"
++              aria-label="清除筛选"
+               className="docs-tool docs-tool--icon docs-clear"
+               onClick={clearFilters}
+               tabIndex={showClear ? 0 : -1}
+@@ -451,16 +452,16 @@ const ComponentList = ({
+           <Box role="status" p={6} mt={'6em'} textAlign="center" position="relative">
+             <Box position="relative">
+               <Text color="var(--text-primary)" fontWeight={500} fontSize="24px" mb={1}>
+-                {items.length > 0 ? 'No results...' : 'Nothing here yet...'}
++                {items.length > 0 ? '没有找到结果…' : '这里还没有内容…'}
+               </Text>
+               <Text color={colors.textMuted} fontSize="16px" mb={8}>
+-                {items.length > 0 ? 'Try adjusting your filters' : 'Tap the heart on any component to save it'}
++                {items.length > 0 ? '试试调整筛选条件' : '点击组件上的爱心即可收藏'}
+               </Text>
+ 
+               <Flex gap={2} justify="center" wrap="wrap">
+                 {items.length > 0 ? (
+                   <Box as="button" onClick={clearFilters} {...PILL_BTN_STYLE}>
+-                    Clear Filters
++                    清除筛选
+                   </Box>
+                 ) : (
+                   <Box
+@@ -473,7 +474,7 @@ const ComponentList = ({
+                     px={6}
+                     {...PILL_BTN_STYLE}
+                   >
+-                    Browse Components
++                    浏览组件
+                   </Box>
+                 )}
+               </Flex>
+@@ -537,7 +538,7 @@ const ComponentList = ({
+                                 <LazyCardMedia
+                                   key={item.videoUrl || item.key}
+                                   videoUrl={item.videoUrl}
+-                                  title={item.title}
++                                  title={componentLabel(item.title)}
+                                   playing={previewMediaAllowed && hoveredKey === item.key}
+                                 />
+ 
+@@ -562,13 +563,13 @@ const ComponentList = ({
+                                     backdropFilter="var(--surface-ghost-blur)"
+                                     pointerEvents="none"
+                                   >
+-                                    {item.isNewSinceLastVisit ? 'Since last visit' : 'New'}
++                                    {item.isNewSinceLastVisit ? '上次访问后新增' : 'New'}
+                                   </Box>
+                                 ) : null}
+ 
+                                 {hasDeleteButton ? (
+                                   <IconButton
+-                                    aria-label="Remove from favorites"
++                                    aria-label="取消收藏"
+                                     {...FAV_BTN_STYLE}
+                                     opacity={hoveredKey === item.key ? 1 : 0}
+                                     pointerEvents={hoveredKey === item.key ? 'auto' : 'none'}
+@@ -599,7 +600,7 @@ const ComponentList = ({
+ 
+                                 {!hasDeleteButton && hasFavoriteButton ? (
+                                   <IconButton
+-                                    aria-label={isSaved ? 'Remove from favorites' : 'Add to favorites'}
++                                    aria-label={isSaved ? '取消收藏' : '加入收藏'}
+                                     {...FAV_BTN_STYLE}
+                                     opacity={isSaved || hoveredKey === item.key ? 1 : 0}
+                                     pointerEvents={hoveredKey === item.key ? 'auto' : 'none'}
+@@ -636,7 +637,7 @@ const ComponentList = ({
+                                   lineHeight="1.25"
+                                   letterSpacing="-0.25px"
+                                 >
+-                                  {item.title}
++                                  {componentLabel(item.title)}
+                                 </Text>
+                                 <Text
+                                   color="var(--text-dimmed)"
+@@ -646,7 +647,7 @@ const ComponentList = ({
+                                   textTransform="uppercase"
+                                   mt="5px"
+                                 >
+-                                  {item.categoryLabel}
++                                  {zhLabel(item.categoryLabel)}
+                                 </Text>
+                               </Box>
+                             </Box>
+@@ -680,8 +681,8 @@ const ComponentList = ({
+       </Box>
+       {showDirectory && filtered.length > 0 && (
+         <details className="docs-directory">
+-          <summary>Browse by name</summary>
+-          <nav aria-label="Component directory">
++          <summary>按名称浏览</summary>
++          <nav aria-label="组件目录">
+             <ul>
+               {[...filtered]
+                 .sort((a, b) => a.title.localeCompare(b.title))
+@@ -690,7 +691,7 @@ const ComponentList = ({
+                     <RouterLink
+                       to={`${basePath}/${slug(fromPascal(item.categoryKey))}/${slug(fromPascal(item.componentKey))}`}
+                     >
+-                      {item.title}
++                      {componentLabel(item.title)}
+                     </RouterLink>
+                   </li>
+                 ))}
+diff --git a/src/components/common/ComponentPager.jsx b/src/components/common/ComponentPager.jsx
+index 4c5143d..6053319 100644
+--- a/src/components/common/ComponentPager.jsx
++++ b/src/components/common/ComponentPager.jsx
+@@ -1,6 +1,7 @@
+ import { useEffect } from 'react';
+ import { ArrowLeft, ArrowRight } from 'lucide-react';
+ import { Link, useNavigate } from 'react-router-dom';
++import { componentLabel } from '../../utils/zh';
+ import { CATEGORIES } from '../../constants/Categories';
+ 
+ const slug = value => value.replace(/\s+/g, '-').toLowerCase();
+@@ -28,8 +29,8 @@ const PagerLink = ({ item, direction }) => {
+     return (
+       <span className={`component-pager-empty component-pager-${direction}`}>
+         <span>
+-          <span className="component-pager-label">Collection</span>
+-          <span className="component-pager-name">{previous ? 'Start of library' : 'End of library'}</span>
++          <span className="component-pager-label">组件库</span>
++          <span className="component-pager-name">{previous ? '组件库开头' : '组件库末尾'}</span>
+         </span>
+       </span>
+     );
+@@ -44,12 +45,12 @@ const PagerLink = ({ item, direction }) => {
+       {previous ? <ArrowLeft size={16} aria-hidden="true" /> : null}
+       <span>
+         <span className="component-pager-label">
+-          {previous ? 'Previous' : 'Next'}
++          {previous ? '上一个' : '下一个'}
+           <kbd className="component-pager-key" aria-hidden="true">
+             {SHORTCUTS[direction]}
+           </kbd>
+         </span>
+-        <span className="component-pager-name">{item.component}</span>
++        <span className="component-pager-name">{componentLabel(item.component)}</span>
+       </span>
+       {!previous ? <ArrowRight size={16} aria-hidden="true" /> : null}
+     </Link>
+@@ -80,7 +81,7 @@ const ComponentPager = ({ category, subcategory }) => {
+   if (index < 0) return null;
+ 
+   return (
+-    <nav className="component-pager" aria-label="Component navigation">
++    <nav className="component-pager" aria-label="组件导航">
+       <PagerLink item={previous} direction="previous" />
+       <PagerLink item={next} direction="next" />
+     </nav>
+diff --git a/src/components/common/DocsOverview.jsx b/src/components/common/DocsOverview.jsx
+index c91de56..3483930 100644
+--- a/src/components/common/DocsOverview.jsx
++++ b/src/components/common/DocsOverview.jsx
+@@ -1,12 +1,13 @@
+ import { Link } from 'react-router-dom';
+ import { ArrowRight } from 'lucide-react';
+ import '../../css/docs-overview.css';
++import { componentLabel, descriptionZh, componentDescriptionsZh } from '../../utils/zh';
+ 
+ export const DocsOverview = ({ seo }) => (
+   <header className="docs-overview">
+-    <h1 className="sub-category">{seo.heading}</h1>
+-    <p className="docs-overview-description" title={seo.intro}>
+-      {seo.intro}
++    <h1 className="sub-category">{componentLabel(seo.heading)}</h1>
++    <p className="docs-overview-description" title={componentDescriptionsZh[seo.heading.replace(/\s+/g, '')] || descriptionZh(seo.intro)}>
++      {componentDescriptionsZh[seo.heading.replace(/\s+/g, '')] || descriptionZh(seo.intro)}
+     </p>
+   </header>
+ );
+@@ -14,19 +15,19 @@ export const DocsOverview = ({ seo }) => (
+ export const RelatedComponents = ({ seo }) => (
+   <section className="docs-related customize-frame" aria-labelledby="related-components-heading">
+     <div className="customize-heading">
+-      <h2 id="related-components-heading">Related components</h2>
++      <h2 id="related-components-heading">相关组件</h2>
+       <Link
+         to={seo.category.path}
+         className="customize-heading-action"
+         aria-label={`View all ${seo.category.name.toLowerCase()}`}
+       >
+-        View all <ArrowRight size={14} aria-hidden="true" />
++        查看全部 <ArrowRight size={14} aria-hidden="true" />
+       </Link>
+     </div>
+     <div className="docs-related-grid">
+       {seo.related.map(item => (
+         <Link key={item.path} to={item.path} className="docs-related-card component-pager-link" title={item.name}>
+-          <span className="component-pager-name">{item.name}</span>
++          <span className="component-pager-name">{componentLabel(item.name)}</span>
+           <ArrowRight size={16} aria-hidden="true" />
+         </Link>
+       ))}
+diff --git a/src/components/common/Preview/Customize.jsx b/src/components/common/Preview/Customize.jsx
+index 4a118dc..47b4439 100644
+--- a/src/components/common/Preview/Customize.jsx
++++ b/src/components/common/Preview/Customize.jsx
+@@ -8,7 +8,7 @@ const Customize = ({ children }) => {
+   return (
+     <div className="customize-frame">
+       <div className="customize-heading">
+-        <h2>Customize</h2>
++        <h2>自定义</h2>
+         <div className="customize-heading-actions">
+           {actions?.reset && (
+             <button
+@@ -20,13 +20,13 @@ const Customize = ({ children }) => {
+               tabIndex={actions.canReset ? 0 : -1}
+             >
+               <RotateCcw size={14} aria-hidden="true" />
+-              <span>Reset</span>
++              <span>重置</span>
+             </button>
+           )}
+           {actions?.openStudio && (
+             <button type="button" className="customize-heading-action" onClick={actions.openStudio}>
+               <Palette size={14} aria-hidden="true" />
+-              <span>Open in BG Studio</span>
++              <span>在背景工作室中打开</span>
+             </button>
+           )}
+         </div>
+diff --git a/src/components/common/Preview/PreviewColorPicker.jsx b/src/components/common/Preview/PreviewColorPicker.jsx
+index b855afe..e7ffe7e 100644
+--- a/src/components/common/Preview/PreviewColorPicker.jsx
++++ b/src/components/common/Preview/PreviewColorPicker.jsx
+@@ -1,3 +1,4 @@
++import { controlLabel } from '../../../utils/zh';
+ import '../../../css/preview-slider.css';
+ 
+ const PreviewColorPicker = ({ title = '', color = '#ffffff', setColor }) => {
+@@ -10,7 +11,7 @@ const PreviewColorPicker = ({ title = '', color = '#ffffff', setColor }) => {
+   return (
+     <div className="scrubber">
+       <div className="scrubber-track scrubber-track--color">
+-        <span className="scrubber-label">{title}</span>
++        <span className="scrubber-label">{controlLabel(title)}</span>
+         <div className="scrubber-color-controls">
+           <input
+             className="scrubber-color-swatch"
+diff --git a/src/components/common/Preview/PreviewColorPickerCustom.jsx b/src/components/common/Preview/PreviewColorPickerCustom.jsx
+index 2bf1ebd..585e06d 100644
+--- a/src/components/common/Preview/PreviewColorPickerCustom.jsx
++++ b/src/components/common/Preview/PreviewColorPickerCustom.jsx
+@@ -1,3 +1,4 @@
++import { controlLabel } from '../../../utils/zh';
+ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+ import { createPortal } from 'react-dom';
+ import { HugeiconsIcon } from '@hugeicons/react';
+@@ -350,7 +351,7 @@ export default function PreviewColorPickerCustom({ title, color, onChange, varia
+           data-checker={checker || undefined}
+           style={swatchStyle}
+           onClick={() => setOpen(value => !value)}
+-          aria-label={`${title}: ${output}`}
++          aria-label={`${controlLabel(title)}: ${output}`}
+           aria-haspopup="dialog"
+           aria-expanded={open}
+         />
+@@ -363,9 +364,9 @@ export default function PreviewColorPickerCustom({ title, color, onChange, varia
+             onClick={() => setOpen(value => !value)}
+             aria-haspopup="dialog"
+             aria-expanded={open}
+-            aria-label={`${title}: ${output}`}
++            aria-label={`${controlLabel(title)}: ${output}`}
+           >
+-            <span className="scrubber-label">{title}</span>
++            <span className="scrubber-label">{controlLabel(title)}</span>
+           </button>
+           <div className="scrubber-color-controls">
+             <button
+@@ -383,7 +384,7 @@ export default function PreviewColorPickerCustom({ title, color, onChange, varia
+               value={rowText ?? output}
+               spellCheck={false}
+               autoComplete="off"
+-              aria-label={`${title} value`}
++              aria-label={`${controlLabel(title)}数值`}
+               onFocus={event => {
+                 setRowText(output);
+                 event.target.select();
+@@ -410,7 +411,7 @@ export default function PreviewColorPickerCustom({ title, color, onChange, varia
+             ref={popoverRef}
+             className="cp-popover"
+             role="dialog"
+-            aria-label={`${title} color`}
++            aria-label={`${controlLabel(title)}`}
+             data-placement={placement}
+             style={{ left, width, top, '--cp-hue': hueColor, '--cp-opaque': opaque }}
+           >
+diff --git a/src/components/common/Preview/PreviewInput.jsx b/src/components/common/Preview/PreviewInput.jsx
+index 4315d91..b1512f8 100644
+--- a/src/components/common/Preview/PreviewInput.jsx
++++ b/src/components/common/Preview/PreviewInput.jsx
+@@ -1,3 +1,4 @@
++import { controlLabel } from '../../../utils/zh';
+ import '../../../css/preview-slider.css';
+ 
+ const PreviewInput = ({
+@@ -16,7 +17,7 @@ const PreviewInput = ({
+         className="scrubber-track scrubber-track--input"
+         data-disabled={isDisabled}
+       >
+-        <span className="scrubber-label">{title}</span>
++        <span className="scrubber-label">{controlLabel(title)}</span>
+         <input
+           className="scrubber-input"
+           type="text"
+@@ -25,7 +26,7 @@ const PreviewInput = ({
+           placeholder={placeholder}
+           maxLength={maxLength}
+           disabled={isDisabled}
+-          aria-label={title}
++          aria-label={controlLabel(title)}
+         />
+       </div>
+     </div>
+diff --git a/src/components/common/Preview/PreviewSelect.jsx b/src/components/common/Preview/PreviewSelect.jsx
+index 36fdc65..c672ec9 100644
+--- a/src/components/common/Preview/PreviewSelect.jsx
++++ b/src/components/common/Preview/PreviewSelect.jsx
+@@ -1,3 +1,4 @@
++import { controlLabel } from '../../../utils/zh';
+ import { useRef, useState, useEffect, useMemo } from 'react';
+ import { createPortal } from 'react-dom';
+ import '../../../css/preview-slider.css';
+@@ -65,15 +66,15 @@ const PreviewSelect = ({ title = '', options = [], value = '', isDisabled = fals
+       <button
+         type="button"
+         className="scrubber-track scrubber-track--select"
+-        aria-label={title}
++        aria-label={controlLabel(title)}
+         aria-disabled={isDisabled}
+         data-disabled={isDisabled}
+         tabIndex={isDisabled ? -1 : 0}
+         onClick={() => !isDisabled && setOpen(o => !o)}
+       >
+-        <span className="scrubber-label">{title}</span>
++        <span className="scrubber-label">{controlLabel(title)}</span>
+         <span className="scrubber-select-right">
+-          <span className="scrubber-value">{labelMap[value] || value}</span>
++          <span className="scrubber-value">{controlLabel(labelMap[value] || value)}</span>
+           <svg
+             className={`scrubber-caret${open ? ' scrubber-caret--open' : ''}`}
+             width="14"
+@@ -117,7 +118,7 @@ const PreviewSelect = ({ title = '', options = [], value = '', isDisabled = fals
+                   setOpen(false);
+                 }}
+               >
+-                {opt.label}
++                {controlLabel(opt.label)}
+               </button>
+             ))}
+           </div>,
+diff --git a/src/components/common/Preview/PreviewSlider.jsx b/src/components/common/Preview/PreviewSlider.jsx
+index 2b3521b..2d37824 100644
+--- a/src/components/common/Preview/PreviewSlider.jsx
++++ b/src/components/common/Preview/PreviewSlider.jsx
+@@ -1,3 +1,4 @@
++import { controlLabel } from '../../../utils/zh';
+ import { useCallback, useEffect, useRef, useState } from 'react';
+ import useScrubGesture from '../../../hooks/useScrubGesture';
+ import '../../../css/preview-slider.css';
+@@ -99,7 +100,7 @@ const PreviewSlider = ({
+         className="scrubber-track"
+         ref={trackRef}
+         role="slider"
+-        aria-label={title}
++        aria-label={controlLabel(title)}
+         aria-valuemin={min}
+         aria-valuemax={max}
+         aria-valuenow={value}
+@@ -129,7 +130,7 @@ const PreviewSlider = ({
+           <div className="scrubber-thumb" />
+         </div>
+ 
+-        <div className="scrubber-label">{title}</div>
++        <div className="scrubber-label">{controlLabel(title)}</div>
+         <div className="scrubber-value">{formattedValue}</div>
+       </div>
+     </div>
+diff --git a/src/components/common/Preview/PreviewSliderVertical.jsx b/src/components/common/Preview/PreviewSliderVertical.jsx
+index 0d8f818..7d1fc8b 100644
+--- a/src/components/common/Preview/PreviewSliderVertical.jsx
++++ b/src/components/common/Preview/PreviewSliderVertical.jsx
+@@ -1,3 +1,4 @@
++import { controlLabel } from '../../../utils/zh';
+ import { useCallback, useEffect, useRef, useState } from 'react';
+ import useScrubGesture from '../../../hooks/useScrubGesture';
+ import '../../../css/preview-slider.css';
+@@ -98,7 +99,7 @@ const PreviewSliderVertical = ({
+         className="scrubber-track"
+         ref={trackRef}
+         role="slider"
+-        aria-label={title}
++        aria-label={controlLabel(title)}
+         aria-valuemin={min}
+         aria-valuemax={max}
+         aria-valuenow={value}
+@@ -128,7 +129,7 @@ const PreviewSliderVertical = ({
+           <div className="scrubber-thumb" />
+         </div>
+ 
+-        <div className="scrubber-label">{title}</div>
++        <div className="scrubber-label">{controlLabel(title)}</div>
+         <div className="scrubber-value">{formattedValue}</div>
+       </div>
+     </div>
+diff --git a/src/components/common/Preview/PreviewSwitch.jsx b/src/components/common/Preview/PreviewSwitch.jsx
+index 6587266..113da91 100644
+--- a/src/components/common/Preview/PreviewSwitch.jsx
++++ b/src/components/common/Preview/PreviewSwitch.jsx
+@@ -1,3 +1,4 @@
++import { controlLabel } from '../../../utils/zh';
+ import '../../../css/preview-slider.css';
+ 
+ const PreviewSwitch = ({ title, isChecked, onChange, isDisabled }) => {
+@@ -12,7 +13,7 @@ const PreviewSwitch = ({ title, isChecked, onChange, isDisabled }) => {
+         className="scrubber-track scrubber-track--switch"
+         role="switch"
+         aria-checked={isChecked}
+-        aria-label={title}
++        aria-label={controlLabel(title)}
+         aria-disabled={isDisabled}
+         data-disabled={isDisabled}
+         data-checked={isChecked}
+@@ -25,7 +26,7 @@ const PreviewSwitch = ({ title, isChecked, onChange, isDisabled }) => {
+           }
+         }}
+       >
+-        <span className="scrubber-label">{title}</span>
++        <span className="scrubber-label">{controlLabel(title)}</span>
+         <span className="scrubber-switch-toggle">
+           <span className="scrubber-switch-knob" />
+         </span>
+diff --git a/src/components/common/Preview/PropTable.jsx b/src/components/common/Preview/PropTable.jsx
+index c094453..68ca1a2 100644
+--- a/src/components/common/Preview/PropTable.jsx
++++ b/src/components/common/Preview/PropTable.jsx
+@@ -1,19 +1,20 @@
++import { descriptionZh } from '../../../utils/zh';
+ import './PropTable.css';
+ 
+ const PropTable = ({ data }) => (
+   <div className="prop-table-section">
+     <div className="prop-table-frame">
+       <div className="prop-table-heading">
+-        <h2>Props</h2>
++        <h2>属性</h2>
+         <span>
+-          {data.length} {data.length === 1 ? 'property' : 'properties'}
++          {data.length} 个属性
+         </span>
+       </div>
+ 
+       <div className="prop-table-wrap">
+         <div className="prop-table-surface">
+           <table className="prop-table">
+-            <caption>Component properties</caption>
++            <caption>组件属性</caption>
+             <colgroup>
+               <col className="prop-column-name" />
+               <col className="prop-column-type" />
+@@ -22,10 +23,10 @@ const PropTable = ({ data }) => (
+             </colgroup>
+             <thead>
+               <tr>
+-                <th scope="col">Property</th>
+-                <th scope="col">Type</th>
+-                <th scope="col">Default</th>
+-                <th scope="col">Description</th>
++                <th scope="col">属性名</th>
++                <th scope="col">类型</th>
++                <th scope="col">默认值</th>
++                <th scope="col">说明</th>
+               </tr>
+             </thead>
+             <tbody>
+@@ -38,7 +39,7 @@ const PropTable = ({ data }) => (
+                   <td>
+                     <code className="prop-default">{prop.default?.length ? prop.default : '—'}</code>
+                   </td>
+-                  <td className="prop-desc">{prop.description}</td>
++                  <td className="prop-desc">{descriptionZh(prop.description)}</td>
+                 </tr>
+               ))}
+             </tbody>
+@@ -54,9 +55,9 @@ const PropTable = ({ data }) => (
+                 <code className="prop-name">{prop.name}</code>
+                 <span className="prop-card-type">{prop.type}</span>
+               </div>
+-              <p className="prop-card-desc">{prop.description}</p>
++              <p className="prop-card-desc">{descriptionZh(prop.description)}</p>
+               <div className="prop-card-default">
+-                <span className="prop-card-label">Default</span>
++                <span className="prop-card-label">默认值</span>
+                 <code className="prop-default">{prop.default?.length ? prop.default : '—'}</code>
+               </div>
+             </div>
+diff --git a/src/components/common/Pro/CategoryProFooter.jsx b/src/components/common/Pro/CategoryProFooter.jsx
+index 3591df8..e6efa10 100644
+--- a/src/components/common/Pro/CategoryProFooter.jsx
++++ b/src/components/common/Pro/CategoryProFooter.jsx
+@@ -14,14 +14,14 @@ const CategoryProFooter = ({ category }) => {
+   if (!collection?.items.length) return null;
+ 
+   return (
+-    <section ref={impressionRef} className="cat-pro" aria-label="Related components from React Bits Pro">
++    <section ref={impressionRef} className="cat-pro" aria-label="React Bits Pro 相关组件">
+       <div className="cat-pro-heading">
+         <div>
+-          <h2>More {collection.noun} in Pro</h2>
+-          {collection.pitch && <p>{collection.pitch}</p>}
++          <h2>Pro 中的更多相关内容</h2>
++          {collection.pitch && <p>探索更多动画效果、界面组件和设计资源。</p>}
+         </div>
+         <a className="cat-pro-all" {...proLinkProps(collection.path, PLACEMENT, { params: { category } })}>
+-          View all {collection.count} <LuArrowUpRight size={14} aria-hidden="true" />
++          查看全部 {collection.count} 项 <LuArrowUpRight size={14} aria-hidden="true" />
+         </a>
+       </div>
+       <div className="cat-pro-grid">
+diff --git a/src/components/common/ProCard.jsx b/src/components/common/ProCard.jsx
+index ffe3f67..6960fe1 100644
+--- a/src/components/common/ProCard.jsx
++++ b/src/components/common/ProCard.jsx
+@@ -10,7 +10,7 @@ const ProCard = () => {
+   const config = PRO_UPSELLS.default;
+   const isProRoute = pathname.startsWith('/pro');
+   const destination = isProRoute ? '/#pricing' : config.path;
+-  const ctaLabel = isProRoute ? 'Get React Bits Pro' : 'Explore React Bits Pro';
++  const ctaLabel = isProRoute ? '获取 React Bits Pro' : '探索 React Bits Pro';
+   const impressionRef = useProImpression('right-panel-card', { category: category || 'unknown' });
+ 
+   return (
+@@ -42,14 +42,14 @@ const ProCard = () => {
+         </div>
+ 
+         <div className="pro-card-content">
+-          <h3 className="pro-card-title">{config.title}</h3>
+-          <p className="pro-card-desc">{config.description}</p>
++          <h3 className="pro-card-title">用一个组件库构建完整产品</h3>
++          <p className="pro-card-desc">组件、页面区块、应用界面、模板及 AI 助手工具，助你快速上线。</p>
+           <div className="pro-card-counts">
+             <span>
+-              {PRO_COUNTS.components} Components · {PRO_COUNTS.blocks} Blocks
++              {PRO_COUNTS.components} 个组件 · {PRO_COUNTS.blocks} 个区块
+             </span>
+             <span>
+-              {PRO_COUNTS.appUi} App UI · {PRO_COUNTS.templates} Templates · {PRO_COUNTS.agentKit} Agent Skills
++              {PRO_COUNTS.appUi} 个应用界面 · {PRO_COUNTS.templates} 个模板 · {PRO_COUNTS.agentKit} 个 AI 技能
+             </span>
+           </div>
+ 
+diff --git a/src/components/common/SearchDialog.jsx b/src/components/common/SearchDialog.jsx
+index 0f3ddae..0c9a1a4 100644
+--- a/src/components/common/SearchDialog.jsx
++++ b/src/components/common/SearchDialog.jsx
+@@ -1,3 +1,4 @@
++import { componentLabel } from '../../utils/zh';
+ import { useEffect, useLayoutEffect, useState, useRef, useCallback, useMemo } from 'react';
+ import { HugeiconsIcon } from '@hugeicons/react';
+ import {
+@@ -259,7 +260,7 @@ const SearchDialog = ({ isOpen, onClose }) => {
+ 
+   return (
+     <div className="search-backdrop" onClick={onClose}>
+-      <div className="search-dialog" role="dialog" aria-label="Search" onClick={e => e.stopPropagation()}>
++      <div className="search-dialog" role="dialog" aria-label="搜索" onClick={e => e.stopPropagation()}>
+         <div className="search-input-row">
+           <span className="search-input-icon">
+             <Glyph icon={Search01Icon} size={18} />
+@@ -269,8 +270,8 @@ const SearchDialog = ({ isOpen, onClose }) => {
+             className="search-input"
+             value={inputValue}
+             onChange={e => setInputValue(e.target.value)}
+-            placeholder="Search components, categories, or keywords..."
+-            aria-label="Search"
++            placeholder="搜索组件、分类或关键词…"
++            aria-label="搜索"
+           />
+           <kbd className="search-kbd" onClick={onClose}>
+             esc
+@@ -305,7 +306,7 @@ const SearchDialog = ({ isOpen, onClose }) => {
+                       index={i}
+                       selected={i === selectedIndex}
+                       icon={categoryIconMapping[r.categoryName] || Search01Icon}
+-                      title={r.componentName}
++                      title={componentLabel(r.componentName)}
+                       meta={r.matchLabel}
+                       trail={ArrowTurnBackwardIcon}
+                       onHover={() => i !== selectedIndex && setSelectedIndex(i)}
+@@ -316,7 +317,7 @@ const SearchDialog = ({ isOpen, onClose }) => {
+                   {proResults.length > 0 && (
+                     <div className="search-group-label">
+                       React Bits Pro
+-                      <span>opens pro.reactbits.dev</span>
++                      <span>打开 pro.reactbits.dev</span>
+                     </div>
+                   )}
+ 
+@@ -340,7 +341,7 @@ const SearchDialog = ({ isOpen, onClose }) => {
+                 </>
+               ) : (
+                 <p className="search-no-results">
+-                  No results for <strong>{searchValue}</strong>
++                  没有找到与 <strong>{searchValue}</strong> 相关的结果
+                 </p>
+               )}
+             </div>
+@@ -355,15 +356,15 @@ const SearchDialog = ({ isOpen, onClose }) => {
+             <span>
+               <kbd>↑</kbd>
+               <kbd>↓</kbd>
+-              Navigate
++              选择
+             </span>
+             <span>
+               <kbd>↵</kbd>
+-              Open
++              打开
+             </span>
+           </div>
+           <label className="search-toggle">
+-            Free only
++            仅看免费内容
+             <input type="checkbox" role="switch" checked={freeOnly} onChange={toggleFreeOnly} />
+             <span className="search-switch" aria-hidden="true" />
+           </label>
+diff --git a/src/components/common/SponsorsCard.jsx b/src/components/common/SponsorsCard.jsx
+index 5aaa85e..0ea5c31 100644
+--- a/src/components/common/SponsorsCard.jsx
++++ b/src/components/common/SponsorsCard.jsx
+@@ -43,14 +43,14 @@ const SponsorsCard = () => {
+   return (
+     <div className="right-card sc-card">
+       <div className="sc-header">
+-        <span className="sc-title">Sponsors</span>
+-        <span className="sc-reach">500K+ developers monthly</span>
++        <span className="sc-title">赞助商</span>
++        <span className="sc-reach">每月触达 50 万以上开发者</span>
+       </div>
+ 
+       <div className="sc-body">
+         {hasDiamondSponsors && (
+           <div className="sc-tier">
+-            <span className="sc-tier-label">Diamond</span>
++            <span className="sc-tier-label">钻石赞助商</span>
+             <div className="sc-tier-grid sc-tier-diamond">
+               {diamondSponsors.map(s => (
+                 <SponsorLogo key={s.id} sponsor={s} tier="diamond" className="sc-sponsor-diamond" />
+@@ -61,7 +61,7 @@ const SponsorsCard = () => {
+ 
+         {hasPlatinumSponsors && (
+           <div className="sc-tier">
+-            <span className="sc-tier-label">Platinum</span>
++            <span className="sc-tier-label">白金赞助商</span>
+             <div className="sc-tier-grid sc-tier-platinum">
+               {platinumSponsors.map(s => (
+                 <SponsorLogo key={s.id} sponsor={s} tier="platinum" className="sc-sponsor-platinum" />
+@@ -72,7 +72,7 @@ const SponsorsCard = () => {
+ 
+         {hasSilverSponsors && (
+           <div className="sc-tier">
+-            <span className="sc-tier-label">Silver</span>
++            <span className="sc-tier-label">银级赞助商</span>
+             <div className="sc-tier-grid sc-tier-silver">
+               {silverSponsors.map(s => (
+                 <SponsorLogo key={s.id} sponsor={s} tier="silver" className="sc-sponsor-silver" />
+@@ -83,7 +83,7 @@ const SponsorsCard = () => {
+       </div>
+ 
+       <Link to="/sponsors#sponsor-plans" className="sc-become-link">
+-        <span>Become a sponsor</span>
++        <span>成为赞助商</span>
+         <LuArrowRight size={14} />
+       </Link>
+     </div>
+diff --git a/src/components/common/TabsLayout.jsx b/src/components/common/TabsLayout.jsx
+index bbcaee3..a3b1ec2 100644
+--- a/src/components/common/TabsLayout.jsx
++++ b/src/components/common/TabsLayout.jsx
+@@ -101,9 +101,9 @@ const TABLET_WIDTH = 768;
+ const MOBILE_WIDTH = 375;
+ 
+ const WIDTH_PRESETS = [
+-  { label: 'Desktop', icon: ComputerIcon, width: null },
+-  { label: `Tablet · ${TABLET_WIDTH}px`, icon: Tablet01Icon, width: TABLET_WIDTH },
+-  { label: `Mobile · ${MOBILE_WIDTH}px`, icon: SmartPhone01Icon, width: MOBILE_WIDTH }
++  { label: '桌面', icon: ComputerIcon, width: null },
++  { label: `平板 · ${TABLET_WIDTH}px`, icon: Tablet01Icon, width: TABLET_WIDTH },
++  { label: `手机 · ${MOBILE_WIDTH}px`, icon: SmartPhone01Icon, width: MOBILE_WIDTH }
+ ];
+ 
+ let rememberedDemoMode = 'none';
+@@ -312,7 +312,7 @@ const TabsLayout = ({ children, className }) => {
+     const demo = previewRef.current?.querySelector('.demo-container');
+     const request = demo?.requestFullscreen || demo?.webkitRequestFullscreen;
+     if (!request) return;
+-    Promise.resolve(request.call(demo)).catch(() => toast.error('Fullscreen is not available here'));
++    Promise.resolve(request.call(demo)).catch(() => toast.error('此处无法全屏'));
+   }, []);
+ 
+   const showFavorite = favoriteKey && category !== 'get-started';
+@@ -328,7 +328,7 @@ const TabsLayout = ({ children, className }) => {
+     sizeTrackRef,
+     `${previewWidth}-${widthPresets.length}-${showFullscreen}-${showDemoModes ? `${demoSelected}-${demoOptions.length}` : ''}`
+   );
+-  const favoriteLabel = isSaved ? 'Remove from favorites' : 'Add to favorites';
++  const favoriteLabel = isSaved ? '取消收藏' : '加入收藏';
+ 
+   return (
+     <Tabs.Root
+@@ -344,11 +344,11 @@ const TabsLayout = ({ children, className }) => {
+           <Pill pill={tabsPill} />
+           <Tabs.Trigger value="preview" className="docs-segment">
+             <ToolIcon icon={ViewIcon} />
+-            Preview
++            预览
+           </Tabs.Trigger>
+           <Tabs.Trigger value="code" className="docs-segment">
+             <ToolIcon icon={SourceCodeIcon} />
+-            Code
++            代码
+           </Tabs.Trigger>
+         </div>
+ 
+@@ -357,7 +357,7 @@ const TabsLayout = ({ children, className }) => {
+             <div
+               className="docs-track"
+               role="group"
+-              aria-label={showDemoModes ? 'Demo content' : 'Preview size'}
++              aria-label={showDemoModes ? '演示内容' : '预览尺寸'}
+               ref={sizeTrackRef}
+               data-pill=""
+             >
+@@ -391,11 +391,11 @@ const TabsLayout = ({ children, className }) => {
+                   </ToolTip>
+                 ))}
+               {showFullscreen && (
+-                <ToolTip label="Fullscreen">
++                <ToolTip label="全屏">
+                   <button
+                     type="button"
+                     className="docs-segment docs-segment--icon"
+-                    aria-label="Fullscreen"
++                    aria-label="全屏"
+                     onClick={openFullscreen}
+                   >
+                     <ToolIcon icon={FullScreenIcon} />
+@@ -406,7 +406,7 @@ const TabsLayout = ({ children, className }) => {
+           )}
+ 
+           {showFavorite && (
+-            <div className="docs-track" role="group" aria-label="Page actions">
++            <div className="docs-track" role="group" aria-label="页面操作">
+               <ToolTip label={favoriteLabel}>
+                 <button
+                   type="button"
+@@ -419,11 +419,11 @@ const TabsLayout = ({ children, className }) => {
+                   <ToolIcon icon={FavouriteIcon} />
+                 </button>
+               </ToolTip>
+-              <ToolTip label="Copy share link">
++              <ToolTip label="复制分享链接">
+                 <button
+                   type="button"
+                   className="docs-segment docs-segment--icon"
+-                  aria-label="Copy share link"
++                  aria-label="复制分享链接"
+                   onClick={copyShareLink}
+                 >
+                   <ToolIcon icon={Share08Icon} />
+@@ -446,7 +446,7 @@ const TabsLayout = ({ children, className }) => {
+             }}
+           >
+             <Menu.Trigger asChild>
+-              <button type="button" className="docs-tool docs-tool--icon docs-toolbar-more" aria-label="More actions">
++              <button type="button" className="docs-tool docs-tool--icon docs-toolbar-more" aria-label="更多操作">
+                 <ToolIcon icon={MoreHorizontalIcon} />
+                 {isSaved && <span className="docs-tool-dot" />}
+               </button>
+@@ -455,14 +455,14 @@ const TabsLayout = ({ children, className }) => {
+               <Menu.Positioner>
+                 <FluidMenuContent minW="220px" zIndex={1500} transformOrigin="top right">
+                   {showFavorite && (
+-                    <MenuGroup label="Page">
++                    <MenuGroup label="页面">
+                       <Menu.Item value="favorite" onSelect={toggleFavorite} className="docs-menu-item">
+                         <MenuIcon icon={FavouriteIcon} saved={isSaved} />
+                         {favoriteLabel}
+                       </Menu.Item>
+                       <Menu.Item value="share" onSelect={copyShareLink} className="docs-menu-item">
+                         <MenuIcon icon={Share08Icon} />
+-                        Copy share link
++                        复制分享链接
+                       </Menu.Item>
+                     </MenuGroup>
+                   )}
+@@ -474,17 +474,17 @@ const TabsLayout = ({ children, className }) => {
+                     />
+                   )}
+                   {(showFullscreen || studioButtonProps) && (
+-                    <MenuGroup label="View">
++                    <MenuGroup label="查看">
+                       {showFullscreen && (
+                         <Menu.Item value="fullscreen" onSelect={openFullscreen} className="docs-menu-item">
+                           <MenuIcon icon={FullScreenIcon} />
+-                          Fullscreen
++                          全屏
+                         </Menu.Item>
+                       )}
+                       {studioButtonProps && (
+                         <Menu.Item value="open-studio" onSelect={handleOpenStudio} className="docs-menu-item">
+                           <MenuIcon icon={PaintBoardIcon} />
+-                          Open in BG Studio
++                          在背景工作室中打开
+                         </Menu.Item>
+                       )}
+                     </MenuGroup>
+diff --git a/src/components/landingnew/CTA/CTA.jsx b/src/components/landingnew/CTA/CTA.jsx
+index bd3596f..92a16bc 100644
+--- a/src/components/landingnew/CTA/CTA.jsx
++++ b/src/components/landingnew/CTA/CTA.jsx
+@@ -40,7 +40,7 @@ const CTA = () => {
+           </Suspense>
+         </div>
+       )}
+-      <h2 className="ln-cta-headline">Build something people remember.</h2>
++      <h2 className="ln-cta-headline">打造令人难忘的作品。</h2>
+ 
+       <p className="ln-cta-sub">
+         Start with the free library. When you need the complete page, product UI and tools to ship it, React Bits Pro is
+diff --git a/src/components/landingnew/FAQ/FAQ.jsx b/src/components/landingnew/FAQ/FAQ.jsx
+index 7a87ca0..66731b7 100644
+--- a/src/components/landingnew/FAQ/FAQ.jsx
++++ b/src/components/landingnew/FAQ/FAQ.jsx
+@@ -13,37 +13,31 @@ const LIFETIME_FROM = Math.min(...PRO_TIERS.map(tier => tier.lifetime));
+ 
+ const QUESTIONS = [
+   {
+-    q: 'What is included in the free library?',
++    q: '免费组件库包含什么？',
+     a: (
+       <>
+-        All {TOTAL_COMPONENTS} components and backgrounds on this site, across five categories: Text Animations,
+-        Animations, Components, Micro and Backgrounds. The three creative tools are free too. You can use all of it in
+-        personal and commercial projects, and it stays free.
++        本站提供 {TOTAL_COMPONENTS} 个免费组件和背景，分为文字动画、动画、组件、微交互和背景五类。创意工具也可免费使用，支持个人和商业项目。
+       </>
+     )
+   },
+   {
+-    q: 'What does React Bits Pro add?',
++    q: 'React Bits Pro 增加了什么？',
+     a: (
+       <>
+-        {PRO_COUNTS.components} more animated components, {PRO_COUNTS.blocks} page sections, {PRO_COUNTS.appUi} app UI
+-        blocks, {PRO_COUNTS.templates} complete Next.js templates and {PRO_COUNTS.agentKit} agent skills for AI coding
+-        tools. Like the free library, everything installs as source you own.
++        额外提供 {PRO_COUNTS.components} 个动画组件、{PRO_COUNTS.blocks} 个页面区块、{PRO_COUNTS.appUi} 个应用界面区块、{PRO_COUNTS.templates} 个 Next.js 模板，以及 {PRO_COUNTS.agentKit} 个 AI 编程技能。所有内容均以源码形式安装。
+       </>
+     )
+   },
+   {
+-    q: 'What are the four flavours?',
++    q: '四种版本有什么区别？',
+     a: (
+       <>
+-        Every component comes in JavaScript or TypeScript, styled with plain CSS or Tailwind. Pick yours in the
+-        Preferences menu in the header and every code tab and install command follows it. With the CLI, the ending of
+-        the name picks the flavour: JS-CSS, JS-TW, TS-CSS or TS-TW.
++        每个组件都有 JavaScript 或 TypeScript 版本，搭配原生 CSS 或 Tailwind。可在顶部偏好设置中选择，代码和安装命令将随之切换。命令后缀分别为 JS-CSS、JS-TW、TS-CSS 和 TS-TW。
+       </>
+     )
+   },
+   {
+-    q: 'Is React Bits only for React?',
++    q: 'React Bits 只能用于 React 吗？',
+     a: (
+       <>
+         The components on this site are built for React, so they work in Next.js, Vite, Astro or Remix. Working in
+@@ -60,20 +54,20 @@ const QUESTIONS = [
+     )
+   },
+   {
+-    q: 'What are the tools for?',
++    q: '这些工具有什么用途？',
+     a: (
+       <>
+         Background Studio, Center Stage, Shape Magic, Texture Lab and Sound Lab are free apps that run in your browser.
+         Tune an animated background, turn a screenshot into a product shot, design a logo mark with 3D materials,
+         restyle photos and videos or shape interface sounds, then export code, images, video or audio.{' '}
+         <Link className="ln-faq-link" to="/tools">
+-          Open the tools
++          打开工具
+         </Link>
+       </>
+     )
+   },
+   {
+-    q: 'Where do I get Pro, and what does it cost?',
++    q: '在哪里购买 Pro，价格是多少？',
+     a: (
+       <>
+         On{' '}
+@@ -86,27 +80,23 @@ const QUESTIONS = [
+     )
+   },
+   {
+-    q: 'Can I use React Bits in commercial projects?',
++    q: '可以在商业项目中使用吗？',
+     a: (
+       <>
+-        Yes. The free library is licensed MIT + Commons Clause: use the components in any app, website or product,
+-        client work included, but don&apos;t sell, sublicense or redistribute the components themselves. A Pro license
+-        covers one developer for unlimited commercial projects.
++        可以。免费组件库采用 MIT + Commons Clause 许可，可用于应用、网站、产品及客户项目，但不能出售、再许可或重新分发组件本身。Pro 许可允许一名开发者用于不限数量的商业项目。
+       </>
+     )
+   },
+   {
+-    q: 'Do I need to install a package?',
++    q: '需要安装软件包吗？',
+     a: (
+       <>
+-        No. The shadcn or jsrepo CLI copies the source into your project, or you can paste it in by hand. There is no
+-        react-bits dependency to keep updated, and it works in any React setup, including Vite, Next.js, Astro and
+-        Remix.
++        不需要。shadcn 或 jsrepo 命令会将源码复制到项目中，也可以手动粘贴。无需维护 react-bits 包依赖，适用于 Vite、Next.js、Astro 和 Remix 等 React 项目。
+       </>
+     )
+   },
+   {
+-    q: 'Does it work with AI coding tools?',
++    q: '支持 AI 编程工具吗？',
+     a: (
+       <>
+         Yes. Every component has a Copy for AI menu, docs pages export to Markdown, llms.txt maps the whole library and
+@@ -124,8 +114,8 @@ const FAQ = () => {
+     <section className="ln-faq-section">
+       <div className="ln-faq-inner prox-faq-layout">
+         <div className="prox-faq-aside">
+-          <h2 className="ln-faq-title">Questions, answered</h2>
+-          <p className="ln-faq-sub">What&apos;s free, what&apos;s in Pro and how the pieces fit together.</p>
++          <h2 className="ln-faq-title">常见问题</h2>
++          <p className="ln-faq-sub">了解免费内容、Pro 功能及使用方式。</p>
+         </div>
+ 
+         <div className="prox-faq">
+diff --git a/src/components/landingnew/Features/Features.jsx b/src/components/landingnew/Features/Features.jsx
+index a2655e8..c84cbd8 100644
+--- a/src/components/landingnew/Features/Features.jsx
++++ b/src/components/landingnew/Features/Features.jsx
+@@ -570,38 +570,38 @@ const StarCard = () => {
+ 
+ const CARDS = [
+   {
+-    title: `${COMPONENT_COUNT}+ Components`,
+-    desc: "Backgrounds, text effects, animations, creative UI components. The stuff you'd build from scratch, already done and battle-tested.",
++    title: `${COMPONENT_COUNT}+ 个组件`,
++    desc: "背景、文字特效、动画和创意界面组件。常见效果已经为你制作并经过实际检验。",
+     span: 5,
+     visual: <ComponentMarquee />
+   },
+   {
+-    title: 'Visual Editors',
+-    desc: 'Five free tools to play with components & create stunning assets for your work.',
++    title: '可视化编辑器',
++    desc: '五款免费工具，助你调整组件并创建精美素材。',
+     span: 3,
+     visual: <ToolsFloat />
+   },
+   {
+-    title: 'Well Organized',
+-    desc: "Five clear categories so you're not scrolling through a wall of unrelated stuff.",
++    title: '分类清晰',
++    desc: "五大分类清晰整理，快速找到所需内容。",
+     span: 4,
+     visual: <CategorySelector />
+   },
+   {
+-    title: 'Pick Your Stack',
+-    desc: 'JavaScript or TypeScript, CSS or Tailwind. Every component comes in all four flavors for full flexibility.',
++    title: '选择技术栈',
++    desc: '支持 JavaScript 或 TypeScript，搭配 CSS 或 Tailwind，每个组件均提供四种版本。',
+     span: 4,
+     visual: <VariantTabs />
+   },
+   {
+-    title: 'AI-Ready',
+-    desc: 'The docs give you ready-to-use prompts. Works great with Cursor, Copilot, and v0. Describe what you need, drop it in, ship.',
++    title: '支持 AI 编程',
++    desc: '文档提供现成提示词，可与 Cursor、Copilot 和 v0 等工具配合使用。',
+     span: 5,
+     visual: <AITerminal />
+   },
+   {
+-    title: 'Growing Fast',
+-    desc: "React's fastest-growing component library on GitHub. Not even close.",
++    title: '持续成长',
++    desc: "在 GitHub 上快速成长的 React 组件库。",
+     span: 3,
+     visual: <StarCard />
+   }
+@@ -612,7 +612,7 @@ const CARDS = [
+ const Features = () => (
+   <section className="ln-features-section">
+     <div className="ln-features-inner">
+-      <h2 className="ln-features-title">What&apos;s inside</h2>
++      <h2 className="ln-features-title">包含哪些内容</h2>
+ 
+       <div className="ln-features-grid">
+         {CARDS.map((card, i) => (
+diff --git a/src/components/landingnew/Footer/Footer.jsx b/src/components/landingnew/Footer/Footer.jsx
+index d8a41ef..0bfb19f 100644
+--- a/src/components/landingnew/Footer/Footer.jsx
++++ b/src/components/landingnew/Footer/Footer.jsx
+@@ -23,7 +23,7 @@ const Footer = ({ wide = false, lead = null }) => (
+ 
+           <nav className="ln-footer-nav" aria-label="Footer">
+             <div className="ln-footer-col">
+-              <span className="ln-footer-col-title">Community</span>
++              <span className="ln-footer-col-title">社区</span>
+               <a href="https://github.com/DavidHDev/react-bits" target="_blank" rel="noopener noreferrer">
+                 GitHub
+               </a>
+@@ -35,15 +35,15 @@ const Footer = ({ wide = false, lead = null }) => (
+               </a>
+             </div>
+             <div className="ln-footer-col">
+-              <span className="ln-footer-col-title">Product</span>
+-              <Link to="/get-started/introduction">Docs</Link>
+-              <Link to="/tools">Tools</Link>
+-              <Link to="/showcase">Showcase</Link>
+-              <Link to="/sponsors">Sponsors</Link>
++              <span className="ln-footer-col-title">产品</span>
++              <Link to="/get-started/introduction">文档</Link>
++              <Link to="/tools">工具</Link>
++              <Link to="/showcase">作品展示</Link>
++              <Link to="/sponsors">赞助商</Link>
+             </div>
+             <div className="ln-footer-col">
+               <span className="ln-footer-col-title">Pro</span>
+-              <Link to="/pro">What&apos;s in Pro</Link>
++              <Link to="/pro">Pro 包含什么</Link>
+               <a {...proLinkProps('/docs/components', 'footer', { params: { section: 'components' }, sameTab: true })}>
+                 Components
+               </a>
+diff --git a/src/components/landingnew/Hero/Hero.jsx b/src/components/landingnew/Hero/Hero.jsx
+index a9a2ef2..076dd53 100644
+--- a/src/components/landingnew/Hero/Hero.jsx
++++ b/src/components/landingnew/Hero/Hero.jsx
+@@ -19,11 +19,11 @@ const FIRST = 'dusk';
+ const STAGE = { tilt: 40 };
+ const INSTALL = 'npx shadcn@latest add @react-bits/GradientWaves-TS-TW';
+ const FIELDS = [
+-  { name: 'waveColor', type: 'color', label: 'Wave color' },
+-  { name: 'amplitude', min: 0, max: 5, step: 0.05, label: 'Amplitude' },
+-  { name: 'swell', min: 0, max: 40, step: 0.5, label: 'Swell' },
+-  { name: 'lightAngle', min: -180, max: 180, step: 1, label: 'Light angle' },
+-  { name: 'speed', min: 0, max: 1.5, step: 0.01, label: 'Speed' }
++  { name: 'waveColor', type: 'color', label: '波浪颜色' },
++  { name: 'amplitude', min: 0, max: 5, step: 0.05, label: '振幅' },
++  { name: 'swell', min: 0, max: 40, step: 0.5, label: '起伏' },
++  { name: 'lightAngle', min: -180, max: 180, step: 1, label: '光照角度' },
++  { name: 'speed', min: 0, max: 1.5, step: 0.01, label: '速度' }
+ ];
+ const HINTS = ['amplitude', 'swell'];
+ const SWATCHES = {
+@@ -629,16 +629,16 @@ const Hero = () => {
+         <header className="lh-top">
+           <HeroChip />
+           <h1 className="lh-title">
+-            Animated React components for <br />
+-            websites people remember.
++            用 React 动效组件 <br />
++            打造令人难忘的网站。
+           </h1>
+           <p className="lh-lede">
+-            <span>{TOTAL_COMPONENTS} animated components and backgrounds for React.</span>
+-            <span>Tune them yourself, or hand them to your agent.</span>
++            <span>{TOTAL_COMPONENTS} 个 React 动画组件和背景。</span>
++            <span>自行调整，或交给你的 AI 助手。</span>
+           </p>
+           <div className="lh-actions">
+             <Link to="/get-started/index" className="lh-btn lh-btn--primary">
+-              Browse components
++              浏览组件
+               <HugeiconsIcon icon={ArrowRight02Icon} size={17} strokeWidth={1.8} />
+             </Link>
+             <a
+@@ -647,7 +647,7 @@ const Hero = () => {
+               rel="noopener noreferrer"
+               className="lh-btn lh-btn--ghost"
+             >
+-              Star on GitHub
++              在 GitHub 点星
+             </a>
+           </div>
+         </header>
+diff --git a/src/components/landingnew/Hero/HeroChip.jsx b/src/components/landingnew/Hero/HeroChip.jsx
+index 7b105b9..016f8ec 100644
+--- a/src/components/landingnew/Hero/HeroChip.jsx
++++ b/src/components/landingnew/Hero/HeroChip.jsx
+@@ -10,7 +10,7 @@ const ITEMS = [
+   { label: 'React Bits 2.0', to: '/get-started/changelog' },
+   { label: 'Center Stage', to: '/tools/center-stage' },
+   { label: 'Sound Lab', to: '/tools/sound-lab' },
+-  { label: `${MICRO_COUNT} Micro components`, to: '/c/micro' }
++  { label: `${MICRO_COUNT} 个微交互组件`, to: '/c/micro' }
+ ];
+ 
+ const INTERVAL = 3200;
+@@ -49,7 +49,7 @@ const HeroChip = () => {
+       onFocus={() => setHeld(true)}
+       onBlur={() => setHeld(false)}
+     >
+-      <span className="lh-chip-tag">New</span>
++      <span className="lh-chip-tag">新增</span>
+       <span className="lh-chip-roll" style={widths[index] ? { width: widths[index] } : undefined}>
+         {ITEMS.map((entry, i) => (
+           <span
+diff --git a/src/components/landingnew/HowItWorks/HowItWorks.jsx b/src/components/landingnew/HowItWorks/HowItWorks.jsx
+index 26e75e4..2a64722 100644
+--- a/src/components/landingnew/HowItWorks/HowItWorks.jsx
++++ b/src/components/landingnew/HowItWorks/HowItWorks.jsx
+@@ -89,7 +89,7 @@ function CopyCommand() {
+   };
+ 
+   return (
+-    <button type="button" className="ln-how-copy" onClick={copy} aria-label="Copy install command">
++    <button type="button" className="ln-how-copy" onClick={copy} aria-label="复制安装命令">
+       <HugeiconsIcon icon={copied ? Tick02Icon : Copy01Icon} size={13} strokeWidth={1.8} />
+     </button>
+   );
+@@ -105,13 +105,13 @@ const HowItWorks = () => (
+         viewport={{ once: true, margin: '-60px' }}
+         transition={{ duration: 0.5, ease: EASE }}
+       >
+-        <h2 className="ln-how-title">One command, and the code is yours.</h2>
++        <h2 className="ln-how-title">一条命令，将源码加入你的项目。</h2>
+         <p className="ln-how-sub">
+           The CLI copies the component&apos;s source into your Vite, Next.js, Astro or Remix project. No wrapper
+           library, no runtime dependency, nothing to lock you in.
+         </p>
+         <Link to="/get-started/installation" className="ln-how-btn">
+-          Installation guide
++          安装指南
+           <HugeiconsIcon icon={ArrowRight02Icon} size={17} strokeWidth={1.8} />
+         </Link>
+       </m.div>
+diff --git a/src/components/landingnew/LiveDemo/LiveDemo.jsx b/src/components/landingnew/LiveDemo/LiveDemo.jsx
+index 9219c6b..759c41c 100644
+--- a/src/components/landingnew/LiveDemo/LiveDemo.jsx
++++ b/src/components/landingnew/LiveDemo/LiveDemo.jsx
+@@ -103,7 +103,7 @@ const LiveDemo = () => {
+   return (
+     <section className="ln-demo-section" ref={sectionRef}>
+       <div className="ln-demo-inner">
+-        <h2 className="ln-demo-title">See them in action</h2>
++        <h2 className="ln-demo-title">看看实际效果</h2>
+ 
+         <div className="ln-demo-grid">
+           {CARDS.map((card, i) => (
+diff --git a/src/components/landingnew/Navbar/Navbar.jsx b/src/components/landingnew/Navbar/Navbar.jsx
+index dda4696..69d6240 100644
+--- a/src/components/landingnew/Navbar/Navbar.jsx
++++ b/src/components/landingnew/Navbar/Navbar.jsx
+@@ -11,6 +11,7 @@ import { LuLayoutGrid, LuSearch, LuSettings2, LuSun, LuMoon } from 'react-icons/
+ import { useColorMode } from '../../setup/color-mode';
+ import { useSearch } from '../../context/SearchContext/useSearch';
+ import { useOptions } from '../../context/OptionsContext/useOptions';
++import { zhLabel, componentLabel } from '../../../utils/zh';
+ import { CATEGORIES, TOTAL_COMPONENTS } from '../../../constants/Categories';
+ import { PRO_SECTIONS } from '../../../constants/Pro';
+ import { TOOLS } from '../../../constants/Tools';
+@@ -24,10 +25,10 @@ const slugify = value => value.replace(/\s+/g, '-').toLowerCase();
+ const DOCS_MATCHES = CATEGORIES.map(category => `/${slugify(category.name)}`);
+ 
+ const NAV_LINKS = [
+-  { label: 'Docs', to: '/get-started/introduction', match: DOCS_MATCHES },
+-  { label: 'Tools', to: '/tools', match: '/tools', tag: 'New' },
++  { label: '文档', to: '/get-started/introduction', match: DOCS_MATCHES },
++  { label: '工具', to: '/tools', match: '/tools', tag: 'New' },
+   { label: 'Pro', to: '/pro', match: '/pro' },
+-  { label: 'Sponsors', to: '/sponsors', match: '/sponsors' }
++  { label: '赞助商', to: '/sponsors', match: '/sponsors' }
+ ];
+ 
+ const Navbar = ({ showDocs }) => {
+@@ -57,8 +58,8 @@ const Navbar = ({ showDocs }) => {
+         ...category,
+         index,
+         subcategories:
+-          mobileFilterQuery && !category.name.toLowerCase().includes(mobileFilterQuery)
+-            ? category.subcategories.filter(item => item.toLowerCase().includes(mobileFilterQuery))
++          mobileFilterQuery && !`${category.name} ${zhLabel(category.name)}`.toLowerCase().includes(mobileFilterQuery)
++            ? category.subcategories.filter(item => componentLabel(item).toLowerCase().includes(mobileFilterQuery))
+             : category.subcategories
+       })),
+     [mobileFilterQuery]
+@@ -200,16 +201,16 @@ const Navbar = ({ showDocs }) => {
+             <>
+               <button className="ln-navbar-icon-btn ln-navbar-search-btn" onClick={toggleSearch} aria-label="Search">
+                 <LuSearch size={15} />
+-                <span className="ln-navbar-search-text">Search...</span>
++                <span className="ln-navbar-search-text">搜索…</span>
+                 <kbd className="ln-navbar-kbd">/</kbd>
+               </button>
+ 
+               <div className="ln-navbar-prefs-wrapper" onMouseEnter={handlePrefsEnter} onMouseLeave={handlePrefsLeave}>
+                 <button
+                   className="ln-navbar-icon-btn ln-navbar-prefs-trigger"
+-                  aria-label="Preferences"
++                  aria-label="偏好设置"
+                   aria-expanded={prefsOpen}
+-                  title="Preferences"
++                  title="偏好设置"
+                   onClick={() => setPrefsOpen(true)}
+                 >
+                   <LuSettings2 size={16} />
+@@ -217,7 +218,7 @@ const Navbar = ({ showDocs }) => {
+ 
+                 {prefsOpen && (
+                   <div className="ln-navbar-prefs-menu">
+-                    <span className="ln-navbar-prefs-label">Language</span>
++                    <span className="ln-navbar-prefs-label">代码语言</span>
+                     <div className="ln-navbar-toggle-group">
+                       <button
+                         className={`ln-navbar-toggle-item${languagePreset === 'JS' ? ' active' : ''}`}
+@@ -232,7 +233,7 @@ const Navbar = ({ showDocs }) => {
+                         <img src={tsIcon} alt="TS" width={18} height={18} />
+                       </button>
+                     </div>
+-                    <span className="ln-navbar-prefs-label">Styling</span>
++                    <span className="ln-navbar-prefs-label">样式</span>
+                     <div className="ln-navbar-toggle-group">
+                       <button
+                         className={`ln-navbar-toggle-item${stylePreset === 'CSS' ? ' active' : ''}`}
+@@ -256,8 +257,8 @@ const Navbar = ({ showDocs }) => {
+           <button
+             className="ln-navbar-icon-btn ln-navbar-theme-btn"
+             onClick={toggleColorMode}
+-            aria-label={isLightTheme ? 'Switch to dark mode' : 'Switch to light mode'}
+-            title={isLightTheme ? 'Dark mode' : 'Light mode'}
++            aria-label={isLightTheme ? '切换深色模式' : '切换浅色模式'}
++            title={isLightTheme ? '深色模式' : '浅色模式'}
+           >
+             {isLightTheme ? <LuMoon size={16} /> : <LuSun size={16} />}
+           </button>
+@@ -276,8 +277,8 @@ const Navbar = ({ showDocs }) => {
+               })}
+               className="ln-navbar-pro ln-navbar-pro-docs"
+             >
+-              <span className="ln-navbar-pro-label ln-navbar-pro-label-desktop">Get React Bits Pro</span>
+-              <span className="ln-navbar-pro-label ln-navbar-pro-label-mobile">Get Pro</span>
++              <span className="ln-navbar-pro-label ln-navbar-pro-label-desktop">获取 React Bits Pro</span>
++              <span className="ln-navbar-pro-label ln-navbar-pro-label-mobile">获取 Pro</span>
+             </a>
+           )}
+ 
+@@ -292,8 +293,8 @@ const Navbar = ({ showDocs }) => {
+                 e.currentTarget.style.setProperty('--pro-mx', `${x}%`);
+               }}
+             >
+-              <span className="ln-navbar-pro-label ln-navbar-pro-label-desktop">Get React Bits Pro</span>
+-              <span className="ln-navbar-pro-label ln-navbar-pro-label-mobile">Get Pro</span>
++              <span className="ln-navbar-pro-label ln-navbar-pro-label-desktop">获取 React Bits Pro</span>
++              <span className="ln-navbar-pro-label ln-navbar-pro-label-mobile">获取 Pro</span>
+             </a>
+           )}
+ 
+@@ -347,7 +348,7 @@ const Navbar = ({ showDocs }) => {
+                   >
+                     <LuLayoutGrid size={14} aria-hidden="true" className="sidebar-browse__icon" />
+                     <span className="sidebar-browse__label">
+-                      {onIndexPage ? 'Viewing all components' : 'Browse all components'}
++                      {onIndexPage ? '正在浏览全部组件' : '浏览全部组件'}
+                     </span>
+                   </Link>
+ 
+@@ -356,7 +357,7 @@ const Navbar = ({ showDocs }) => {
+                     <input
+                       value={mobileFilter}
+                       onChange={event => setMobileFilter(event.target.value)}
+-                      placeholder={`Filter ${TOTAL_COMPONENTS} components...`}
++                      placeholder={`筛选 ${TOTAL_COMPONENTS} 个组件…`}
+                       aria-label="Filter navigation"
+                     />
+                   </label>
+@@ -372,12 +373,12 @@ const Navbar = ({ showDocs }) => {
+                                 const path = `/${slugify(cat.name)}/${slugify(sub)}`;
+                                 return (
+                                   <Link
+-                                    key={sub}
++                                    key={componentLabel(sub)}
+                                     className={`ln-navbar-mobile-link${location.pathname === path ? ' ln-navbar-mobile-link-active' : ''}`}
+                                     to={path}
+                                     onClick={() => setMenuOpen(false)}
+                                   >
+-                                    {sub}
++                                    {componentLabel(sub)}
+                                   </Link>
+                                 );
+                               })}
+@@ -400,7 +401,7 @@ const Navbar = ({ showDocs }) => {
+                                 below Get Started and above Tools. */}
+                             {mobileProSections.length > 0 && (
+                               <div className="ln-navbar-mobile-subsection">
+-                                <span className="ln-navbar-mobile-label ln-navbar-mobile-label-pro">Explore Pro</span>
++                                <span className="ln-navbar-mobile-label ln-navbar-mobile-label-pro">探索 Pro</span>
+                                 <div className="ln-navbar-mobile-group">
+                                   {mobileProSections.map(section => {
+                                     const linkProps = proLinkProps(section.proPath, 'mobile-menu', {
+@@ -431,7 +432,7 @@ const Navbar = ({ showDocs }) => {
+ 
+                             {mobileTools.length > 0 && (
+                               <div className="ln-navbar-mobile-subsection">
+-                                <span className="ln-navbar-mobile-label">Tools</span>
++                                <span className="ln-navbar-mobile-label">工具</span>
+                                 <div className="ln-navbar-mobile-group">
+                                   {mobileTools.map(tool => (
+                                     <Link
+@@ -452,7 +453,7 @@ const Navbar = ({ showDocs }) => {
+                     );
+                   })}
+ 
+-                  {!mobileHasResults && <p className="ln-navbar-mobile-empty">No matching pages</p>}
++                  {!mobileHasResults && <p className="ln-navbar-mobile-empty">没有匹配的页面</p>}
+                 </div>
+               </div>
+             </>,
+diff --git a/src/components/landingnew/Tools/Tools.jsx b/src/components/landingnew/Tools/Tools.jsx
+index 5becd45..d7647f4 100644
+--- a/src/components/landingnew/Tools/Tools.jsx
++++ b/src/components/landingnew/Tools/Tools.jsx
+@@ -14,14 +14,14 @@ const SoundPreview = lazy(() => import('./SoundPreview'));
+ 
+ const BLURBS = {
+   'background-studio':
+-    'Pick an animated background, start from a preset, tune it live, then export the code, a 4K image or a looping video.',
+-  'center-stage': 'Turn screenshots and recordings into polished product shots. Perfect for launch videos or demos.',
++    '选择动态背景和预设，实时调整后导出代码、4K 图片或循环视频。',
++  'center-stage': '将截图或录屏制作成精美产品展示图，适合发布视频或演示。',
+   'shape-magic':
+-    'Design a logo mark or style your own logo with 3D materials. Export SVG, PNG, favicons, video or React.',
++    '设计标志或用 3D 材质美化现有标志，支持导出 SVG、PNG、图标、视频或 React 代码。',
+   'texture-lab':
+-    'Stack animated effects on a photo, video or your camera, then export an image, a video, a GIF or a shareable style.',
++    '为照片、视频或摄像头画面叠加动态效果，导出图片、视频、GIF 或分享样式。',
+   'sound-lab':
+-    'Interface and video sounds, tune them live, then install one with a single command or download WAV, MP3 or OGG.'
++    '实时调整界面和视频音效，通过命令安装或下载 WAV、MP3、OGG。'
+ };
+ 
+ const POSTERS = { 'background-studio': 'topography', 'shape-magic': 'metallicpaint' };
+@@ -120,7 +120,7 @@ const Tools = () => {
+     <section className="ln-tools-section">
+       <div className="ln-tools-inner">
+         <header className="ln-tools-head">
+-          <h2 className="ln-tools-title">Five free tools, in your browser.</h2>
++          <h2 className="ln-tools-title">五款免费浏览器工具。</h2>
+         </header>
+         <div className="ln-tools-grid">
+           {TOOLS.map(tool => (
+diff --git a/src/components/navs/Sidebar.jsx b/src/components/navs/Sidebar.jsx
+index 52a5c73..b259e74 100644
+--- a/src/components/navs/Sidebar.jsx
++++ b/src/components/navs/Sidebar.jsx
+@@ -24,6 +24,7 @@ import { CATEGORIES, TOTAL_COMPONENTS } from '../../constants/Categories';
+ import { NEW, UPDATED } from '../../constants/Badges';
+ import { componentMap } from '../../constants/Components';
+ import { componentMetadata } from '../../constants/Information';
++import { zhLabel, componentLabel } from '../../utils/zh';
+ 
+ import Logo from '../../assets/logos/react-bits-logo.svg';
+ import SponsorsCard from '../common/SponsorsCard';
+@@ -81,12 +82,12 @@ const scrollToTop = () => window.scrollTo(0, 0);
+ const slug = str => str.replace(/\s+/g, '-').toLowerCase();
+ 
+ const PICKER = [
+-  { key: 'all', label: 'All', icon: DashboardSquare01Icon },
+-  { key: 'text-animations', label: 'Text Animations', icon: TextFontIcon },
+-  { key: 'components', label: 'Components', icon: PuzzleIcon },
+-  { key: 'micro', label: 'Micro', icon: MousePointerClickIcon },
+-  { key: 'animations', label: 'Animations', icon: Motion01Icon },
+-  { key: 'backgrounds', label: 'Backgrounds', icon: Image01Icon }
++  { key: 'all', label: '全部', icon: DashboardSquare01Icon },
++  { key: 'text-animations', label: '文字动画', icon: TextFontIcon },
++  { key: 'components', label: '组件', icon: PuzzleIcon },
++  { key: 'micro', label: '微交互', icon: MousePointerClickIcon },
++  { key: 'animations', label: '动画', icon: Motion01Icon },
++  { key: 'backgrounds', label: '背景', icon: Image01Icon }
+ ];
+ const COMPONENT_METADATA_BY_PATH = new Map(
+   Object.values(componentMetadata).map(metadata => [new URL(metadata.docsUrl).pathname, metadata])
+@@ -212,12 +213,12 @@ const SidebarHoverPreview = ({ preview, x, y, reduceMotion }) => {
+ const ProLinks = ({ onClose }) => (
+   <>
+     <Text className="sidebar-pro-name" mb={3}>
+-      Explore Pro
++      探索 Pro
+     </Text>
+     <Flex direction="column" gap={2}>
+       <Link to="/pro" onClick={onClose}>
+         <Flex alignItems="center" gap="8px">
+-          <span>Overview</span>
++          <span>概览</span>
+         </Flex>
+       </Link>
+       {PRO_SECTIONS.map(section => {
+@@ -251,13 +252,13 @@ const UsefulLinks = ({ onClose }) => (
+   <>
+     <Separator my={4} />
+     <Text color="#a6a6a6" mb={3}>
+-      Useful Links
++      常用链接
+     </Text>
+     <Flex direction="column" gap={2}>
+       {[
+         { to: 'https://github.com/DavidHDev/react-bits', label: 'GitHub', external: true },
+-        { to: '/showcase', label: 'Showcase' },
+-        { to: 'https://x.com/davidhaz', label: 'Who made this?', external: true }
++        { to: '/showcase', label: '作品展示' },
++        { to: 'https://x.com/davidhaz', label: '作者', external: true }
+       ].map(({ to, label, external }) => (
+         <Link key={to} to={to} target={external ? '_blank' : undefined} onClick={onClose} display="block" mb={2}>
+           <Flex alignItems="center" gap="4px">
+@@ -392,7 +393,7 @@ const Category = memo(
+     return (
+       <Box>
+         <Text className="category-name" mb={2} mt={isFirstCategory ? 0 : 4}>
+-          {category.name}
++          {zhLabel(category.name)}
+         </Text>
+         <Stack className="sidebar-link-stack" spacing={0.5} pl={4} borderLeft="1px solid #2F293A" position="relative">
+           {items.map(({ sub, path, isActive, isNew, isUpdated }) => (
+@@ -413,9 +414,9 @@ const Category = memo(
+               onFocus={event => onPreviewEnter?.(category.name, sub, event)}
+               onBlur={onPreviewLeave}
+             >
+-              {sub}
+-              {isNew && <span className="new-tag">New</span>}
+-              {isUpdated && <span className="updated-tag">Updated</span>}
++              {componentLabel(sub)}
++              {isNew && <span className="new-tag">新增</span>}
++              {isUpdated && <span className="updated-tag">更新</span>}
+             </Link>
+           ))}
+           {showFavorites && (
+@@ -495,8 +496,8 @@ const Sidebar = () => {
+         ...category,
+         index,
+         subcategories:
+-          sidebarFilterQuery && !category.name.toLowerCase().includes(sidebarFilterQuery)
+-            ? category.subcategories.filter(item => item.toLowerCase().includes(sidebarFilterQuery))
++          sidebarFilterQuery && !`${category.name} ${zhLabel(category.name)}`.toLowerCase().includes(sidebarFilterQuery)
++            ? category.subcategories.filter(item => componentLabel(item).toLowerCase().includes(sidebarFilterQuery))
+             : category.subcategories
+       })).filter(category => !focusSlug || category.index === 0 || slug(category.name) === focusSlug),
+     [sidebarFilterQuery, focusSlug]
+@@ -725,7 +726,7 @@ const Sidebar = () => {
+               exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -6, filter: 'blur(2px)' }}
+               transition={{ duration: reduceMotion ? 0 : 0.22, ease: [0.23, 1, 0.32, 1] }}
+             >
+-              {onIndexPage ? 'Viewing all components' : 'Browse all components'}
++              {onIndexPage ? '正在浏览全部组件' : '浏览全部组件'}
+             </motion.span>
+           </AnimatePresence>
+         </Link>
+@@ -778,7 +779,7 @@ const Sidebar = () => {
+           <input
+             value={sidebarFilter}
+             onChange={event => setSidebarFilter(event.target.value)}
+-            placeholder={`Filter ${filterCount} components...`}
++            placeholder={`筛选 ${filterCount} 个组件…`}
+             aria-label="Filter sidebar navigation"
+           />
+         </label>
+@@ -813,7 +814,7 @@ const Sidebar = () => {
+                   {cat.index === 0 && sidebarProSections.length > 0 && (
+                     <Box>
+                       <Text className="category-name sidebar-pro-name" mb={2} mt={4}>
+-                        Explore Pro
++                        探索 Pro
+                       </Text>
+                       <Stack
+                         className="sidebar-link-stack"
+@@ -849,7 +850,7 @@ const Sidebar = () => {
+                   )}
+                 </Fragment>
+               ))}
+-              {!sidebarHasResults && <Text className="sidebar-filter-empty">No matching pages</Text>}
++              {!sidebarHasResults && <Text className="sidebar-filter-empty">没有匹配的页面</Text>}
+             </VStack>
+           </Box>
+         </Box>
+diff --git a/src/constants/Tools.js b/src/constants/Tools.js
+index 9887e32..117a65b 100644
+--- a/src/constants/Tools.js
++++ b/src/constants/Tools.js
+@@ -4,7 +4,7 @@ export const TOOLS = [
+   {
+     id: 'background-studio',
+     label: 'Background Studio',
+-    tagline: 'Animated backgrounds',
++    tagline: '动态背景',
+     icon: Palette,
+     path: '/tools/background-studio',
+     description:
+@@ -13,7 +13,7 @@ export const TOOLS = [
+   {
+     id: 'center-stage',
+     label: 'Center Stage',
+-    tagline: 'Product shots and mockups',
++    tagline: '产品展示与样机',
+     icon: Video,
+     path: '/tools/center-stage',
+     description:
+@@ -22,7 +22,7 @@ export const TOOLS = [
+   {
+     id: 'shape-magic',
+     label: 'Shape Magic',
+-    tagline: 'Logo marks and 3D materials',
++    tagline: '标志与 3D 材质',
+     icon: Shapes,
+     path: '/tools/shape-magic',
+     description:
+@@ -31,7 +31,7 @@ export const TOOLS = [
+   {
+     id: 'texture-lab',
+     label: 'Texture Lab',
+-    tagline: 'Photo and video effects',
++    tagline: '照片与视频效果',
+     icon: ImageIcon,
+     path: '/tools/texture-lab',
+     description:
+@@ -40,7 +40,7 @@ export const TOOLS = [
+   {
+     id: 'sound-lab',
+     label: 'Sound Lab',
+-    tagline: 'Interface and video sounds',
++    tagline: '界面与视频音效',
+     icon: Volume2,
+     path: '/tools/sound-lab',
+     description:
+diff --git a/src/docs/CopyPageButton.jsx b/src/docs/CopyPageButton.jsx
+index 26effd9..bb53b78 100644
+--- a/src/docs/CopyPageButton.jsx
++++ b/src/docs/CopyPageButton.jsx
+@@ -8,8 +8,8 @@ import { sectionToMarkdown, copyText, openInAI } from '../utils/aiExport';
+ const RESET_MS = 2000;
+ 
+ const AI_ITEMS = [
+-  { key: 'chatgpt', label: 'Open in ChatGPT', icon: SiOpenai },
+-  { key: 'claude', label: 'Open in Claude', icon: SiClaude }
++  { key: 'chatgpt', label: '在 ChatGPT 中打开', icon: SiOpenai },
++  { key: 'claude', label: '在 Claude 中打开', icon: SiClaude }
+ ];
+ 
+ const CopyPageButton = () => {
+@@ -27,10 +27,10 @@ const CopyPageButton = () => {
+ 
+     if (await copyText(md)) {
+       setCopied(true);
+-      toast.success('Page copied as Markdown');
++      toast.success('已将页面复制为 Markdown');
+       setTimeout(() => setCopied(false), RESET_MS);
+     } else {
+-      toast.error('Could not copy to clipboard');
++      toast.error('无法复制到剪贴板');
+     }
+   }, [getMarkdown]);
+ 
+@@ -49,15 +49,15 @@ const CopyPageButton = () => {
+         type="button"
+         className="docs-page-action docs-page-action-primary"
+         onClick={handleCopy}
+-        aria-label="Copy this page as Markdown"
++        aria-label="将本页复制为 Markdown"
+       >
+         {copied ? <TbCheck aria-hidden="true" /> : <TbCopy aria-hidden="true" />}
+-        <span>{copied ? 'Copied' : 'Copy as Markdown'}</span>
++        <span>{copied ? '已复制' : '复制为 Markdown'}</span>
+       </button>
+ 
+       <Menu.Root positioning={{ placement: 'bottom-end', gutter: 6 }}>
+         <Menu.Trigger asChild>
+-          <button type="button" className="docs-page-action docs-page-action-more" aria-label="More AI actions">
++          <button type="button" className="docs-page-action docs-page-action-more" aria-label="更多 AI 操作">
+             <TbChevronDown aria-hidden="true" />
+           </button>
+         </Menu.Trigger>
+diff --git a/src/docs/Installation.jsx b/src/docs/Installation.jsx
+index 5e59340..9361ffa 100644
+--- a/src/docs/Installation.jsx
++++ b/src/docs/Installation.jsx
+@@ -30,68 +30,65 @@ const Installation = () => {
+   return (
+     <section className="docs-section">
+       <div className="docs-page-header">
+-        <h1 className="docs-title">Installation</h1>
++        <h1 className="docs-title">安装</h1>
+         <CopyPageButton />
+       </div>
+ 
+       <p className="docs-lead">
+-        Every component installs as source code you own. Pull it in with one CLI command, or copy the files by hand.
++        组件会以源码文件的形式加入项目。你可以用一条命令安装，也可以手动复制。
+       </p>
+ 
+-      <h2 className="docs-section-title">With the CLI</h2>
++      <h2 className="docs-section-title">使用命令行安装</h2>
+ 
+       <ol className="docs-steps">
+-        <DocsStep index={1} title="Run the add command">
+-          <p className="docs-step-text">Use whichever CLI you already have. Both install the same source.</p>
++        <DocsStep index={1} title="运行安装命令">
++          <p className="docs-step-text">选择你已有的命令行工具即可，两种方式安装的源码相同。</p>
+           <CommandList items={commands} />
+           <p className="docs-step-note">
+-            Swap <code>SplitText</code> for any component. The <code>{variant}</code> ending picks the variant: JS or
+-            TS, then CSS or TW. On pnpm, yarn or bun, replace <code>npx</code> with <code>pnpm dlx</code>,{' '}
+-            <code>yarn</code> or <code>bun x --bun</code>.
++            将 <code>SplitText</code> 换成所需组件的名称。后缀 <code>{variant}</code> 表示所选版本：JS 或 TS 对应语言，CSS 或 TW 对应样式。使用 pnpm、yarn 或 bun 时，可将 <code>npx</code> 分别替换为 <code>pnpm dlx</code>、<code>yarn</code> 或 <code>bun x --bun</code>。
+           </p>
+         </DocsStep>
+ 
+-        <DocsStep index={2} title="Import and use it">
+-          <p className="docs-step-text">Render it like any other component:</p>
++        <DocsStep index={2} title="导入并使用">
++          <p className="docs-step-text">像使用其他 React 组件一样渲染它：</p>
+           <CodeBlock language="jsx" showLineNumbers>
+             {USAGE}
+           </CodeBlock>
+         </DocsStep>
+       </ol>
+ 
+-      <h2 className="docs-section-title">By hand</h2>
++      <h2 className="docs-section-title">手动安装</h2>
+ 
+       <ol className="docs-steps">
+-        <DocsStep index={1} title="Open a component's Code tab">
++        <DocsStep index={1} title="打开组件的“代码”选项卡">
+           <p className="docs-step-text">
+-            It shows the full source. Pick JavaScript or TypeScript and CSS or Tailwind in the Preferences menu in the
+-            header, and every Code tab follows.
++            这里可以查看完整源码。在页面顶部的偏好设置中选择 JavaScript 或 TypeScript、CSS 或 Tailwind，代码选项卡会同步切换。
+           </p>
+         </DocsStep>
+ 
+-        <DocsStep index={2} title="Copy the files into your project">
++        <DocsStep index={2} title="将文件复制到项目中">
+           <p className="docs-step-text">
+-            Paste the component into a new file, for example <code>SplitText.{language === 'TS' ? 'tsx' : 'jsx'}</code>.
++            将组件代码粘贴到新文件中，例如 <code>SplitText.{language === 'TS' ? 'tsx' : 'jsx'}</code>。
+           </p>
+         </DocsStep>
+ 
+-        <DocsStep index={3} title="Install its dependencies">
+-          <p className="docs-step-text">The Code tab lists what each component needs. Split Text uses GSAP:</p>
++        <DocsStep index={3} title="安装组件依赖">
++          <p className="docs-step-text">“代码”选项卡列出了组件所需的依赖。例如 Split Text 使用 GSAP：</p>
+           <CodeBlock language="bash">npm install gsap</CodeBlock>
+         </DocsStep>
+ 
+-        <DocsStep index={4} title="Import and use it">
+-          <p className="docs-step-text">Import and render it the same way as the CLI example above.</p>
++        <DocsStep index={4} title="导入并使用">
++          <p className="docs-step-text">参照上面的命令行安装示例导入并渲染组件。</p>
+         </DocsStep>
+       </ol>
+ 
+-      <h2 className="docs-section-title">That&apos;s all</h2>
++      <h2 className="docs-section-title">完成</h2>
+ 
+-      <p className="docs-paragraph">The code is yours now, so change the styles, props or behavior however you like.</p>
++      <p className="docs-paragraph">现在源码已在你的项目中，可以根据需要修改样式、属性和行为。</p>
+ 
+       <DocsButtonBar
+         next={{ label: 'MCP Server', route: '/get-started/mcp' }}
+-        previous={{ label: 'Introduction', route: '/get-started/introduction' }}
++        previous={{ label: '简介', route: '/get-started/introduction' }}
+       />
+     </section>
+   );
+diff --git a/src/docs/Introduction.jsx b/src/docs/Introduction.jsx
+index 77ae39e..d32b56e 100644
+--- a/src/docs/Introduction.jsx
++++ b/src/docs/Introduction.jsx
+@@ -17,18 +17,19 @@ import CommandList from './CommandList';
+ import { CATEGORIES, TOTAL_COMPONENTS } from '../constants/Categories';
+ import { TOOLS } from '../constants/Tools';
+ import { TOOL_ICONS } from '../tools/toolIcons';
++import { zhLabel } from '../utils/zh';
+ import { useOptions } from '../components/context/OptionsContext/useOptions';
+ 
+ const SLIDERS = [
+-  { label: 'Delay', value: 0.32 },
+-  { label: 'Duration', value: 0.64 },
+-  { label: 'Threshold', value: 0.48 }
++  { label: '延迟', value: 0.32 },
++  { label: '时长', value: 0.64 },
++  { label: '阈值', value: 0.48 }
+ ];
+ 
+ const QUICK_START_STEPS = [
+   {
+-    title: 'Find a component',
+-    description: 'Browse five categories or search for the effect you have in mind.',
++    title: '找到组件',
++    description: '浏览五大分类，或搜索你想要的效果。',
+     visual: (
+       <>
+         <span className="docs-qs-field">
+@@ -45,8 +46,8 @@ const QUICK_START_STEPS = [
+     )
+   },
+   {
+-    title: 'Make it yours',
+-    description: 'Tune props in the live preview or start from a preset. The code follows along.',
++    title: '调整效果',
++    description: '在实时预览中调整属性或选择预设，代码会同步更新。',
+     visual: SLIDERS.map(({ label, value }) => (
+       <span className="docs-qs-slider" key={label}>
+         {label}
+@@ -57,8 +58,8 @@ const QUICK_START_STEPS = [
+     ))
+   },
+   {
+-    title: 'Add it to your project',
+-    description: 'Install the version you use with one command, or copy the source.',
++    title: '添加到项目',
++    description: '用一条命令安装所需版本，或直接复制源码。',
+     visual: (
+       <span className="docs-qs-cli">
+         <span className="docs-qs-prompt">$</span> npx shadcn@latest add
+@@ -72,23 +73,23 @@ const QUICK_START_STEPS = [
+ const CATEGORY_DETAILS = {
+   'Text Animations': {
+     icon: TextFontIcon,
+-    description: 'Split, scramble, blur and morph text, from headlines to scroll-driven reveals.'
++    description: '文字拆分、打乱、模糊与变形，适用于标题和滚动展示。'
+   },
+   Animations: {
+     icon: Motion01Icon,
+-    description: 'Cursor effects, hover interactions and reveals that wrap around any element.'
++    description: '可用于各种元素的光标特效、悬停交互和呈现动画。'
+   },
+   Components: {
+     icon: PuzzleIcon,
+-    description: 'Carousels, galleries, cards, menus and docks with the motion built in.'
++    description: '内置动效的轮播、画廊、卡片、菜单和工具栏。'
+   },
+   Micro: {
+     icon: MousePointerClickIcon,
+-    description: 'Small interactive pieces like toggles, sliders, buttons and loaders.'
++    description: '开关、滑块、按钮和加载器等小型交互组件。'
+   },
+   Backgrounds: {
+     icon: Image01Icon,
+-    description: 'Shader and canvas backgrounds for heroes and full pages, most with presets.'
++    description: '适用于首屏和整页的着色器与画布背景，大多提供预设。'
+   }
+ };
+ 
+@@ -106,33 +107,33 @@ const FLAVOURS = [
+ 
+ const TOOL_BLURBS = {
+   'background-studio':
+-    'Start from a preset, tune any animated background live, then export the code, a 4K image or a looping video.',
++    '从预设开始，实时调整动态背景，然后导出代码、4K 图片或循环视频。',
+   'center-stage':
+-    'Put a screenshot or recording on lifelike devices with depth and shadows. Perfect for launch videos or demos.',
++    '将截图或录屏放进带景深和阴影的设备模型，适合制作发布视频或演示。',
+   'shape-magic':
+-    'Design a logo mark or style your own logo with 3D materials. Export SVG, PNG, favicons, video or React.',
++    '设计标志，或用 3D 材质美化现有标志；可导出 SVG、PNG、网站图标、视频或 React 代码。',
+   'texture-lab':
+-    'Run photos, videos or your camera through 160 styles and 75+ effects, then export images, videos or GIFs.',
++    '为照片、视频或摄像头画面应用 160 种风格和 75 多种效果，再导出图片、视频或 GIF。',
+   'sound-lab':
+-    'Tune polished interface and video sounds live, then install one with a single command or download WAV, MP3 or OGG.'
++    '实时调整界面和视频音效，通过命令安装或下载 WAV、MP3、OGG。'
+ };
+ 
+ const PRINCIPLES = [
+   {
+-    title: 'You own the code',
+-    text: 'Components land in your project as source files, not an import, so you can change anything.'
++    title: '源码由你掌控',
++    text: '组件以源码文件的形式加入项目，可以自由修改。'
+   },
+   {
+-    title: 'Props first',
+-    text: 'The details you would want to adjust are exposed as props, so most tweaks need no code edits.'
++    title: '属性优先',
++    text: '常用调整项都通过属性暴露，多数修改无需编辑源码。'
+   },
+   {
+-    title: 'Nothing to depend on',
+-    text: 'React Bits is not an npm package. Install only what you use; each component lists its own dependencies.'
++    title: '按需使用',
++    text: 'React Bits 不是 npm 包。只需安装用到的组件，各组件会列出所需依赖。'
+   },
+   {
+-    title: 'Your stack',
+-    text: 'JavaScript or TypeScript, plain CSS or Tailwind. All four flavours share the same props.'
++    title: '适配你的技术栈',
++    text: '支持 JavaScript 或 TypeScript，以及原生 CSS 或 Tailwind；四种版本的属性一致。'
+   }
+ ];
+ 
+@@ -144,18 +145,16 @@ const Introduction = () => {
+   return (
+     <section className="docs-section docs-intro">
+       <div className="docs-page-header">
+-        <h1 className="docs-title">Introduction</h1>
++        <h1 className="docs-title">简介</h1>
+         <CopyPageButton />
+       </div>
+ 
+       <p className="docs-lead">
+-        React Bits is a free, open source library of animated React components and backgrounds that you copy into your
+-        project and make your own.
++        React Bits 是免费的开源 React 动画组件和背景库，你可以将源码复制到项目中并自由修改。
+       </p>
+ 
+       <p className="docs-paragraph docs-intro-sublead">
+-        There are {TOTAL_COMPONENTS} of them across five categories. Tune any of them in a live preview, then install
+-        the exact version your project uses.
++        目前共有 {TOTAL_COMPONENTS} 个组件，分为五类。你可以实时预览和调整效果，再安装适合项目的版本。
+       </p>
+ 
+       <div className="docs-quickstart">
+@@ -166,7 +165,7 @@ const Introduction = () => {
+                 {visual}
+               </div>
+               <div className="docs-quickstart-text">
+-                <span className="docs-quickstart-index">Step {index + 1}</span>
++                <span className="docs-quickstart-index">第 {index + 1} 步</span>
+                 <h2>{title}</h2>
+                 <p>{description}</p>
+               </div>
+@@ -175,18 +174,18 @@ const Introduction = () => {
+         </div>
+         <div className="docs-quickstart-actions">
+           <Link to="/get-started/index" className="docs-quickstart-primary">
+-            Browse components
++            浏览组件
+             <HugeiconsIcon icon={ArrowRight02Icon} size={15} strokeWidth={1.8} />
+           </Link>
+           <Link to="/get-started/installation" className="docs-quickstart-secondary">
+-            Installation guide
++            安装指南
+           </Link>
+         </div>
+       </div>
+ 
+-      <h2 className="docs-section-title">What&apos;s inside</h2>
++      <h2 className="docs-section-title">包含哪些内容</h2>
+ 
+-      <p className="docs-paragraph">Every component belongs to one of five categories. Open one to browse it.</p>
++      <p className="docs-paragraph">每个组件都属于以下五个分类之一，点击即可浏览。</p>
+ 
+       <div className="docs-intro-cats">
+         {LIBRARY.map(category => (
+@@ -196,7 +195,7 @@ const Introduction = () => {
+             </span>
+             <div className="docs-intro-cat-text">
+               <h3>
+-                {category.name} <span className="docs-intro-count">{category.count}</span>
++                {zhLabel(category.name)} <span className="docs-intro-count">{category.count}</span>
+               </h3>
+               <p>{category.description}</p>
+             </div>
+@@ -205,11 +204,10 @@ const Introduction = () => {
+         ))}
+       </div>
+ 
+-      <h2 className="docs-section-title">Four flavours of every component</h2>
++      <h2 className="docs-section-title">每个组件的四种版本</h2>
+ 
+       <p className="docs-paragraph">
+-        Each component comes in JavaScript or TypeScript, styled with plain CSS or Tailwind. Pick yours once in the
+-        Preferences menu in the header and every code tab and install command on the site follows it.
++        每个组件均提供 JavaScript 或 TypeScript 版本，搭配原生 CSS 或 Tailwind。在顶部偏好设置中选择后，代码和安装命令会同步切换。
+       </p>
+ 
+       <div className="docs-intro-flavours" aria-hidden="true">
+@@ -229,8 +227,7 @@ const Introduction = () => {
+       </div>
+ 
+       <p className="docs-paragraph">
+-        The ending of the install name picks the flavour: <code>JS-CSS</code>, <code>JS-TW</code>, <code>TS-CSS</code>{' '}
+-        or <code>TS-TW</code>. With the shadcn CLI it looks like this:
++        安装名称的后缀决定版本：<code>JS-CSS</code>、<code>JS-TW</code>、<code>TS-CSS</code> 或 <code>TS-TW</code>。使用 shadcn CLI 的示例如下：
+       </p>
+ 
+       <CommandList
+@@ -238,45 +235,43 @@ const Introduction = () => {
+       />
+ 
+       <p className="docs-paragraph docs-intro-after">
+-        jsrepo works too, or you can copy the files from any component&apos;s Code tab. The{' '}
++        你也可以使用 jsrepo，或者从组件的“代码”选项卡手动复制文件。{' '}
+         <Link className="docs-inline-link" to="/get-started/installation">
+-          Installation guide
++          安装指南
+         </Link>{' '}
+-        walks through each option.
++        介绍了每种方式。
+       </p>
+ 
+-      <h2 className="docs-section-title">Built for AI workflows</h2>
++      <h2 className="docs-section-title">适用于 AI 工作流</h2>
+ 
+       <p className="docs-paragraph">
+-        Every component is plain, readable source, which makes it easy for coding agents to work with. A few extras
+-        help:
++        每个组件都是可读的源码，方便 AI 编程助手理解和修改。此外还有以下功能：
+       </p>
+ 
+       <ul className="docs-list docs-intro-list">
+         <li className="docs-list-item">
+-          <strong>Copy for AI</strong> on every component copies a ready prompt, your configured code or the install
+-          command, or opens it in ChatGPT, Claude or v0.
++          每个组件的 <strong>Copy for AI</strong> 菜单可以复制提示词、配置后的代码或安装命令，也可以在 ChatGPT、Claude 或 v0 中打开。
+         </li>
+         <li className="docs-list-item">
+-          <strong>Copy as Markdown</strong> on every docs page, this one included, for pasting into a chat.
++          每个文档页面都支持<strong>复制为 Markdown</strong>，方便粘贴到对话中。
+         </li>
+         <li className="docs-list-item">
+-          <strong>MCP</strong> through the shadcn MCP server lets your agent find and install components for you.{' '}
++          通过 shadcn <strong>MCP</strong> 服务器，AI 助手可以帮你查找和安装组件。{' '}
+           <Link className="docs-inline-link" to="/get-started/mcp">
+-            Set it up
++            查看配置方法
+           </Link>
+         </li>
+         <li className="docs-list-item">
+-          <strong>llms.txt</strong> gives language models a plain-text map of the whole library.{' '}
++          <strong>llms.txt</strong> 为语言模型提供整套组件库的纯文本索引。{' '}
+           <a className="docs-inline-link" href="/llms.txt" target="_blank" rel="noopener noreferrer">
+-            Open it
++            打开文件
+           </a>
+         </li>
+       </ul>
+ 
+-      <h2 className="docs-section-title">Free tools</h2>
++      <h2 className="docs-section-title">免费工具</h2>
+ 
+-      <p className="docs-paragraph">Five browser tools, free to use.</p>
++      <p className="docs-paragraph">五款可免费使用的浏览器工具。</p>
+ 
+       <div className="docs-intro-cats">
+         {TOOLS.map(tool => (
+@@ -293,10 +288,10 @@ const Introduction = () => {
+         ))}
+       </div>
+ 
+-      <h2 className="docs-section-title">Principles</h2>
++      <h2 className="docs-section-title">设计原则</h2>
+ 
+       <p className="docs-paragraph">
+-        React Bits exists to make expressive interfaces easy to build, and free. Four ideas shape every component:
++        React Bits 希望让富有表现力的界面能够轻松、免费地构建。每个组件都遵循以下原则：
+       </p>
+ 
+       <div className="docs-intro-principles">
+@@ -308,69 +303,65 @@ const Introduction = () => {
+         ))}
+       </div>
+ 
+-      <h2 className="docs-section-title">Use motion with care</h2>
++      <h2 className="docs-section-title">合理使用动画</h2>
+ 
+       <ul className="docs-list docs-intro-list">
+         <li className="docs-list-item">
+-          <strong>Two or three per page.</strong> Effects compete for attention and for the GPU, so save them for the
+-          moments that matter.
++          <strong>每页使用两到三个效果。</strong> 动画会争夺注意力和 GPU 资源，留给最需要强调的地方。
+         </li>
+         <li className="docs-list-item">
+-          <strong>Plan for mobile.</strong> Swap heavy effects for lighter versions or static images on small screens.
++          <strong>考虑移动端。</strong> 在小屏设备上，将较重的效果换成轻量版本或静态图片。
+         </li>
+         <li className="docs-list-item">
+-          <strong>Test on real devices.</strong> Your machine is likely faster than your users&apos;, so check low-end
+-          phones and laptops before you ship.
++          <strong>在真实设备上测试。</strong> 用户的设备可能比你的电脑慢，发布前应检查低端手机和笔记本的表现。
+         </li>
+       </ul>
+ 
+-      <h2 className="docs-section-title">License</h2>
++      <h2 className="docs-section-title">许可协议</h2>
+ 
+       <p className="docs-paragraph">
+-        React Bits is free for personal and commercial work under the MIT + Commons Clause license. Use the components
+-        in any app, website or product, client work included. What you can&apos;t do is sell, sublicense or redistribute
+-        the components themselves, on their own, in a bundle or as a port.{' '}
++        React Bits 采用 MIT + Commons Clause 许可，可免费用于个人和商业项目，包括客户的应用、网站或产品。但不能单独、打包或以移植版本的形式出售、再许可或重新分发组件本身。{' '}
+         <a
+           className="docs-inline-link"
+           href="https://github.com/DavidHDev/react-bits/blob/main/LICENSE.md"
+           target="_blank"
+           rel="noopener noreferrer"
+         >
+-          Read the license
++          阅读许可协议
+         </a>
+       </p>
+ 
+-      <h2 className="docs-section-title">Keep exploring</h2>
++      <h2 className="docs-section-title">继续探索</h2>
+ 
+       <ul className="docs-list docs-intro-list">
+         <li className="docs-list-item">
+-          <strong>What&apos;s new.</strong> The{' '}
++          <strong>最新更新。</strong>{' '}
+           <Link className="docs-inline-link" to="/get-started/changelog">
+-            changelog
++            更新日志
+           </Link>{' '}
+-          lists every new component and update by month, with an RSS feed.
++          按月列出新增组件和更新，并提供 RSS 订阅。
+         </li>
+         <li className="docs-list-item">
+-          <strong>Vue and Svelte.</strong> Official ports live at{' '}
++          <strong>Vue 和 Svelte。</strong> 官方移植版本见{' '}
+           <a className="docs-inline-link" href="https://vue-bits.dev/" target="_blank" rel="noopener noreferrer">
+             Vue Bits
+           </a>{' '}
+-          and{' '}
++          和{' '}
+           <a className="docs-inline-link" href="https://sveltebits.xyz/" target="_blank" rel="noopener noreferrer">
+             Svelte Bits
+           </a>
+           .
+         </li>
+         <li className="docs-list-item">
+-          <strong>The whole product.</strong>{' '}
++          <strong>完整产品。</strong>{' '}
+           <Link className="docs-inline-link" to="/pro">
+             React Bits Pro
+           </Link>{' '}
+-          adds page sections, app UI blocks, full templates and agent skills.
++          提供页面区块、应用界面、完整模板和 AI 助手技能。
+         </li>
+       </ul>
+ 
+-      <DocsButtonBar next={{ label: 'Installation', route: '/get-started/installation' }} />
++      <DocsButtonBar next={{ label: '安装', route: '/get-started/installation' }} />
+     </section>
+   );
+ };
+diff --git a/src/docs/McpServer.jsx b/src/docs/McpServer.jsx
+index 15bec1e..a3dd096 100644
+--- a/src/docs/McpServer.jsx
++++ b/src/docs/McpServer.jsx
+@@ -28,8 +28,7 @@ const CLIENTS = [
+ }`,
+     note: (
+       <>
+-        Add this to <code>~/.gemini/config/mcp_config.json</code> or project <code>.agents/mcp_config.json</code>. Works
+-        across Antigravity CLI (<code>agy</code>), Antigravity IDE, and Antigravity 2.0.
++        将此配置添加到 <code>~/.gemini/config/mcp_config.json</code> 或项目的 <code>.agents/mcp_config.json</code>。适用于 Antigravity CLI（<code>agy</code>）、Antigravity IDE 和 Antigravity 2.0。
+       </>
+     )
+   },
+@@ -40,7 +39,7 @@ const CLIENTS = [
+     command: 'npx shadcn@latest mcp init --client claude',
+     note: (
+       <>
+-        Then restart Claude Code. If the server doesn&apos;t show up, run <code>/mcp</code> to debug it.
++        然后重启 Claude Code。如果服务器没有出现，运行 <code>/mcp</code> 排查问题。
+       </>
+     )
+   },
+@@ -53,7 +52,7 @@ command = "npx"
+ args = ["shadcn@latest", "mcp"]`,
+     note: (
+       <>
+-        The CLI can&apos;t set up Codex for you. Add this to <code>~/.codex/config.toml</code>, then restart Codex.
++        CLI 无法自动配置 Codex。请将此配置添加到 <code>~/.codex/config.toml</code>，然后重启 Codex。
+       </>
+     )
+   },
+@@ -62,7 +61,7 @@ args = ["shadcn@latest", "mcp"]`,
+     icon: <img src={cursor} alt="" style={LOGO} />,
+     label: 'Cursor',
+     command: 'npx shadcn@latest mcp init --client cursor',
+-    note: 'Then open Cursor Settings and enable the shadcn MCP server.'
++    note: '然后打开 Cursor 设置，启用 shadcn MCP 服务器。'
+   },
+   {
+     key: 'vscode',
+@@ -71,16 +70,16 @@ args = ["shadcn@latest", "mcp"]`,
+     command: 'npx shadcn@latest mcp init --client vscode',
+     note: (
+       <>
+-        Then open <code>.vscode/mcp.json</code> and click Start next to the shadcn server.
++        然后打开 <code>.vscode/mcp.json</code>，点击 shadcn 服务器旁的 Start。
+       </>
+     )
+   }
+ ];
+ 
+ const EXAMPLE_PROMPTS = [
+-  'Show me all the available backgrounds from the React Bits registry',
+-  'Add the Dither background from React Bits to the page, make it purple',
+-  'Add a new section which fades in on scroll using FadeContent from React Bits'
++  '列出 React Bits 组件源中所有可用的背景',
++  '在页面中添加 React Bits 的 Dither 背景，并调整为紫色',
++  '使用 React Bits 的 FadeContent 添加一个随滚动淡入的新区域'
+ ];
+ 
+ const REGISTRY_CONFIG = `{
+@@ -95,65 +94,65 @@ const McpServer = () => {
+   return (
+     <section className="docs-section">
+       <div className="docs-page-header">
+-        <h1 className="docs-title">MCP Server</h1>
++        <h1 className="docs-title">MCP 服务器</h1>
+         <CopyPageButton />
+       </div>
+ 
+       <p className="docs-lead">
+-        Let your AI assistant browse, search and install React Bits components for you, straight from a prompt.
++        通过一句提示，让 AI 助手为你浏览、搜索和安装 React Bits 组件。
+       </p>
+ 
+       <p className="docs-paragraph dim">
+-        It works through the shadcn MCP server.{' '}
++        这一功能通过 shadcn MCP 服务器实现。{' '}
+         <a className="docs-inline-link" href="https://modelcontextprotocol.io/" target="_blank" rel="noreferrer">
+           Model Context Protocol
+         </a>{' '}
+-        is an open standard that lets AI assistants connect to tools and data.
++        是一个开放标准，让 AI 助手能够连接工具和数据。
+       </p>
+ 
+-      <h2 className="docs-section-title">Setup</h2>
++      <h2 className="docs-section-title">配置</h2>
+ 
+       <ol className="docs-steps">
+-        <DocsStep index={1} title="Add the React Bits registry">
++        <DocsStep index={1} title="添加 React Bits 组件源">
+           <p className="docs-step-text">
+-            In your project&apos;s <code>components.json</code>, add <code>@react-bits</code> to the registries:
++            在项目的 <code>components.json</code> 中，将 <code>@react-bits</code> 添加到 registries：
+           </p>
+           <CodeBlock language="json" showLineNumbers>
+             {REGISTRY_CONFIG}
+           </CodeBlock>
+         </DocsStep>
+ 
+-        <DocsStep index={2} title="Connect your AI client">
+-          <p className="docs-step-text">Set up the shadcn MCP server for your client:</p>
++        <DocsStep index={2} title="连接 AI 客户端">
++          <p className="docs-step-text">为你的客户端配置 shadcn MCP 服务器：</p>
+           <CommandList items={CLIENTS} />
+         </DocsStep>
+ 
+-        <DocsStep index={3} title="Ask for components">
+-          <p className="docs-step-text">Describe what you want in plain language. Try one of these:</p>
++        <DocsStep index={3} title="让 AI 查找组件">
++          <p className="docs-step-text">用自然语言描述需求，例如：</p>
+           <ul className="docs-cmds">
+             {EXAMPLE_PROMPTS.map(prompt => (
+               <li className="docs-prompt" key={prompt}>
+                 <span className="docs-prompt-text">{prompt}</span>
+-                <CopyButton text={prompt} label="Copy prompt" />
++                <CopyButton text={prompt} label="复制提示词" />
+               </li>
+             ))}
+           </ul>
+         </DocsStep>
+       </ol>
+ 
+-      <h2 className="docs-section-title">Learn more</h2>
++      <h2 className="docs-section-title">了解更多</h2>
+ 
+       <a className="docs-link-tile" href="https://ui.shadcn.com/docs/mcp" target="_blank" rel="noreferrer">
+         <span className="docs-link-tile-text">
+-          <span className="docs-link-tile-title">shadcn MCP documentation</span>
+-          <span className="docs-link-tile-desc">Manual setup for other clients, and more ways to use the server.</span>
++          <span className="docs-link-tile-title">shadcn MCP 文档</span>
++          <span className="docs-link-tile-desc">了解其他客户端的手动配置方法及更多用法。</span>
+         </span>
+         <LuArrowUpRight aria-hidden="true" />
+       </a>
+ 
+       <DocsButtonBar
+-        next={{ label: 'Browse Components', route: '/get-started/index' }}
+-        previous={{ label: 'Installation', route: '/get-started/installation' }}
++        next={{ label: '浏览组件', route: '/get-started/index' }}
++        previous={{ label: '安装', route: '/get-started/installation' }}
+       />
+     </section>
+   );
+diff --git a/src/pages/CategoryIndexPage.jsx b/src/pages/CategoryIndexPage.jsx
+index 396c11d..118e70c 100644
+--- a/src/pages/CategoryIndexPage.jsx
++++ b/src/pages/CategoryIndexPage.jsx
+@@ -7,6 +7,7 @@ import { componentMetadata } from '../constants/Information';
+ import useNewSinceLastVisit from '../hooks/useNewSinceLastVisit';
+ import usePageSEO from '../hooks/usePageSEO';
+ import { CATEGORY_SEO } from '../utils/seo';
++import { zhLabel } from '../utils/zh';
+ 
+ const CATEGORY_KEYS = {
+   components: 'Components',
+@@ -44,7 +45,7 @@ const CategoryIndexPage = () => {
+   return (
+     <Box>
+       <ComponentList
+-        title={seo.heading}
++        title={zhLabel(CATEGORY_KEYS[category] === 'TextAnimations' ? 'Text Animations' : CATEGORY_KEYS[category])}
+         list={list}
+         hasFavoriteButton
+         sorting="alphabetical"
+diff --git a/src/pages/IndexPage.jsx b/src/pages/IndexPage.jsx
+index 41535a2..aadece2 100644
+--- a/src/pages/IndexPage.jsx
++++ b/src/pages/IndexPage.jsx
+@@ -15,7 +15,7 @@ const IndexPage = () => {
+   return (
+     <Box>
+       <ComponentList
+-        title={INDEX_SEO.heading}
++        title="全部组件"
+         list={componentMetadata}
+         hasFavoriteButton
+         sorting="newest"
+diff --git a/src/tools/ToolSwitcher.jsx b/src/tools/ToolSwitcher.jsx
+index 7dc5de2..476f9c8 100644
+--- a/src/tools/ToolSwitcher.jsx
++++ b/src/tools/ToolSwitcher.jsx
+@@ -111,7 +111,7 @@ export default function ToolSwitcher({ activeId }) {
+       ref={menuRef}
+       className="tool-switch-menu"
+       role="menu"
+-      aria-label="Tools"
++      aria-label="工具"
+       data-open={open ? '' : undefined}
+       style={place ? { top: place.top, left: place.left, width: place.width } : undefined}
+       onKeyDown={onMenuKey}
+diff --git a/src/tools/ToolsIndex.jsx b/src/tools/ToolsIndex.jsx
+index 8ed7e88..4b083eb 100644
+--- a/src/tools/ToolsIndex.jsx
++++ b/src/tools/ToolsIndex.jsx
+@@ -13,14 +13,14 @@ import '../css/tools-index.css';
+ 
+ const BLURBS = {
+   'background-studio':
+-    'Pick an animated background, start from a preset, tune it live, then export the code, a 4K image or a looping video.',
++    '选择动态背景和预设，实时调整后导出代码、4K 图片或循环视频。',
+   'shape-magic':
+-    'Design a logo mark or style your own logo with 3D materials. Export SVG, PNG, favicons, video or React.',
++    '设计标志，或用 3D 材质美化现有标志；支持导出 SVG、PNG、图标、视频或 React 代码。',
+   'texture-lab':
+-    'Stack animated effects on a photo, video or your camera, then export an image, a video, a GIF or a shareable style.',
+-  'center-stage': 'Turn screenshots and recordings into polished product shots. Perfect for launch videos or demos.',
++    '为照片、视频或摄像头画面叠加动态效果，导出图片、视频、GIF 或分享样式。',
++  'center-stage': '将截图或录屏制作成精美的产品展示画面，适合发布视频或演示。',
+   'sound-lab':
+-    'Interface and video sounds, tune them live, then install one with a single command or download WAV, MP3 or OGG.'
++    '实时调整界面和视频音效，通过命令安装或下载 WAV、MP3、OGG。'
+ };
+ 
+ const FOLLOW = 0.16;
+@@ -131,7 +131,7 @@ function ToolCard({ tool, index }) {
+         <div className="tl-caption-row">
+           <h2 className="tl-name">{tool.label}</h2>
+           <span className="tl-open">
+-            Open
++            打开
+             <LuArrowUpRight size={14} aria-hidden="true" />
+           </span>
+         </div>
+@@ -149,9 +149,9 @@ export default function ToolsIndex() {
+           <header className="tl-head">
+             <p className="tl-eyebrow">
+               <HugeiconsIcon icon={ToolCaseIcon} size={16} strokeWidth={1.8} />
+-              Creative Tools
++              创意工具
+             </p>
+-            <h1 className="pg-title tl-title">Make your product look and sound its best</h1>
++            <h1 className="pg-title tl-title">让你的产品好看又好听</h1>
+           </header>
+ 
+           <div className="tl-grid">
+diff --git a/src/tools/background-studio/BackgroundStudio.jsx b/src/tools/background-studio/BackgroundStudio.jsx
+index 2f2d815..3857d90 100644
+--- a/src/tools/background-studio/BackgroundStudio.jsx
++++ b/src/tools/background-studio/BackgroundStudio.jsx
+@@ -164,13 +164,13 @@ export default function BackgroundStudio({ toolSelector }) {
+   return (
+     <div className="bs" data-layout={wide ? 'wide' : desktop ? 'desktop' : 'compact'}>
+       {wide && (
+-        <aside className="bs-rail" aria-label="Backgrounds">
++        <aside className="bs-rail" aria-label="背景">
+           {toolSelector}
+           <BackgroundList activeId={entry.id} light={light} onSelect={state.selectBackground} />
+         </aside>
+       )}
+ 
+-      <section className="bs-main" aria-label="Preview">
++      <section className="bs-main" aria-label="预览">
+         <StageToolbar
+           picker={picker}
+           mode={demoView(mode, narrow)}
+diff --git a/src/tools/background-studio/components/BackgroundList.jsx b/src/tools/background-studio/components/BackgroundList.jsx
+index 3be3eca..ed4aa11 100644
+--- a/src/tools/background-studio/components/BackgroundList.jsx
++++ b/src/tools/background-studio/components/BackgroundList.jsx
+@@ -66,7 +66,7 @@ export default function BackgroundList({ activeId, light, onSelect, autoFocus =
+           onChange={event => setQuery(event.target.value)}
+           onKeyDown={onKeyDown}
+           placeholder={`Search ${CATALOG.length} backgrounds`}
+-          aria-label="Search backgrounds"
++          aria-label="搜索背景"
+           spellCheck={false}
+           autoComplete="off"
+           autoFocus={autoFocus}
+@@ -88,7 +88,7 @@ export default function BackgroundList({ activeId, light, onSelect, autoFocus =
+             >
+               <Thumb key={`${entry.id}-${light}`} entry={entry} light={light} />
+               <span className="bs-item-label">{entry.label}</span>
+-              {entry.isNew && <span className="bs-tag bs-tag--new">New</span>}
++              {entry.isNew && <span className="bs-tag bs-tag--new">新增</span>}
+             </button>
+           ))}
+           {!items.length && <p className="bs-empty">Nothing matches “{query.trim()}”.</p>}
+diff --git a/src/tools/background-studio/components/CodeExport.jsx b/src/tools/background-studio/components/CodeExport.jsx
+index a771424..7a1a1d5 100644
+--- a/src/tools/background-studio/components/CodeExport.jsx
++++ b/src/tools/background-studio/components/CodeExport.jsx
+@@ -99,7 +99,7 @@ export default function CodeExport({ state }) {
+   }
+ 
+   if (!codeObject) {
+-    return <p className="bs-code-state">The code for this background is not available here. Open the docs instead.</p>;
++    return <p className="bs-code-state">此处无法获取该背景的代码，请前往文档查看。</p>;
+   }
+ 
+   return (
+diff --git a/src/tools/background-studio/components/ExportDialog.jsx b/src/tools/background-studio/components/ExportDialog.jsx
+index f0b38cb..f7b6306 100644
+--- a/src/tools/background-studio/components/ExportDialog.jsx
++++ b/src/tools/background-studio/components/ExportDialog.jsx
+@@ -71,7 +71,7 @@ export default function ExportDialog({ initialTab, state, stageSize, onClose })
+           <button
+             type="button"
+             className="docs-tool bs-dialog-close"
+-            aria-label="Close"
++            aria-label="关闭"
+             onClick={onClose}
+             disabled={busy}
+           >
+diff --git a/src/tools/background-studio/components/MediaExport.jsx b/src/tools/background-studio/components/MediaExport.jsx
+index 0b70225..7d81d9f 100644
+--- a/src/tools/background-studio/components/MediaExport.jsx
++++ b/src/tools/background-studio/components/MediaExport.jsx
+@@ -410,7 +410,7 @@ export default function MediaExport({ kind, state, stageSize, onBusyChange }) {
+         <div className="bs-xp-notes">
+           {error && <p className="bs-xp-error">{error}</p>}
+           {unsupported && (
+-            <p className="bs-xp-error">Video export needs a recent version of Chrome, Edge, Safari or Firefox.</p>
++            <p className="bs-xp-error">导出视频需要较新版本的 Chrome、Edge、Safari 或 Firefox。</p>
+           )}
+         </div>
+ 
+@@ -431,7 +431,7 @@ export default function MediaExport({ kind, state, stageSize, onBusyChange }) {
+                     <button
+                       type="button"
+                       className="docs-tool bs-xp-square"
+-                      aria-label="Save again"
++                      aria-label="再次保存"
+                       onClick={() => downloadBlob(result.blob, result.name)}
+                     >
+                       <Icon icon={Download04Icon} />
+@@ -449,7 +449,7 @@ export default function MediaExport({ kind, state, stageSize, onBusyChange }) {
+                   <button
+                     type="button"
+                     className="docs-tool bs-xp-square"
+-                    aria-label="Copy image"
++                    aria-label="复制图片"
+                     onClick={() => exportImage('copy')}
+                   >
+                     <Icon icon={Copy01Icon} />
+diff --git a/src/tools/background-studio/components/Panel.jsx b/src/tools/background-studio/components/Panel.jsx
+index 67da440..bb0ce99 100644
+--- a/src/tools/background-studio/components/Panel.jsx
++++ b/src/tools/background-studio/components/Panel.jsx
+@@ -31,7 +31,7 @@ export default function Panel({ state, toolSelector, docsHref, onStep }) {
+   }, [presets, defaults, light, definitions]);
+ 
+   return (
+-    <aside className="bs-panel" aria-label="Background settings">
++    <aside className="bs-panel" aria-label="背景设置">
+       {toolSelector && <div className="bs-panel-tool">{toolSelector}</div>}
+ 
+       <header className="bs-head">
+@@ -42,14 +42,14 @@ export default function Panel({ state, toolSelector, docsHref, onStep }) {
+               <button
+                 type="button"
+                 className="bs-icon-button"
+-                aria-label="Previous background"
++                aria-label="上一个背景"
+                 onClick={() => onStep(-1)}
+               >
+                 <Icon icon={ArrowLeft01Icon} />
+               </button>
+             </Tip>
+             <Tip label="Next background" hint="→">
+-              <button type="button" className="bs-icon-button" aria-label="Next background" onClick={() => onStep(1)}>
++              <button type="button" className="bs-icon-button" aria-label="下一个背景" onClick={() => onStep(1)}>
+                 <Icon icon={ArrowRight01Icon} />
+               </button>
+             </Tip>
+@@ -71,7 +71,7 @@ export default function Panel({ state, toolSelector, docsHref, onStep }) {
+           {tiles.length > 0 && (
+             <section className="customize-frame bs-section">
+               <div className="customize-heading">
+-                <h2>Presets</h2>
++                <h2>预设</h2>
+               </div>
+               <div className="preview-options bs-presets">
+                 {tiles.map(({ option, colors }) => (
+@@ -89,7 +89,7 @@ export default function Panel({ state, toolSelector, docsHref, onStep }) {
+ 
+           <section className="customize-frame bs-section">
+             <div className="customize-heading">
+-              <h2>Customize</h2>
++              <h2>自定义</h2>
+               <div className="customize-heading-actions">
+                 <button
+                   type="button"
+@@ -100,13 +100,13 @@ export default function Panel({ state, toolSelector, docsHref, onStep }) {
+                   tabIndex={state.canReset ? 0 : -1}
+                 >
+                   <RotateCcw size={14} aria-hidden="true" />
+-                  <span>Reset</span>
++                  <span>重置</span>
+                 </button>
+                 <Tip label="Undo" hint="⌘Z">
+                   <button
+                     type="button"
+                     className="customize-heading-action bs-heading-icon"
+-                    aria-label="Undo"
++                    aria-label="撤销"
+                     onClick={state.undo}
+                     disabled={!state.canUndo}
+                   >
+@@ -117,7 +117,7 @@ export default function Panel({ state, toolSelector, docsHref, onStep }) {
+                   <button
+                     type="button"
+                     className="customize-heading-action bs-heading-icon"
+-                    aria-label="Redo"
++                    aria-label="重做"
+                     onClick={state.redo}
+                     disabled={!state.canRedo}
+                   >
+@@ -130,7 +130,7 @@ export default function Panel({ state, toolSelector, docsHref, onStep }) {
+               {definitions.length ? (
+                 <PropControls definitions={definitions} props={props} onChange={state.setProp} />
+               ) : (
+-                <p className="bs-empty">This background has no settings.</p>
++                <p className="bs-empty">这个背景没有可调整的设置。</p>
+               )}
+             </div>
+           </section>
+diff --git a/src/tools/background-studio/components/Picker.jsx b/src/tools/background-studio/components/Picker.jsx
+index 8ee56fd..b0ce109 100644
+--- a/src/tools/background-studio/components/Picker.jsx
++++ b/src/tools/background-studio/components/Picker.jsx
+@@ -44,7 +44,7 @@ export default function Picker({ entry, light, onSelect }) {
+       </button>
+       {open && <div className="bs-picker-backdrop" aria-hidden="true" onClick={() => setOpen(false)} />}
+       {open && (
+-        <div className="bs-picker-panel" role="dialog" aria-label="Choose a background">
++        <div className="bs-picker-panel" role="dialog" aria-label="选择背景">
+           <BackgroundList
+             activeId={entry.id}
+             light={light}
+diff --git a/src/tools/background-studio/components/Stage.jsx b/src/tools/background-studio/components/Stage.jsx
+index 6d4c606..2227c8e 100644
+--- a/src/tools/background-studio/components/Stage.jsx
++++ b/src/tools/background-studio/components/Stage.jsx
+@@ -27,14 +27,14 @@ const Stage = forwardRef(function Stage({ frame, mode, onModeChange, onNarrowCha
+       </div>
+       {status === 'error' && (
+         <div className="bs-overlay bs-error" role="alert">
+-          <p>This background could not start here.</p>
++          <p>此处无法启动该背景。</p>
+           {error?.message && <p className="bs-error-detail">{error.message}</p>}
+           <button type="button" className="docs-tool" onClick={onRetry}>
+             Try again
+           </button>
+         </div>
+       )}
+-      {paused && status !== 'error' && <span className="bs-overlay bs-paused">Paused</span>}
++      {paused && status !== 'error' && <span className="bs-overlay bs-paused">已暂停</span>}
+     </div>
+   );
+ });
+diff --git a/src/tools/background-studio/components/StageToolbar.jsx b/src/tools/background-studio/components/StageToolbar.jsx
+index 7f91739..16e53c6 100644
+--- a/src/tools/background-studio/components/StageToolbar.jsx
++++ b/src/tools/background-studio/components/StageToolbar.jsx
+@@ -52,7 +52,7 @@ export default function StageToolbar({
+       </div>
+ 
+       <div className="bs-toolbar-group">
+-        <div className="docs-track bs-actions" role="group" aria-label="Preview controls">
++        <div className="docs-track bs-actions" role="group" aria-label="预览控制">
+           <Action
+             label={paused ? 'Play' : 'Pause'}
+             hint="Space"
+@@ -69,7 +69,7 @@ export default function StageToolbar({
+           <button
+             type="button"
+             className="docs-tool docs-tool--icon bs-link"
+-            aria-label="Copy link"
++            aria-label="复制链接"
+             onClick={onCopyLink}
+           >
+             <Icon icon={Link04Icon} />
+@@ -79,7 +79,7 @@ export default function StageToolbar({
+         <Tip label="Code, image or video" hint="E" placement="bottom">
+           <button type="button" className="bs-export" onClick={onExport}>
+             <Icon icon={Download04Icon} />
+-            <span>Export</span>
++            <span>导出</span>
+           </button>
+         </Tip>
+       </div>
+diff --git a/src/utils/componentSearch.js b/src/utils/componentSearch.js
+index fcfe610..daf4243 100644
+--- a/src/utils/componentSearch.js
++++ b/src/utils/componentSearch.js
+@@ -1,4 +1,5 @@
+-import { levenshtein } from './fuzzy';
++import { componentNamesZh, zhLabel } from './zh.js';
++import { levenshtein } from './fuzzy.js';
+ 
+ const normalize = value => (value || '').toString().toLowerCase().trim();
+ 
+@@ -11,16 +12,20 @@ const wordTails = value => {
+ 
+ const tokenScore = (item, token) => {
+   const name = normalize(item.title || item.name);
++  const translatedName = normalize(componentNamesZh[item.title || item.name]);
+   const category = normalize(item.categoryLabel || item.category);
++  const translatedCategory = normalize(zhLabel(item.categoryLabel || item.category));
+   const tags = (item.tags || []).map(normalize);
+   const description = normalize(item.description);
+   const flatToken = compact(token);
+   const tails = flatToken ? wordTails(name) : [];
+   const tagTails = flatToken ? tags.map(wordTails) : [];
+ 
+-  if (name === token || tails[0] === flatToken) return { score: 100, type: 'name' };
+-  if (name.startsWith(token) || tails[0]?.startsWith(flatToken)) return { score: 90, type: 'name' };
+-  if (name.includes(token) || tails.some(tail => tail.startsWith(flatToken))) return { score: 80, type: 'name' };
++  if (translatedName && translatedName.includes(token)) return { score: 95, type: 'name' };
++  if (translatedCategory && translatedCategory.includes(token)) return { score: 50, type: 'category' };
++  if (name === token || (flatToken && tails[0] === flatToken)) return { score: 100, type: 'name' };
++  if (name.startsWith(token) || (flatToken && tails[0]?.startsWith(flatToken))) return { score: 90, type: 'name' };
++  if (name.includes(token) || (flatToken && tails.some(tail => tail.startsWith(flatToken)))) return { score: 80, type: 'name' };
+   if (tags.some(tag => tag === token) || tagTails.some(tail => tail[0] === flatToken))
+     return { score: 72, type: 'tag' };
+   if (
+@@ -55,9 +60,9 @@ export const rankComponentSearch = (item, query) => {
+ };
+ 
+ export const getComponentMatchLabel = (category, type) => {
+-  if (type === 'tag') return `${category} · tag match`;
+-  if (type === 'description') return `${category} · description match`;
+-  if (type === 'category') return `${category} · category match`;
+-  if (type === 'similar') return `${category} · similar name`;
+-  return `in ${category}`;
++  if (type === 'tag') return `${zhLabel(category)} · 标签匹配`;
++  if (type === 'description') return `${zhLabel(category)} · 描述匹配`;
++  if (type === 'category') return `${zhLabel(category)} · 分类匹配`;
++  if (type === 'similar') return `${zhLabel(category)} · 名称相似`;
++  return zhLabel(category);
+ };
+diff --git a/src/utils/zh.js b/src/utils/zh.js
+new file mode 100644
+index 0000000..0f2db3b
+--- /dev/null
++++ b/src/utils/zh.js
+@@ -0,0 +1,699 @@
++// Display labels only: keep English identifiers and routes intact.
++export const zhLabel = value => ({
++  'Get Started': '入门', Introduction: '简介', Installation: '安装', Changelog: '更新日志',
++  'Text Animations': '文字动画', Animations: '动画', Components: '组件', Micro: '微交互',
++  Backgrounds: '背景', Favorites: '收藏', All: '全部', 'All Components': '全部组件', 'A to Z': '按名称', Newest: '最新'
++})[value] || value;
++
++export const componentNamesZh = {
++  "Tech Text": "科技文字",
++  "Text Loop": "文字循环",
++  "Masked Heading": "蒙版标题",
++  "Particle Text": "粒子文字",
++  "Split Flap Text": "翻页牌文字",
++  "Warp Text": "扭曲文字",
++  "Stroke Text": "描边文字",
++  "Depth Text": "景深文字",
++  "Fold Text": "折叠文字",
++  "Echo Text": "回声文字",
++  "Split Text": "拆分文字",
++  "Blur Text": "模糊文字",
++  "Circular Text": "环形文字",
++  "Text Type": "打字文字",
++  "Shuffle": "随机重排",
++  "Shiny Text": "闪亮文字",
++  "Text Pressure": "文字压力",
++  "Curved Loop": "弧形循环",
++  "Fuzzy Text": "毛绒文字",
++  "Gradient Text": "渐变文字",
++  "Falling Text": "下落文字",
++  "Text Cursor": "文字光标",
++  "Decrypted Text": "解密文字",
++  "True Focus": "聚焦文字",
++  "Scroll Float": "滚动漂浮",
++  "Scroll Reveal": "滚动揭示",
++  "ASCII Text": "ASCII 文字",
++  "Scrambled Text": "乱码文字",
++  "Rotating Text": "旋转文字",
++  "Glitch Text": "故障文字",
++  "Scroll Velocity": "滚动速度",
++  "Variable Proximity": "距离响应文字",
++  "Count Up": "数字递增",
++  "Crystalized Ball": "晶化球体",
++  "Electric Logo": "电光标志",
++  "Dither Veil": "抖色帷幕",
++  "Glow Cursor": "发光光标",
++  "Scroll Expand": "滚动展开",
++  "Ripple Distortion": "涟漪扭曲",
++  "Elastic Mesh": "弹性网格",
++  "Swarm Cursor": "粒子群光标",
++  "Halftone Reveal": "半调显现",
++  "Pixel Swap": "像素切换",
++  "Cursor Grid": "光标网格",
++  "Animated Content": "动态内容",
++  "Fade Content": "淡入内容",
++  "Electric Border": "电光边框",
++  "Orbit Images": "环绕图片",
++  "Pixel Transition": "像素转场",
++  "Glare Hover": "悬停眩光",
++  "Logo Loop": "标志循环",
++  "Target Cursor": "瞄准光标",
++  "Laser Flow": "激光流",
++  "Ghost Cursor": "幽灵光标",
++  "Gradual Blur": "渐进模糊",
++  "Click Spark": "点击火花",
++  "Magnet": "磁吸效果",
++  "Strands": "丝线",
++  "Sticker Peel": "撕贴纸",
++  "Pixel Trail": "像素轨迹",
++  "Cubes": "立方体",
++  "Metallic Paint": "金属漆",
++  "Noise": "噪点",
++  "Shape Blur": "形状模糊",
++  "Crosshair": "十字准星",
++  "Image Trail": "图片轨迹",
++  "Ribbons": "丝带",
++  "Splash Cursor": "飞溅光标",
++  "Meta Balls": "融合球体",
++  "Blob Cursor": "流体光标",
++  "Star Border": "星光边框",
++  "Holo Card": "全息卡片",
++  "Circular Carousel": "环形轮播",
++  "Flex Carousel": "弹性轮播",
++  "Infinite Spiral": "无限螺旋",
++  "Depth Carousel": "景深轮播",
++  "Morph Slider": "变形滑块",
++  "Drift Wall": "漂移墙",
++  "Accordion Gallery": "手风琴画廊",
++  "Specular Button": "高光按钮",
++  "Option Wheel": "选项转轮",
++  "Curved Input": "弧形输入框",
++  "Line Sidebar": "线条侧边栏",
++  "Animated List": "动态列表",
++  "Scroll Stack": "滚动堆叠",
++  "Bubble Menu": "气泡菜单",
++  "Magic Bento": "魔法便当盒",
++  "Circular Gallery": "环形画廊",
++  "Reflective Card": "反光卡片",
++  "Card Nav": "卡片导航",
++  "Stack": "堆叠卡片",
++  "Fluid Glass": "流体玻璃",
++  "Pill Nav": "胶囊导航",
++  "Tilted Card": "倾斜卡片",
++  "Masonry": "瀑布流",
++  "Glass Surface": "玻璃表面",
++  "Dome Gallery": "穹顶画廊",
++  "Chroma Grid": "色彩网格",
++  "Folder": "文件夹",
++  "Staggered Menu": "交错菜单",
++  "Model Viewer": "模型查看器",
++  "Lanyard": "挂绳证卡",
++  "Profile Card": "个人资料卡",
++  "Dock": "程序坞",
++  "Gooey Nav": "粘液导航",
++  "Pixel Card": "像素卡片",
++  "Carousel": "轮播",
++  "Spotlight Card": "聚光灯卡片",
++  "Border Glow": "发光边框",
++  "Flying Posters": "飞行海报",
++  "Card Swap": "卡片切换",
++  "Glass Icons": "玻璃图标",
++  "Decay Card": "消散卡片",
++  "Flowing Menu": "流动菜单",
++  "Elastic Slider": "弹性滑块",
++  "Counter": "计数器",
++  "Infinite Menu": "无限菜单",
++  "Stepper": "步骤条",
++  "Bounce Cards": "弹跳卡片",
++  "Flying Button": "飞行按钮",
++  "Shredder": "碎纸机",
++  "Paper Crumple": "揉皱纸张",
++  "Tear Ticket": "撕票",
++  "Flip Card": "翻转卡片",
++  "Branched Menu": "分支菜单",
++  "Folder Float": "漂浮文件夹",
++  "Refine Frame": "精修边框",
++  "Thought Line": "思路线",
++  "Voice Pill": "语音胶囊",
++  "Slosh Gauge": "液体仪表",
++  "Prompt Bar": "提示词输入栏",
++  "Swipe Toast": "滑动提示",
++  "Sling Button": "弹射按钮",
++  "Bell Toggle": "铃铛开关",
++  "Call Chip": "通话标签",
++  "Status Mark": "状态标记",
++  "Glide Select": "滑动选择",
++  "Swipe Row": "滑动行",
++  "Jelly Radio": "果冻单选",
++  "Comet Dial": "彗星旋钮",
++  "Wake Slider": "唤醒滑块",
++  "Code Slots": "验证码格",
++  "Dodge Field": "躲避区域",
++  "Lattice Loader": "格栅加载器",
++  "Scrub Field": "拖动输入框",
++  "Fuse Button": "熔断按钮",
++  "Warm Tooltip": "温暖提示",
++  "Slide Commit": "滑动确认",
++  "Rubber Segment": "橡胶分段控件",
++  "Pulse Heart": "心跳爱心",
++  "Spring Check": "弹簧勾选",
++  "Peek Rating": "预览评分",
++  "Hold Button": "长按按钮",
++  "Squish Switch": "挤压开关",
++  "Gradient ASCII": "渐变 ASCII",
++  "Flux Lines": "流动线条",
++  "Pattern Waves": "图案波浪",
++  "Micro Slats": "微型栅条",
++  "Shape Waves": "形状波浪",
++  "Aero Shards": "空气碎片",
++  "Ghost Fibers": "幽灵纤维",
++  "CRT Warp": "显像管扭曲",
++  "Molten Metal": "熔融金属",
++  "Gradient Waves": "渐变波浪",
++  "Web Threads": "网络丝线",
++  "Topography": "地形等高线",
++  "Light Tunnel": "光隧道",
++  "Sliced Waves": "切片波浪",
++  "Acid Squares": "迷幻方块",
++  "Scanner": "扫描器",
++  "Ferrofluid": "磁流体",
++  "Lightfall": "光幕",
++  "Liquid Ether": "液态以太",
++  "Prism": "棱镜",
++  "Dark Veil": "暗色帷幕",
++  "Light Pillar": "光柱",
++  "Antigravity": "反重力",
++  "Silk": "丝绸",
++  "Floating Lines": "漂浮线条",
++  "Side Rays": "侧向光线",
++  "Light Rays": "光线",
++  "Pixel Blast": "像素爆发",
++  "Color Bends": "色彩弯曲",
++  "Line Waves": "线条波浪",
++  "Radar": "雷达",
++  "Soft Aurora": "柔和极光",
++  "Magic Rings": "魔法光环",
++  "Aurora": "极光",
++  "Plasma": "等离子",
++  "Plasma Wave": "等离子波",
++  "Particles": "粒子",
++  "Gradient Blinds": "渐变百叶窗",
++  "Grainient": "颗粒渐变",
++  "Grid Scan": "网格扫描",
++  "Beams": "光束",
++  "Pixel Snow": "像素雪花",
++  "Lightning": "闪电",
++  "Prismatic Burst": "棱彩爆发",
++  "Galaxy": "银河",
++  "Dither": "抖色",
++  "Faulty Terminal": "故障终端",
++  "Ripple Grid": "涟漪网格",
++  "Dot Field": "点阵场",
++  "Dot Grid": "点阵网格",
++  "Threads": "丝线背景",
++  "Hyperspeed": "超高速",
++  "Iridescence": "虹彩",
++  "Waves": "波浪",
++  "Magnet Lines": "磁力线",
++  "Grid Distortion": "网格扭曲",
++  "Ballpit": "球池",
++  "Orb": "光球",
++  "Letter Glitch": "字母故障",
++  "Grid Motion": "网格运动",
++  "Shape Grid": "形状网格",
++  "Liquid Chrome": "液态铬",
++  "Balatro": "巴拉特罗"
++};
++
++export const componentLabel = name => componentNamesZh[name] ? `${componentNamesZh[name]} · ${name}` : zhLabel(name);
++
++const controlsZh = {
++  'Placeholder':'占位提示', 'Menu':'菜单', 'Spark':'火花', 'Spark Boost':'火花增强', 'Max Rows':'最大行数',
++  'Morph':'变形时长', 'Squash':'挤压程度', 'Busy':'忙碌状态', 'Model Picker':'模型选择',
++  'Effort Picker':'推理强度选择', 'Dictation':'语音输入',
++
++  'Glow Color':'发光颜色', 'Weight':'粗细', 'Dim':'变暗', 'Stagger From':'交错起点', 'Stiffness':'弹簧刚度',
++  'Wave':'波浪', 'Border Width':'边框宽度', 'Depth of Field':'景深', 'Pause':'暂停', 'Cursor':'光标',
++  'Reach':'影响范围', 'Font':'字体', 'Distance':'距离', 'Value':'数值', 'Corner Radius':'圆角半径',
++  'Swirl':'漩涡', 'Mouse Influence':'鼠标影响程度', 'Strength':'强度', 'Bend':'弯曲', 'Turbulence':'湍流',
++  'Hue Shift':'色相偏移', 'Axis':'轴向', 'Columns':'列数', 'Hover Radius':'悬停范围', 'Curve':'曲线',
++  'Reverse':'反向', 'Vignette':'暗角', 'Material':'材质', 'Surface':'表面', 'Click Swirl':'点击漩涡',
++  'Color 1':'颜色 1', 'Color 2':'颜色 2', 'Paused':'暂停', 'Position':'位置', 'Gravity':'重力',
++  'Tilt X':'水平倾斜', 'Tilt Y':'垂直倾斜', 'Cursor Size':'光标大小', 'Roughness':'粗糙度',
++  'Spotlight':'聚光灯', 'Easing':'缓动', 'Line Style':'线条样式', 'Loop Delay':'循环间隔', 'Line Color':'线条颜色',
++  'Align':'对齐', 'Orientation':'方向', 'Damping':'阻尼', 'Fit':'适应方式', 'Lift':'抬升', 'Blend':'混合',
++  'Characters':'字符', 'Layout':'布局', 'Layers':'图层', 'Follow Cursor':'跟随光标', 'Waves':'波浪',
++  'Labels':'标签', 'Follow Mouse':'跟随鼠标', 'Hover Intensity':'悬停强度', 'Dust':'灰尘', 'Paper':'纸张',
++  'Enabled':'启用', 'Outline':'轮廓', 'Smooth Scroll':'平滑滚动', 'Active':'激活', 'Stroke Width':'描边宽度',
++  'Highlight Color':'高光颜色', 'Hide Cursor':'隐藏光标', 'Skew':'倾斜', 'Sway':'摇摆', 'Sheen':'光泽',
++  'Noise':'噪点', 'Fuse':'引线', 'Separator':'分隔符', 'Shading':'阴影', 'Order':'顺序', 'Sparkle':'闪光',
++  'Auto Animate':'自动播放动画', 'Sharpness':'锐度', 'Frequency':'频率', 'Rotation Speed':'旋转速度',
++  'Step':'步长', 'Ripple':'涟漪', 'Sensitivity':'灵敏度', 'Mouse Radius':'鼠标影响半径', 'Dot Size':'圆点大小',
++  'Status':'状态', 'Spin':'旋转', 'Chroma':'色度', 'Hover Strength':'悬停强度', 'Border Radius':'边框圆角',
++  'Pulse On Click':'点击脉冲', 'Refraction':'折射', 'Inertia':'惯性', 'Track':'轨道', 'Intro Duration':'入场时长',
++  'Icon':'图标', 'Card Height':'卡片高度', 'Captions':'图片说明', 'Taper':'渐细', 'Pulse Speed':'脉冲速度',
++  'Button':'按钮', 'Wave Scale':'波浪缩放', 'Follow Pointer':'跟随指针', 'Spotlight Radius':'聚光范围',
++  'Proximity':'接近距离', 'Mask':'遮罩', 'Animation':'动画', 'Press Scale':'按下缩放', 'Scroll Boost':'滚动加速',
++  'Curvature':'曲率', 'Scramble':'打乱', 'Item Size':'项目大小', 'Persistence':'持续度', 'Scatter':'散开',
++  'Split':'拆分', 'Glide':'滑动', 'Wave Amplitude':'波浪振幅', 'Cursor Color':'光标颜色', 'Interval':'间隔',
++  'Scanlines':'扫描线', 'Frost':'磨砂', 'Items':'项目', 'Offset':'偏移', 'Lean':'倾斜', 'Fog':'雾气',
++  'Linger':'停留时间', 'Lines':'线条', 'Show Timer':'显示计时',
++
++  'Card':'卡片', 'Foil Color':'金属箔颜色', 'Edge Sparkle':'边缘闪光', 'Glare':'眩光', 'Hover Scale':'悬停缩放', 'Idle Shimmer':'闲置闪烁', 'Preset':'预设', 'Intro':'入场动画', 'Speed':'速度', 'Glow':'发光', 'Radius':'半径', 'Color':'颜色',
++  'Light Mode':'浅色模式', 'Size':'大小', 'Tilt':'倾斜', 'Text':'文字', 'Direction':'方向', 'Fade':'淡化',
++  'Scale':'缩放', 'Gap':'间距', 'Brightness':'亮度', 'Opacity':'不透明度', 'Disabled':'禁用', 'Grain':'颗粒',
++  'Font Size':'字号', 'Duration':'持续时间', 'Mouse Interaction':'鼠标交互', 'Rotation':'旋转', 'Width':'宽度',
++  'Bounce':'弹跳', 'Shape':'形状', 'Spread':'扩散', 'Colors':'颜色', 'Depth':'深度', 'Stagger':'交错延迟',
++  'Intensity':'强度', 'Interactive':'交互', 'Thickness':'厚度', 'Background':'背景', 'Parallax':'视差',
++  'Draggable':'可拖动', 'Height':'高度', 'Trigger':'触发方式', 'Shadow':'阴影', 'Softness':'柔和度',
++  'Accent':'强调色', 'Stretch':'拉伸', 'Ink':'墨色', 'Perspective':'透视', 'Pause On Hover':'悬停暂停',
++  'Trail':'轨迹', 'Click Burst':'点击爆发', 'Line Width':'线宽', 'Loop':'循环', 'Smoothing':'平滑度',
++  'Blur':'模糊', 'Demo':'演示', 'Mode':'模式', 'Grayscale':'灰度', 'Edge Fade':'边缘淡化',
++  'Click Effect':'点击效果', 'Text Color':'文字颜色', 'Ease':'缓动', 'Fill':'填充', 'Click Pulse':'点击脉冲',
++  'Angle':'角度', 'Contrast':'对比度', 'Accent Color':'强调色', 'Flow':'流动', 'Density':'密度',
++  'Font Weight':'字重', 'Saturation':'饱和度', 'Spacing':'间距', 'Effect':'效果', 'Drift':'漂移',
++  'Amplitude':'振幅', 'Label':'标签', 'Variation':'变化', 'Detail':'细节', 'Count':'数量',
++  'Cursor Strength':'光标强度', 'Mouse Strength':'鼠标强度', 'Delay':'延迟', 'Hover Effect':'悬停效果',
++  'Click Ripple':'点击涟漪', 'Highlight':'高光', 'Quality':'质量', 'Twist':'扭曲', 'Tint':'色调',
++  'Idle':'闲置', 'Autoplay':'自动播放', 'Cell Size':'单元格大小', 'Cursor Radius':'光标半径',
++  'Falloff':'衰减', 'Shine':'闪光', 'Letter Spacing':'字间距', 'Roundness':'圆角', 'Dispersion':'色散',
++  'Flicker':'闪烁', 'Frame':'边框', 'Zoom':'缩放', 'Pattern':'图案', 'Twinkle':'闪烁', 'Wobble':'摆动',
++  'Pixel Size':'像素大小', 'Variant':'样式', 'Default':'默认', 'None':'无', 'Left':'左', 'Right':'右',
++  'Up':'向上', 'Down':'向下', 'Top':'顶部', 'Bottom':'底部', 'Center':'居中', 'On':'开启', 'Off':'关闭',
++  'Horizontal':'水平', 'Vertical':'垂直', 'Random':'随机', 'True':'是', 'False':'否'
++};
++export const controlLabel = value => typeof value === 'string' ? (controlsZh[value] || value) : value;
++
++const descriptionsZh = {
++  "Shown while the field is empty.": "输入框为空时显示的提示文字。",
++  "Rows of the @ menu and the plus button: key, name, description, icon (a Hugeicons icon or any node), and attach: true for the row that adds files.": "@ 菜单和加号菜单的选项列表，包含 key、name、description 和 icon；用于添加文件的选项需设置 attach: true。",
++  "Rows of the / menu: key, name (with the slash), description.": "斜杠命令菜单的选项列表，包含 key、name（含斜杠）和 description。",
++  "Rows of the model picker: key, name, tag. An empty list hides the picker.": "模型选择器的选项列表，包含 key、name 和 tag；传入空数组可隐藏选择器。",
++  "Steps of the effort slider, low to high. The last step turns the field to the spark colour with drifting sparks. An empty list hides the control.": "推理强度滑块的各级选项，按从低到高排列。最高档会让输入框变为火花色并显示漂浮火花；传入空数组可隐藏控件。",
++  "The step selected at first. Empty picks the middle.": "初始选中的档位；留空时选中中间档位。",
++  "The slider moved.": "滑块变化时触发。",
++  "Key of the model selected at first. Empty picks the first.": "初始选中模型的 key；留空时选中第一个模型。",
++  "A response is in flight. The send tile stays ink and its arrow morphs into a stop square.": "表示正在等待回复；发送按钮保持文字色，箭头变成停止方块。",
++  "Enter or the tile, with a non-empty draft or an attachment. The draft and attachments clear.": "草稿或附件不为空时，按回车或点击发送按钮触发；发送后清空草稿和附件。",
++  "The tile while busy.": "忙碌状态下点击停止按钮时触发。",
++  "Picked the attach row. Return file names, or a promise of them, and they appear as chips.": "选择添加附件选项时触发。返回文件名或返回文件名的 Promise，文件会以标签形式显示。",
++  "The mic. Return the transcript, or a promise of it, and it lands in the draft. Omit to hide the mic.": "点击麦克风时触发。返回转写文字或相应的 Promise，结果会写入草稿；不提供时隐藏麦克风。",
++  "The field surface, and the glyph on an armed tile.": "输入框的背景色，以及发送按钮可用时图标的颜色。",
++  "The ink: text, icons, and the armed tile.": "文字、图标及可用发送按钮的颜色。",
++  "The surface of the menus and the effort popover.": "菜单和推理强度弹出层的背景色。",
++  "The wash, the sparks and the slider at the top effort.": "最高推理强度下的背景、火花和滑块颜色。",
++  "How strongly typing drives the sparks at the top effort: they rise faster, grow and glow brighter with typing speed, and flash on each keystroke. No sparks are added. 0 keeps them calm.": "最高推理强度下，输入对火花的影响程度。输入越快，火花上升越快、变大变亮，并在按键时闪烁；设为 0 时保持平静。",
++  "Field width in px, capped at the parent.": "输入框宽度，单位为像素，最大不超过父容器。",
++  "Field corner radius in px.": "输入框圆角半径，单位为像素。",
++  "Rows the field grows to before it scrolls.": "输入框开始滚动前可自动扩展到的最大行数。",
++  "Arrow to square and back, in ms.": "箭头和方块之间的变形时间，单位为毫秒。",
++  "Mid-morph pinch. The glyph narrows by this and grows taller to keep its area.": "变形过程中图标收窄的程度；图标会同时变高以保持面积。",
++  "Mid-morph lean in degrees, mirrored on the way back.": "变形中途的倾斜角度；回退时方向相反。",
++  "Scale of the send tile while a pointer is down.": "按住发送按钮时的缩放比例。",
++
++  "Extra class names for the container.": "容器的额外 CSS 类名。",
++  "Inline styles for the container.": "容器的内联样式。",
++  "Maximum device pixel ratio, capped at 2.": "设备像素比的上限，最大为 2。",
++  "Freezes the animation.": "暂停动画。",
++  "Opacity of the whole effect.": "整个效果的不透明度。",
++  "Fades the edges into the page, from 0 to 1.": "边缘与页面的淡化程度，范围为 0 到 1。",
++  "Extra classes for the root.": "根元素的额外 CSS 类名。",
++  "Overall brightness.": "整体亮度。",
++  "Highest pixel ratio the canvas renders at.": "画布渲染时使用的最大像素比。",
++  "Inline styles for the root.": "根元素的内联样式。",
++  "Strength of the film grain.": "胶片颗粒的强度。",
++  "Overall opacity, from 0 to 1.": "整体不透明度，范围为 0 到 1。",
++  "Inline styles for the wrapper.": "外层容器的内联样式。",
++  "Extra classes on the container.": "容器的额外 CSS 类名。",
++  "Extra class names for the root.": "根元素的额外 CSS 类名。",
++  "Extra class names for the card.": "卡片的额外 CSS 类名。",
++  "Extra class names for the wrapper.": "外层容器的额外 CSS 类名。",
++  "Inline styles on the container.": "容器的内联样式。",
++  "Inline styles for the card.": "卡片的内联样式。",
++  "Maximum device pixel ratio of the canvas.": "画布的最大设备像素比。",
++  "Corner radius of the cards, in px.": "卡片圆角半径，单位为像素。",
++  "Font weight of the text.": "文字字重。",
++  "Overall brightness of the light.": "光线的整体亮度。",
++  "Overall brightness of the lines.": "线条的整体亮度。",
++  "Additional CSS classes for the outer wrapper.": "外层容器的额外 CSS 类名。",
++  "Initial state when uncontrolled.": "非受控模式下的初始状态。",
++  "Extra class names for the canvas.": "画布的额外 CSS 类名。",
++  "Brightness of the light.": "光线亮度。",
++  "Freezes the flow.": "暂停流动效果。",
++  "Height of the waves.": "波浪高度。",
++  "Draws the lines as ink for light backgrounds.": "将线条绘制成适合浅色背景的墨色。",
++  "Color theme of the cards.": "卡片的颜色主题。",
++  "Space between cards, in px.": "卡片间距，单位为像素。",
++  "Extra class names for the grid.": "网格的额外 CSS 类名。",
++  "Accessible name of the slider.": "滑块的无障碍名称。",
++  "Inline styles merged onto the root.": "合并到根元素的内联样式。",
++  "Initial value when uncontrolled.": "非受控模式下的初始值。",
++  "Extra classes for the button.": "按钮的额外 CSS 类名。",
++  "Dims the control and ignores input.": "使控件变暗并禁用输入。",
++  "Extra classes for the root element.": "根元素的额外 CSS 类名。",
++  "Color of the text. Follows the surrounding text color by default.": "文字颜色，默认继承周围文字的颜色。",
++
++  'Collectible trading card with a real holographic foil and glitter that sparkles as it tilts.':'收藏卡片带有全息金属箔和闪粉，倾斜时会闪闪发光。',
++  'Front of the card. Same-origin or CORS-enabled URL.':'卡片正面图片，使用同源或允许跨域访问的 URL。',
++  'Back of the card. When set, a click or Enter flips the card over.':'卡片背面图片；设置后可点击或按回车翻转卡片。',
++  'Accessible description of the card.':'卡片的无障碍描述。',
++  'The holo pattern on the card face. Bursts are rings of foil dashes, shards are cracked ice, swirl is one big round rainbow and gold is a warm etched foil.':'卡片正面的全息图案，可选择环形光纹、碎冰、彩虹漩涡或暖金色纹理等。',
++  'Colour of the metal under the print, silver by default.':'印刷图案下方的金属颜色，默认为银色。',
++  'How strongly the foil shows through the print, from 0 for plain card to 1.':'金属箔透过印刷图案的强度；0 为普通卡片，1 为最强。',
++  'Size of the holo pattern. Higher values pack in more, smaller elements.':'全息图案的缩放比例；数值越高，图案元素越小且越密集。',
++  'Brightness of the glitter on the silver border as it catches the light.':'银色边框在光照下的闪粉亮度。',
++  'Width of the sparkling border as a percentage of the card width. Match it to your card art.':'闪光边框宽度，占卡片宽度的百分比；可根据卡面调整。',
++  'Strength of the glossy highlight under the light.':'光照下的高光强度。',
++  'Largest tilt in degrees as the pointer moves.':'指针移动时的最大倾斜角度。',
++  'How much the card lifts while hovered.':'鼠标悬停时卡片放大的程度。',
++  'Corner radius in px.':'圆角半径，单位为像素。',
++  'Card width in px. The height follows the image.':'卡片宽度，单位为像素；高度随图片比例变化。',
++  'Drifts the light and tilt slowly when nobody is hovering, so the foil keeps shimmering.':'没有悬停时缓慢移动光照并倾斜卡片，使金属箔持续闪烁。',
++  'Soft shadow under the card that follows the tilt.':'卡片下方随倾斜变化的柔和阴影。',
++  'Extra class names for the root element.':'根元素的额外 CSS 类名。',
++  'Inline styles for the root element.':'根元素的内联样式。'
++};
++
++Object.assign(descriptionsZh, {
++  "The text content to animate.": "需要添加动画的文字内容。",
++  "Additional class names to style the component.": "用于设置组件样式的额外 CSS 类名。",
++  "Animates the pieces out and back in again, over and over.": "让拆分后的文字反复退出并重新进入。",
++  "Pause in seconds between the end of a reveal and the next loop.": "一次显现结束到下一次循环之间的间隔，单位为秒。",
++  "Text color. Follows the surrounding text color when not set.": "文字颜色；未设置时继承周围文字的颜色。",
++  "Color each piece passes through while it reveals before settling on the text color.": "文字显现时经过的过渡颜色，最终恢复为文字颜色。",
++  "Delay between animations for each letter (in ms).": "各字符动画之间的间隔，单位为毫秒。",
++  "Duration of each letter animation (in seconds).": "每个字符的动画时长，单位为秒。",
++  "GSAP easing for the reveal. Each effect brings its own ease when not set.": "显现动画使用的 GSAP 缓动函数；未设置时使用各效果的默认缓动。",
++  "Where the stagger starts, so pieces can ripple out from the middle, the ends or in random order.": "交错动画的起点，可从中间、两端或随机顺序依次展开。",
++  "Clips each piece to its own box so it slides out from behind an edge instead of floating in.": "将每段文字裁切在各自的区域内，使其从边缘后方滑出，而不是直接飘入。",
++  "Custom starting GSAP properties for each piece, replacing the effect. Defaults to { opacity: 0, y: 40 }.": "为每段文字指定自定义 GSAP 起始属性，替代预设效果；默认值为 { opacity: 0, y: 40 }。",
++  "Custom target GSAP properties for each piece, replacing the effect. Defaults to { opacity: 1, y: 0 }.": "为每段文字指定自定义 GSAP 目标属性，替代预设效果；默认值为 { opacity: 1, y: 0 }。",
++  "Intersection threshold to trigger the animation (0-1).": "触发动画的相交阈值，范围为 0 到 1。",
++  "Root margin for the ScrollTrigger.": "ScrollTrigger 的根边距。",
++  "Callback function when the first reveal completes.": "首次显现动画结束时调用的回调函数。",
++  "Two to five colors that blend across the aurora from left to right.": "极光从左到右渐变使用的颜色，可设置 2 到 5 种。",
++  "How tall the waves along the edge are.": "极光边缘波浪的高度。",
++  "How softly the edge fades out, from 0 to 1.": "边缘淡出的柔和程度，范围为 0 到 1。",
++  "How far the aurora reaches into the container, from 0 to 1.": "极光向容器内部延伸的距离，范围为 0 到 1。",
++  "Speed of the flowing motion.": "流动速度。",
++  "Size of the waves. Lower values make broader, calmer shapes.": "波浪大小；数值越低，波形越宽缓。",
++  "How far the light spills softly past the edge.": "光线越过边缘柔和扩散的距离。",
++  "Number of curtains, from 1 to 3. Extra ones glow fainter behind for depth.": "极光帷幕的数量，范围为 1 到 3；后方帷幕更暗，形成景深。",
++  "Whether the aurora hangs from the top or rises from the bottom.": "极光从顶部垂下还是从底部升起。",
++  "The light gently reaches toward the cursor.": "光线是否轻柔地朝光标延伸。",
++  "Fades the aurora in as it unfurls on mount.": "组件加载时，极光展开并淡入。",
++  "Draws the aurora as soft pastel light for white backgrounds.": "使用柔和的浅色极光，适合白色背景。",
++  "Drives the animation from your own clock, for example scroll progress, instead of real time.": "使用外部时间值驱动动画，例如滚动进度，而不是使用实时计时。",
++  "Element or component to render, for example a, div or a router Link.": "要渲染的元素或组件，例如 a、div 或路由 Link。",
++  "Color of the star and its glow. Defaults to white on dark and ink on light.": "星星及其光晕的颜色；深色背景默认为白色，浅色背景默认为深色。",
++  "Color the trail fades into behind the star. Defaults to color.": "星星后方轨迹淡出的目标颜色，默认与星星颜色一致。",
++  "Seconds for one lap around the border. The star keeps the same pace on any shape.": "绕边框一周所需的秒数；不同形状下星星保持相同速度。",
++  "Which way the star travels.": "星星沿边框移动的方向。",
++  "Stars spaced evenly around the border, up to 6.": "沿边框均匀分布的星星数量，最多 6 颗。",
++  "Length of the trail as a share of the border. Trails stretch when the star speeds up.": "轨迹长度占边框周长的比例；星星加速时轨迹会拉长。",
++  "Border width in pixels.": "边框宽度，单位为像素。",
++  "Corner radius in pixels. Values past half the height give a pill.": "圆角半径，单位为像素；超过高度的一半时呈胶囊形。",
++  "Sends light racing around the border from the point you press.": "按下时，光线从按下位置沿边框快速扩散。",
++  "Picks the default surface, text, border and star colors.": "选择表面、文字、边框和星星的默认配色。",
++  "Surface color. Follows the theme when not set.": "表面颜色；未设置时跟随主题。",
++  "Text color. Follows the theme when not set.": "文字颜色；未设置时跟随主题。",
++  "Color of the resting border the star travels on. Follows the theme when not set.": "星星经过的静态边框颜色；未设置时跟随主题。",
++  "Content of the card.": "卡片内容。",
++  "Brightness of the light on the card surface, from 0 to 1.": "卡片表面光线的亮度，范围为 0 到 1。",
++  "Radius of the light in px.": "光照半径，单位为像素。",
++  "How far the light floats behind the pointer. 0 sticks to it.": "光线跟随指针时的滞后距离；设为 0 时紧贴指针。",
++  "The light swells and brightens while the card is pressed.": "按下卡片时光线扩大并变亮。",
++  "Photo that fills the card.": "填充卡片的图片。",
++  "Alternative text for the photo.": "图片的替代文字。",
++  "Content on the face of the card, over the photo or instead of it.": "卡片正面的内容，可叠加在图片上或替代图片。",
++  "Shows the caption tag on hover.": "悬停时显示说明标签。",
++  "Content that floats in front of the card, lifted off its surface.": "悬浮在卡片表面前方的内容。",
++  "Shows the overlay content.": "是否显示叠加内容。",
++  "How far the overlay floats in front, in px.": "叠加内容浮出卡片表面的距离，单位为像素。",
++  "Content for the back of the card. Clicking, tapping or pressing Enter flips the card over.": "卡片背面的内容；可通过点击、触摸或回车翻转卡片。",
++  "Flips the card when it is clicked. Needs backContent.": "点击时翻转卡片，需要设置 backContent。",
++  "Controls which side shows. Leave it unset to let clicks flip the card.": "控制显示卡片的哪一面；不设置时可通过点击翻转。",
++  "Called with the new side whenever the card is flipped.": "卡片翻转时调用，并传入翻转后的面。",
++  "Called when the card is clicked or activated with the keyboard.": "点击卡片或通过键盘激活时调用。",
++  "Width of the area that reacts to the cursor.": "响应光标的区域宽度。",
++  "Height of the area that reacts to the cursor.": "响应光标的区域高度。",
++  "Width of the card.": "卡片宽度。",
++  "Height of the card.": "卡片高度。",
++  "How far the card tilts toward the cursor, in degrees.": "卡片朝光标倾斜的角度，单位为度。",
++  "How much the card grows when hovered.": "悬停时卡片放大的比例。",
++  "Viewing distance in px. Lower values give a stronger 3D effect.": "观察距离，单位为像素；数值越小，3D 效果越明显。",
++  "Corner radius of the card.": "卡片圆角半径。",
++  "Color of the glare.": "高光颜色。",
++  "How far layers and the photo shift with the tilt. 0 keeps everything flat.": "倾斜时图层和图片移动的距离；设为 0 时保持平面。",
++  "Limits the tilt to following the cursor left and right, or up and down.": "将倾斜限制为仅跟随光标水平或垂直移动。",
++  "Tilts away from the cursor instead of toward it.": "卡片背向光标倾斜。",
++  "The card follows the cursor anywhere on the page, not only while hovered.": "卡片跟随页面任意位置的光标，不限于悬停时。",
++  "The card drifts and sways gently while idle.": "闲置时卡片轻轻漂移和摇摆。",
++  "Tilts the card as a phone or tablet is moved. Asks for permission on iOS on the first tap.": "随手机或平板的移动倾斜卡片；在 iOS 上首次点击时会请求权限。",
++  "The card rises and settles into place when it first scrolls into view.": "卡片首次滚入视口时抬起并平稳落位。",
++  "Wait before the intro, in ms. Stagger it across a row of cards.": "入场动画前的等待时间，单位为毫秒；可用于让一排卡片依次进入。",
++  "How many particles there are.": "粒子数量。",
++  "How far the particles spread out from the center.": "粒子从中心向外分布的范围。",
++  "Speed of the floating motion, twinkle and rotation.": "粒子漂浮、闪烁和旋转的速度。",
++  "Colors the particles are picked from.": "粒子随机选用的颜色。",
++  "Base size of the particles. Nearer particles are drawn larger.": "粒子的基础大小；距离越近，显示得越大。",
++  "Shape of each particle.": "粒子的形状。",
++  "Soft glow around each particle.": "粒子周围的柔和光晕。",
++  "How much the particles flicker, from 0 to 1.": "粒子闪烁的程度，范围为 0 到 1。",
++  "Blurs the nearest particles into soft bokeh, like a camera lens.": "将最近的粒子模糊成柔和光斑，模拟镜头景深。",
++  "Joins nearby particles with thin lines, like a constellation.": "用细线连接附近的粒子，形成星座效果。",
++  "How close particles need to be to connect, in px.": "粒子之间可连线的最大距离，单位为像素。",
++  "How fast the particles drift.": "粒子漂移速度。",
++  "Lets the cursor move the particles.": "允许光标推动粒子。",
++  "Strength of the hover effect.": "悬停效果的强度。",
++  "Radius around the cursor that repel and attract reach, in px.": "光标吸引或排斥粒子的作用半径，单位为像素。",
++  "Clicking sends a burst of light rippling through the particles.": "点击时，一阵光波穿过粒子。",
++  "Draws softer, slightly see-through particles.": "将粒子绘制得更柔和、略带透明。",
++  "Distance from the camera to the particles. Lower values feel closer and deeper.": "相机到粒子的距离；数值越小，画面越近且纵深感越强。",
++  "Stops the slow rotation of the whole field.": "停止整个粒子场的缓慢旋转。",
++  "Picks a different particle layout.": "切换粒子的排列方式。",
++  "Flies the particles in from the distance on mount.": "组件加载时，粒子从远处飞入。",
++  "Draws the particles as ink for light backgrounds.": "使用深色粒子，适合浅色背景。",
++  "Maximum device pixel ratio. Defaults to the screen's, capped at 2.": "最大设备像素比；默认使用屏幕的像素比，上限为 2。"
++});
++export const descriptionZh = value => descriptionsZh[value] || value;
++
++export const componentDescriptionsZh = {
++  "AnimatedContent": "内容进入视口时，以滑动、模糊、3D 倾斜或擦除等效果逐步呈现。",
++  "BlobCursor": "液态光标会随着移动拉伸、晃动，并散成小水滴，支持金属、果冻、珍珠和墨水质感。",
++  "ClickSpark": "点击时迸发短线、彗星、圆点或星形火花，可用于按钮周围。",
++  "Crosshair": "带实时坐标的十字光标，可锁定链接和按钮并测量尺寸。",
++  "Cubes": "一组 3D 线框立方体会朝向光标，经过时旋转，点击时泛起波纹。",
++  "ElectricBorder": "为元素添加跳动的电流边框，光标靠近时电流增强并迸发火花。",
++  "FadeContent": "内容滚入视口时逐渐出现，可搭配模糊、灰度、颗粒、雾气或像素效果。",
++  "GlareHover": "光泽随光标移动方向扫过元素表面。",
++  "GradualBlur": "为页眉、页脚、说明文字或轮播添加渐进式边缘模糊，可在滚动边界处隐藏。",
++  "CrystalizedBall": "玻璃球边缘环绕闪烁电流，发光粒子随光标旋转。",
++  "ElectricLogo": "将标志变成闪电轮廓，电弧从边缘跃出。",
++  "DitherVeil": "光标擦过黑白抖色照片时显露原色，离开后画面逐格恢复。",
++  "GlowCursor": "光线从光标流出，在空气中缓慢飘散并渐渐冷却。",
++  "GhostCursor": "发光烟雾跟随光标漂浮，上升时蜷曲散开。",
++  "ImageTrail": "光标移动时留下图片轨迹，内置多种样式。",
++  "LogoLoop": "品牌或技术标志无缝循环滚动，支持悬停暂停。",
++  "Magnet": "元素会被光标吸引，随后以弹簧效果回到原位。",
++  "MetaBalls": "液态球体相互融合、拉伸和分离，光标可推动它们。",
++  "Strands": "彩色丝线在磨砂玻璃球中扭转，汇聚处鼓起平滑的弧面。",
++  "MetallicPaint": "让液态金属质感流过标志或文字，效果改编自 Paper 的 Liquid Metal 着色器。",
++  "Noise": "为图片或页面叠加噪点，支持胶片颗粒、灰尘、纸张和电视雪花等样式。",
++  "PixelTrail": "光标后方的发亮像素融成流体轨迹，并伴随颜色变化和滴落。",
++  "PixelTransition": "像素逐渐覆盖卡片，切换下方内容后再消散。",
++  "PixelSwap": "新内容从光标进入的位置开始，以弹性波浪逐像素显现。",
++  "Ribbons": "弹性丝带跟随光标，可选不同形状并添加波浪效果。",
++  "ShapeBlur": "清晰的标志或形状在指针下逐渐失焦，仿佛相机镜头。",
++  "SplashCursor": "液体模拟效果跟随光标，点击时溅起墨水。",
++  "StarBorder": "闪烁的星星沿按钮、胶囊或卡片的轮廓移动，留下光和星尘。",
++  "StickerPeel": "可以从任意边缘揭起、拖动和甩动的贴纸，支持亮面、哑光和全息效果。",
++  "TargetCursor": "准星的四角会吸附到目标周围，并贴合目标形状。",
++  "LaserFlow": "光束洒在内容上，并沿其边角流淌。",
++  "Antigravity": "粒子在光标周围升起形成发光圆环，点击时向外散开。",
++  "OrbitImages": "沿可自定义 SVG 路径环绕运动的图片效果。",
++  "ASCIIText": "波动的 ASCII 文字朝向指针倾斜，悬停时打乱，点击时泛起波纹。",
++  "BlurText": "文字从模糊逐渐变得清晰，形成柔和的显现效果。",
++  "CircularText": "将文字沿圆周排列，可添加旋转动画。",
++  "CountUp": "数字递增动画，支持格式化和小数。",
++  "CurvedLoop": "文字沿可调整的曲线循环流动，支持拖动交互。",
++  "DecryptedText": "字符不断变换，最终显现真实文字，呈现解密效果。",
++  "FallingText": "文字散开并落成一堆，可拖动、抛掷和滑动，然后飞回原位。",
++  "FuzzyText": "抖动的毛绒文字，悬停时的效果强度可调。",
++  "GlitchText": "通过 RGB 色彩分离、扭曲和抖动制作故障效果。",
++  "GradientText": "文字中的渐变可以扫过、漂移或旋转。",
++  "RotatingText": "多段文字通过 3D 旋转或翻转依次切换。",
++  "ScrambledText": "根据光标位置对文字应用扭曲效果。",
++  "ScrollFloat": "文字随页面滚动轻轻漂浮，形成视差效果。",
++  "ScrollReveal": "滚动时文字逐渐清晰并显现。",
++  "ScrollVelocity": "滚动字幕的速度和扭曲程度随页面滚动速度变化。",
++  "ShinyText": "一束光从文字上扫过，可呈现柔光或金属反射。",
++  "SplitText": "将文字拆分为字符或单词，依次播放入场动画。",
++  "TextCursor": "文字或表情跟随光标，形成印记、链条或字母丝带。",
++  "TextPressure": "字符根据指针附近的压力区域动态缩放和变形。",
++  "TextType": "带闪烁光标的打字机效果，输入速度可调。",
++  "TrueFocus": "依次聚焦文字中的不同单词，其余部分保持模糊。",
++  "VariableProximity": "字母样式根据与指针的距离连续变化。",
++  "Shuffle": "文字出现时先随机变换字符，再稳定为目标内容。",
++  "ParticleText": "文字由漂浮粒子组成，可散开并重新聚合。",
++  "SplitFlapText": "模拟机械翻页牌，逐格切换到新的文字。",
++  "WarpText": "使用 WebGL 让文字在指针周围弯曲和折射。",
++  "TechText": "指针经过时，标志文字变成虚线矢量路径。",
++  "StrokeText": "先绘制文字轮廓，再逐渐填充内部颜色。",
++  "DepthText": "多层立体文字随指针移动产生视差。",
++  "FoldText": "文字如折叠纸张般逐行展开。",
++  "EchoText": "半透明的文字副本跟随移动，最后汇聚成一行。",
++  "MaskedHeading": "标题逐词显现，文字内部展示流动的色彩或图片。",
++  "TextLoop": "文字沿弯曲的 SVG 路径无缝循环滚动。",
++  "AnimatedList": "列表项以弹簧效果依次进入，支持滑动选择和方向键操作。",
++  "BounceCards": "照片卡片弹出后呈扇形展开，悬停的卡片会摆正。",
++  "BubbleMenu": "圆形浮动菜单展开时，选项依次出现。",
++  "CardNav": "导航栏展开成一排卡片，每张卡片包含独立链接。",
++  "CardSwap": "3D 卡片堆按时间或拖拽操作将前面的卡片移到后方。",
++  "Carousel": "支持滑动、自动播放和多种切换效果的卡片轮播。",
++  "ChromaGrid": "灰度照片网格中，跟随光标的聚光灯会让照片恢复色彩。",
++  "HoloCard": "收藏卡片带有全息金属箔和闪粉，倾斜时会闪闪发光。",
++  "CircularCarousel": "图片围成 3D 圆环，支持拖动惯性、吸附和点击聚焦。",
++  "FlexCarousel": "无限循环的图片行，边缘呈现流动的玻璃效果。",
++  "DepthCarousel": "卡片沿 3D 轨道向远处排列，支持拖动、键盘和自动切换。",
++  "AccordionGallery": "面板在悬停或聚焦时展开，展示带视差的图片和说明。",
++  "MorphSlider": "使用 WebGL 位移效果，让图片之间如液体般过渡。",
++  "DriftWall": "透视排列的图片墙不断漂移，悬停时图片抬起。",
++  "CircularGallery": "弧形图片画廊，支持拖动、滚动和键盘浏览，并可打开大图。",
++  "Counter": "里程表式数字计数器，支持货币、分隔符和地区格式。",
++  "DecayCard": "图片卡片随指针移动撕裂、融化，随后恢复原状。",
++  "Dock": "macOS 风格程序坞，支持放大、弹跳、角标和右键菜单。",
++  "DomeGallery": "将图片投射到半球表面的沉浸式 3D 画廊。",
++  "ElasticSlider": "滑块在光标下放大，拖过边界时像橡皮筋一样拉伸并回弹。",
++  "FlowingMenu": "全屏菜单中的流动色带在各行之间滑动，展示对应内容。",
++  "FluidGlass": "3D 玻璃物体折射标题、图片或视频，跟随光标并在形状间变换。",
++  "FlyingPosters": "一列 3D 海报随滚动或拖动不断翻转、旋转。",
++  "Folder": "文件夹可以掀开或像书一样展开，并选择其中的文件。",
++  "GlassIcons": "液态玻璃图标折射背景色，适用于应用网格、程序坞和社交链接。",
++  "GlassSurface": "苹果风格的液态玻璃面板，可使用圆角或标志形状并折射背景。",
++  "GooeyNav": "导航栏的选中胶囊化成流体，移动到新选项。",
++  "InfiniteSpiral": "图片沿无限循环的 3D 螺旋排列，可调整运动、深度和间距。",
++  "InfiniteMenu": "可拖动的图片球体会将最近的图片吸附到前方，并显示标题。",
++  "Lanyard": "悬挂在弹性织带上的 3D 证卡，可拖动、抛掷或点击翻转。",
++  "MagicBento": "便当盒布局的功能卡片，带有动态画面、跟随光标的边缘光和点击波纹。",
++  "Masonry": "瀑布流画廊会随尺寸变化重新排列，并支持点击查看大图。",
++  "ModelViewer": "产品展示式 3D 模型查看器，模型悬浮在柔和阴影上方。",
++  "PillNav": "胶囊导航的链接切换时填充色上升、文字翻转，并有滑动的选中标记。",
++  "PixelCard": "悬停时卡片被闪烁像素填满，效果从中心或光标位置向外扩散。",
++  "ProfileCard": "带边框的个人资料卡会朝光标倾斜，图案下透出全息光泽。",
++  "ScrollStack": "滚动时卡片依次固定并堆叠，平滑退入后方。",
++  "SpotlightCard": "柔和的聚光灯跟随指针，照亮卡片边缘和附近卡片。",
++  "BorderGlow": "网格渐变边框随光标方向发光，靠近边缘时光效增强。",
++  "LineSidebar": "列表导航根据光标距离移动并突出附近项目。",
++  "OptionWheel": "弧形选项转轮，支持滚动、拖动和方向键选择。",
++  "SpecularButton": "玻璃按钮的边缘会捕捉光线，高光随光标滑动。",
++  "ElasticMesh": "把文字或标志变成蓬松的充气形状，可像果冻一样按压和拉伸。",
++  "RippleDistortion": "指针在内容上产生水波形变，并留下逐渐消散的波纹。",
++  "SwarmCursor": "流动的粒子群跟随光标，形成漩涡并绕过悬停的按钮。",
++  "HalftoneReveal": "半调图片的圆点在光标下放大，显露原始照片。",
++  "ScrollExpand": "圆角媒体框随滚动逐渐扩大，直至铺满视口。",
++  "CursorGrid": "网格单元格随光标亮起并淡出，支持多种样式和点击脉冲。",
++  "CurvedInput": "沿弧线排列的输入栏，文字、光标和提交按钮都贴合曲线。",
++  "Stack": "卡片堆支持拖动、甩动或点击浏览，移出的卡片会回到下方。",
++  "Stepper": "多步骤流程组件，支持滑动指示器、弹簧过渡和横向或纵向布局。",
++  "TiltedCard": "3D 卡片朝光标倾斜，带高光、阴影、浮动图层和背面。",
++  "StaggeredMenu": "菜单打开和关闭时，选项依次进入或退出。",
++  "ReflectiveCard": "金属证卡可反射摄像头画面或循环视频，倾斜时产生高光。",
++  "PatternWaves": "由圆点、线条或字符组成的半调表面，如丝绸般起伏并反射光线。",
++  "MicroSlats": "细小栅条排列成墙，在透视中形成起伏的海面，波峰闪烁。",
++  "ShapeWaves": "三角形、圆形和方块随波浪起伏，逐渐变亮和放大。",
++  "AeroShards": "厚玻璃碎片如丝带般在多层空间中流动，边缘反射光线。",
++  "GhostFibers": "层叠的发光细丝扭转、折叠和漂浮，带柔和景深。",
++  "Aurora": "柔和的极光在页面顶部流动，并向光标方向漂移。",
++  "Balatro": "旋转的颜料着色效果，带清晰像素；光标搅动画面，点击产生漩涡。",
++  "Ballpit": "柔光照亮的物理球池，可用光标推动、抓取、抛掷或击散小球。",
++  "Beams": "光泽丝带在暗处起伏，并捕捉跟随光标的光线。",
++  "ColorBends": "鲜艳色彩弯曲交织，平滑流动。",
++  "CRTWarp": "弯曲显像管上的像素等离子效果，包含扫描线、荧光余辉和开机动画。",
++  "DarkVeil": "丝绸般的光幕在黑暗中漂移，并绕着光标弯曲。",
++  "Dither": "复古抖色波浪，提供半调、线条、噪点等图案以及光标轨迹。",
++  "DotField": "渐变点阵通过跟随光标的透镜放大、挤压或旋转。",
++  "DotGrid": "弹性点阵可被光标拨动和拖拽，点击时产生冲击波。",
++  "FaultyTerminal": "闪烁的复古终端字符，光标下留下荧光轨迹，点击产生故障效果。",
++  "Galaxy": "穿行于无尽星空，支持跃迁、光标排斥和星光配色。",
++  "GradientBlinds": "缎面渐变百叶窗随光源摇摆，聚光灯跟随光标。",
++  "Lightfall": "光线沿弧形隧道下落，绕开光标，长按时拉伸成轨迹。",
++  "FluxLines": "发光线条勾勒翻涌的磁流体，光标像磁铁一样吸引并弯曲线条。",
++  "Ferrofluid": "光滑的磁流体表面翻涌出尖峰，光标可激起冠状波纹。",
++  "MoltenMetal": "炽热的光丝盘旋流动，在光标下升温，点击时闪耀。",
++  "GradientWaves": "缎面波浪从朦胧的远处涌来，光线跟随光标，点击时波浪隆起。",
++  "WebThreads": "发光丝线交织成网，光标经过时节点亮起，点击传递光线。",
++  "Topography": "发光等高线勾勒 3D 地形，光标下地面隆起，点击产生光波。",
++  "LightTunnel": "旋转的光纤隧道中，光点向深处飞驰并随光标转向。",
++  "SlicedWaves": "彩色光波被切成发光条带，焦点随光标移动。",
++  "AcidSquares": "光滑方块随两束漂移的彩光泛起波纹。",
++  "Scanner": "扫描光束扫过发光干涉线，带显像管质感、光标透镜和点击脉冲。",
++  "GradientASCII": "ASCII 字符组成柔和渐变光晕，光标经过时字符打乱。",
++  "Grainient": "带颗粒质感的流动渐变，可用光标搅动。",
++  "GridScan": "三维网格空间中，扫描光线随视角移动。",
++  "GridDistortion": "图片背景在光标下分裂成网格块，随后恢复原位。",
++  "GridMotion": "倾斜的图片网格随指针滑动，停留处亮起。",
++  "Hyperspeed": "夜间公路上的光轨蜿蜒延伸，按住时进入超高速效果。",
++  "Iridescence": "液态虹彩表面不断变换褶皱，可用光标搅动。",
++  "LetterGlitch": "字母在背景中闪烁、重排并变色，光标和点击可扰动画面。",
++  "LightRays": "从页面边缘射出的体积光，带光晕和雾气；光标可改变光束方向并投下阴影。",
++  "Lightning": "分叉闪电朝光标弯曲，点击时击中对应位置。",
++  "LineWaves": "细线如丝绸般流动，光带从中穿过。",
++  "Radar": "雷达扫描留下荧光余辉，并显示移动目标。",
++  "SoftAurora": "柔和极光背景，使用 3D 噪声和渐变配色。",
++  "MagicRings": "发光圆环向外扩散，靠近光标时隆起，点击时闪耀。",
++  "LiquidChrome": "液态金属丝带在暗色背景中旋转，随光标泛起波纹并反射光线。",
++  "Orb": "彩色发光圆环缓慢呼吸，伴随环绕光点并朝光标延伸。",
++  "Particles": "漂浮的 3D 粒子，支持发光、闪烁、连线和光标交互。",
++  "PixelBlast": "抖色像素云缓慢漂移并在光标下亮起，可叠加波纹和透视地面。",
++  "Plasma": "缎面光线在暗处缓慢扭动，并转向光标。",
++  "PlasmaWave": "两条等离子光带相互盘绕，带柔光和炽亮核心。",
++  "Prism": "旋转的光谱棱镜，形状、颜色和运动均可调整。",
++  "PrismaticBurst": "棱彩光束朝光标倾斜，点击时向外发出光波。",
++  "RippleGrid": "网格如水面般起伏，波浪经过时弯曲并亮起。",
++  "Silk": "缎面褶皱随光标转向，点击时泛起波纹。",
++  "SideRays": "光线从角落或侧边散开，缓慢闪烁并朝光标倾斜。",
++  "ShapeGrid": "漂移的形状网格在光标下亮起，支持透视倾斜和彩虹轨迹。",
++  "Threads": "流动丝线在光标周围散开，样式从细丝到等高线均可选择。",
++  "Waves": "密集线条如丝绸般摇摆，绕开光标后弹回原位。",
++  "MagnetLines": "磁力线朝光标摆动，点击时扩散并旋转。",
++  "LiquidEther": "发光液体在光标下旋转，颜色随流动速度变化。",
++  "FloatingLines": "发光细线如丝带般起伏，绕开光标，点击时卷曲。",
++  "LightPillar": "旋转光柱加载时点亮，朝光标倾斜，点击时增强。",
++  "PixelSnow": "像素雪花分层飘落，光标可将其拨开。",
++  "SquishSwitch": "开关滑块会随速度拉伸，到达边缘时挤压变形。",
++  "HoldButton": "长按时液体填充逐渐上升，提前松开则回弹，适合确认操作。",
++  "PeekRating": "评分星星随指针抬起形成波浪，点击时确认评分。",
++  "SpringCheck": "复选框以弹簧效果填充、画出勾号，并划去标签。",
++  "PulseHeart": "点赞按钮先缩成圆点，再变色弹回，计数随之更新。",
++  "RubberSegment": "分段控件的滑块像橡胶一样拉伸，落到新位置时挤压回弹。",
++  "SlideCommit": "滑动确认后，手柄在操作执行时旋转，完成后展开为成功状态。",
++  "WarmTooltip": "第一个提示需要稍等；提示已激活时，切换到相邻提示会立即显示。",
++  "FuseButton": "操作完成后显示可撤销按钮，进度如燃烧的引线般消逝。",
++  "ScrubField": "可拖动调节的数字输入框，支持弹性边界和点击输入。",
++  "LatticeLoader": "状态行中的网格随波浪亮起，旁边显示实时计时。",
++  "DodgeField": "使包裹的元素避开指针，停止追逐后平滑返回原位。",
++  "CodeSlots": "一次性验证码输入框，数字弹入格子，支持粘贴和短信自动填充。",
++  "WakeSlider": "由细条组成的滑块，拖动速度会在滑块后方形成尾迹。",
++  "CometDial": "圆形刻度旋钮可通过拖动角度调节，亮点后方留下彗星轨迹。",
++  "JellyRadio": "选中的单选项像果冻一样膨胀，将相邻选项推开。",
++  "SwipeRow": "列表项可滑动展开操作，滑到底可删除。",
++  "GlideSelect": "选择菜单从按钮一角弹出，高亮在选项之间滑动。",
++  "StatusMark": "任务状态图标从空闲圆环变成进度弧，完成后显示勾号。",
++  "CallChip": "工具调用标签显示实时计时，完成后变绿，失败时变红并抖动。",
++  "BellToggle": "按下胶囊开关时铃铛摇响，标签淡入切换并展开。",
++  "SlingButton": "像拉弹弓一样拉动发送按钮，松开后触发操作。",
++  "SwipeToast": "提示消息可向下滑动关闭，细线显示剩余时间。",
++  "PromptBar": "聊天输入栏支持 @ 引用、斜杠命令、模型选择、语音输入和附件。",
++  "SloshGauge": "容器中的液体跟随数值变化，移动时倾斜，填满时飞溅。",
++  "VoicePill": "录音时麦克风按钮展开为胶囊，显示动态音量条和计时。",
++  "ThoughtLine": "思考过程标题显示实时计时，完成后将步骤收起为一行。",
++  "RefineFrame": "在固定尺寸的媒体框中展示图片生成的不同阶段，避免布局跳动。",
++  "FolderFloat": "文件夹打开时，便签弹出并漂浮在周围。",
++  "BranchedMenu": "可折叠菜单从主干分出各个栏目，并用线条指向选中项。",
++  "FlipCard": "双面卡片可点击、拖动或甩动翻转，并以弹簧效果停稳。",
++  "TearTicket": "沿虚线手动撕下票根，纸张纤维逐渐断开并掉落。",
++  "PaperCrumple": "按住并拖动时，图片揉成有纹理的 3D 纸团。",
++  "Shredder": "列表底部的碎纸机会将拖入的项目切成弯曲纸条。",
++  "FlyingButton": "悬停时按钮点燃推进器，在烟雾中起飞，再落回云团。"
++};
