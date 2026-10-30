@@ -89,6 +89,32 @@ index eb28666..c3fd53c 100644
            note={hasChanges ? 'With your settings' : null}
            actions={<CodeCopyButton codeString={dynamicUsage} />}
          >
+diff --git a/src/components/code/CodeHighlighter.jsx b/src/components/code/CodeHighlighter.jsx
+index ffad0c8..cd0313e 100644
+--- a/src/components/code/CodeHighlighter.jsx
++++ b/src/components/code/CodeHighlighter.jsx
+@@ -77,7 +77,7 @@ const CodeHighlighter = ({
+           <ShikiCode code={codeString} language={language} showLineNumbers={showLineNumbers} />
+         ) : (
+           <Flex className="code-unsupported" alignItems="center" gap={2} color={colors.textMuted}>
+-            <Text>Sorry, this combination is not supported</Text>
++            <Text>抱歉，暂不支持此组合</Text>
+             <Icon as={TbMoodSad} />
+           </Flex>
+         )}
+diff --git a/src/components/code/CodeOptions.jsx b/src/components/code/CodeOptions.jsx
+index 81766ea..9d8bce0 100644
+--- a/src/components/code/CodeOptions.jsx
++++ b/src/components/code/CodeOptions.jsx
+@@ -25,7 +25,7 @@ const LABEL_MAP = { JS: 'JavaScript', TS: 'TypeScript', CSS: 'CSS', TW: 'Tailwin
+ 
+ const UNSUPPORTED = (
+   <Flex className="code-unsupported" alignItems="center" gap={1} color={colors.textMuted}>
+-    <Text>Sorry, this combination is not supported</Text>
++    <Text>抱歉，暂不支持此组合</Text>
+     <Icon as={TbMoodSad} />
+   </Flex>
+ );
 diff --git a/src/components/code/Dependencies.jsx b/src/components/code/Dependencies.jsx
 index e037e72..31f65aa 100644
 --- a/src/components/code/Dependencies.jsx
@@ -114,6 +140,65 @@ index e037e72..31f65aa 100644
          </button>
        </div>
      </section>
+diff --git a/src/components/common/AnnouncementModal/AnnouncementModal.jsx b/src/components/common/AnnouncementModal/AnnouncementModal.jsx
+index ac5ad63..168d5b1 100644
+--- a/src/components/common/AnnouncementModal/AnnouncementModal.jsx
++++ b/src/components/common/AnnouncementModal/AnnouncementModal.jsx
+@@ -160,12 +160,12 @@ const AnnouncementModal = () => {
+                   preload="metadata"
+                   width={1920}
+                   height={1080}
+-                  aria-label="React Bits Pro October update: new components and marketing blocks"
++                  aria-label="React Bits Pro 十月更新：新组件和营销页面区块"
+                 />
+                 <button
+                   className="announcement-modal-sound"
+                   onClick={() => setIsMuted(m => !m)}
+-                  aria-label={isMuted ? 'Unmute video' : 'Mute video'}
++                  aria-label={isMuted ? '开启视频声音' : '关闭视频声音'}
+                   aria-pressed={!isMuted}
+                 >
+                   {isMuted ? <LuVolumeX size={15} /> : <LuVolume2 size={15} />}
+@@ -174,17 +174,16 @@ const AnnouncementModal = () => {
+ 
+               <div className="announcement-modal-content">
+                 <h2 id="announcement-modal-title" className="announcement-modal-title">
+-                  React Bits Pro October Update
++                  React Bits Pro 十月更新
+                 </h2>
+ 
+                 <div id="announcement-modal-description" className="announcement-modal-description">
+                   <p>
+-                    <strong>{PRO_NEW_COUNTS.components} new components</strong> and{' '}
+-                    <strong>{PRO_NEW_COUNTS.blocks} new marketing blocks</strong>.
++                    <strong>{PRO_NEW_COUNTS.components} 个新组件</strong> 和{' '}
++                    <strong>{PRO_NEW_COUNTS.blocks} 个营销页面区块</strong>。
+                   </p>
+                   <p>
+-                    New backgrounds, text animations, galleries, cursor effects and image effects. Watch the showcase,
+-                    then try the demos.
++                    新增背景、文字动画、画廊、光标和图片效果。观看展示视频，再来体验演示。
+                   </p>
+                 </div>
+ 
+@@ -198,7 +197,7 @@ const AnnouncementModal = () => {
+                     handleDismiss();
+                   }}
+                 >
+-                  Explore React Bits Pro <FiArrowRight size={14} />
++                  探索 React Bits Pro <FiArrowRight size={14} />
+                 </a>
+                 <a
+                   href={proUrl('/changelog', 'announcement-modal-changelog')}
+@@ -210,7 +209,7 @@ const AnnouncementModal = () => {
+                     handleDismiss();
+                   }}
+                 >
+-                  View changelog
++                  查看更新日志
+                 </a>
+               </div>
+             </div>
 diff --git a/src/components/common/ComponentList.jsx b/src/components/common/ComponentList.jsx
 index 788b322..cab759a 100644
 --- a/src/components/common/ComponentList.jsx
@@ -329,6 +414,39 @@ index 4c5143d..6053319 100644
        <PagerLink item={previous} direction="previous" />
        <PagerLink item={next} direction="next" />
      </nav>
+diff --git a/src/components/common/ContributionSection.jsx b/src/components/common/ContributionSection.jsx
+index 70e3c15..8302bc7 100644
+--- a/src/components/common/ContributionSection.jsx
++++ b/src/components/common/ContributionSection.jsx
+@@ -10,8 +10,8 @@ const ContributionSection = () => {
+ 
+   return (
+     <Box className="contribute-container">
+-      <Text className="contribute-heading">Help improve this component</Text>
+-      <Text className="contribute-subtext">Found a bug or have an idea? Let us know on GitHub.</Text>
++      <Text className="contribute-heading">帮助改进这个组件</Text>
++      <Text className="contribute-subtext">发现问题或有改进建议？欢迎在 GitHub 告诉我们。</Text>
+       <Flex gap={3} justifyContent="center" alignItems="center" mt={5} direction={{ base: 'column', md: 'row' }}>
+         <a
+           className="contribute-link"
+@@ -20,7 +20,7 @@ const ContributionSection = () => {
+           target="_blank"
+         >
+           <Icon as={TbBug} boxSize={4} />
+-          Report an issue
++          反馈问题
+         </a>
+         <a
+           className="contribute-link"
+@@ -29,7 +29,7 @@ const ContributionSection = () => {
+           target="_blank"
+         >
+           <Icon as={TbBulb} boxSize={4} />
+-          Request a feature
++          提出功能建议
+         </a>
+       </Flex>
+     </Box>
 diff --git a/src/components/common/CopyForAIMenu.jsx b/src/components/common/CopyForAIMenu.jsx
 index b05b8d3..8d51324 100644
 --- a/src/components/common/CopyForAIMenu.jsx
@@ -421,6 +539,39 @@ index c91de56..095978b 100644
            <ArrowRight size={16} aria-hidden="true" />
          </Link>
        ))}
+diff --git a/src/components/common/GitHub/ContributionSection.jsx b/src/components/common/GitHub/ContributionSection.jsx
+index 70e3c15..8302bc7 100644
+--- a/src/components/common/GitHub/ContributionSection.jsx
++++ b/src/components/common/GitHub/ContributionSection.jsx
+@@ -10,8 +10,8 @@ const ContributionSection = () => {
+ 
+   return (
+     <Box className="contribute-container">
+-      <Text className="contribute-heading">Help improve this component</Text>
+-      <Text className="contribute-subtext">Found a bug or have an idea? Let us know on GitHub.</Text>
++      <Text className="contribute-heading">帮助改进这个组件</Text>
++      <Text className="contribute-subtext">发现问题或有改进建议？欢迎在 GitHub 告诉我们。</Text>
+       <Flex gap={3} justifyContent="center" alignItems="center" mt={5} direction={{ base: 'column', md: 'row' }}>
+         <a
+           className="contribute-link"
+@@ -20,7 +20,7 @@ const ContributionSection = () => {
+           target="_blank"
+         >
+           <Icon as={TbBug} boxSize={4} />
+-          Report an issue
++          反馈问题
+         </a>
+         <a
+           className="contribute-link"
+@@ -29,7 +29,7 @@ const ContributionSection = () => {
+           target="_blank"
+         >
+           <Icon as={TbBulb} boxSize={4} />
+-          Request a feature
++          提出功能建议
+         </a>
+       </Flex>
+     </Box>
 diff --git a/src/components/common/Misc/SearchDialog.jsx b/src/components/common/Misc/SearchDialog.jsx
 index 920516a..3f1f15e 100644
 --- a/src/components/common/Misc/SearchDialog.jsx
@@ -487,6 +638,44 @@ index 920516a..3f1f15e 100644
                          </Text>
                        )}
                      </Box>
+diff --git a/src/components/common/Preview/BackgroundContent.jsx b/src/components/common/Preview/BackgroundContent.jsx
+index f0e7f82..b64c515 100644
+--- a/src/components/common/Preview/BackgroundContent.jsx
++++ b/src/components/common/Preview/BackgroundContent.jsx
+@@ -25,10 +25,10 @@ const Copy = ({ headline }) => (
+     <p className="bgc-text">{DESCRIPTION}</p>
+     <div className="bgc-cta">
+       <span className="bgc-button bgc-button--primary">
+-        Start building
++        开始创建
+         <HugeiconsIcon icon={ArrowRight01Icon} size={15} strokeWidth={1.8} />
+       </span>
+-      <span className="bgc-button bgc-button--ghost">Browse components</span>
++      <span className="bgc-button bgc-button--ghost">浏览组件</span>
+     </div>
+   </div>
+ );
+@@ -51,7 +51,7 @@ const Landing = ({ headline, active }) => (
+             <span key={link}>{link}</span>
+           ))}
+         </div>
+-        <span className="bgc-button bgc-button--primary bgc-button--small">Get started</span>
++        <span className="bgc-button bgc-button--primary bgc-button--small">开始使用</span>
+       </div>
+       <Copy headline={headline} />
+     </div>
+@@ -90,9 +90,9 @@ const Card = ({ headline, active }) => (
+       <p className="bgc-card-title">{headline}</p>
+       <p className="bgc-card-text">{DESCRIPTION}</p>
+       <div className="bgc-card-actions">
+-        <span className="bgc-button bgc-button--primary bgc-button--small">Get started</span>
++        <span className="bgc-button bgc-button--primary bgc-button--small">开始使用</span>
+         <span className="bgc-card-link">
+-          Learn more
++          了解更多
+           <HugeiconsIcon icon={ArrowRight01Icon} size={14} strokeWidth={1.8} />
+         </span>
+       </div>
 diff --git a/src/components/common/Preview/Customize.jsx b/src/components/common/Preview/Customize.jsx
 index 4a118dc..47b4439 100644
 --- a/src/components/common/Preview/Customize.jsx
@@ -579,7 +768,7 @@ index b855afe..e7ffe7e 100644
            <input
              className="scrubber-color-swatch"
 diff --git a/src/components/common/Preview/PreviewColorPickerCustom.jsx b/src/components/common/Preview/PreviewColorPickerCustom.jsx
-index 2bf1ebd..585e06d 100644
+index 2bf1ebd..33a7deb 100644
 --- a/src/components/common/Preview/PreviewColorPickerCustom.jsx
 +++ b/src/components/common/Preview/PreviewColorPickerCustom.jsx
 @@ -1,3 +1,4 @@
@@ -626,6 +815,15 @@ index 2bf1ebd..585e06d 100644
              data-placement={placement}
              style={{ left, width, top, '--cp-hue': hueColor, '--cp-opaque': opaque }}
            >
+@@ -594,7 +595,7 @@ export default function PreviewColorPickerCustom({ title, color, onChange, varia
+ 
+             {recent.length > 0 && (
+               <div className="cp-recent">
+-                <span className="cp-recent-label">Recent</span>
++                <span className="cp-recent-label">最近使用</span>
+                 <div className="cp-swatches" role="group" aria-label="Recent colors">
+                   {recent.map(item => (
+                     <button
 diff --git a/src/components/common/Preview/PreviewInput.jsx b/src/components/common/Preview/PreviewInput.jsx
 index 4315d91..b1512f8 100644
 --- a/src/components/common/Preview/PreviewInput.jsx
@@ -848,6 +1046,28 @@ index 35ed9ce..2e789c3 100644
        <HugeiconsIcon icon={ReloadIcon} size={16} strokeWidth={1.6} aria-hidden="true" />
      </button>
    );
+diff --git a/src/components/common/Preview/ResetPropsButton.jsx b/src/components/common/Preview/ResetPropsButton.jsx
+index 9fa9615..6d03230 100644
+--- a/src/components/common/Preview/ResetPropsButton.jsx
++++ b/src/components/common/Preview/ResetPropsButton.jsx
+@@ -33,7 +33,7 @@ const ResetPropsButton = ({ onReset, hasChanges }) => {
+           transition="transform var(--dur-press) var(--ease-out), background-color var(--dur-menu) var(--ease-out)"
+         >
+           <Icon as={RotateCcw} boxSize={3.5} />
+-          Reset
++          重置
+         </Box>
+       </Tooltip.Trigger>
+       <Tooltip.Positioner>
+@@ -54,7 +54,7 @@ const ResetPropsButton = ({ onReset, hasChanges }) => {
+           textAlign="center"
+           pointerEvents="none"
+         >
+-          Reset to default values
++          恢复默认值
+         </Tooltip.Content>
+       </Tooltip.Positioner>
+     </Tooltip.Root>
 diff --git a/src/components/common/Pro/CategoryProFooter.jsx b/src/components/common/Pro/CategoryProFooter.jsx
 index 3591df8..e6efa10 100644
 --- a/src/components/common/Pro/CategoryProFooter.jsx
@@ -871,6 +1091,205 @@ index 3591df8..e6efa10 100644
          </a>
        </div>
        <div className="cat-pro-grid">
+diff --git a/src/components/common/Pro/ProComparison.jsx b/src/components/common/Pro/ProComparison.jsx
+index edf9d2c..a068dd9 100644
+--- a/src/components/common/Pro/ProComparison.jsx
++++ b/src/components/common/Pro/ProComparison.jsx
+@@ -7,17 +7,17 @@ import './ProComparison.css';
+ const PLACEMENT = 'pro-hub-comparison';
+ 
+ const PLANS = [
+-  { id: 'free', name: 'Free', price: 0, detail: 'The library on this site' },
++  { id: 'free', name: '免费版', price: 0, detail: '本站免费组件库' },
+   ...PRO_TIERS.map(tier => ({
+     id: tier.id,
+     name: tier.name,
+     price: tier.lifetime,
+-    cta: tier.ctaText,
++    cta: ({ starter: '获取 Starter', pro: '获取 Pro', ultimate: '获取全部内容' })[tier.id] || tier.ctaText,
+     featured: tier.popular,
+     detail: {
+-      starter: 'Every Pro component',
+-      pro: 'Components, sections, app UI and the Agent Kit',
+-      ultimate: 'Everything, including every template'
++      starter: '全部 Pro 组件',
++      pro: '组件、页面区块、应用界面及 AI 工具集',
++      ultimate: '全部内容，包括所有模板'
+     }[tier.id]
+   }))
+ ];
+@@ -26,8 +26,7 @@ const LOWEST_ANNUAL = Math.min(...PRO_TIERS.map(tier => tier.annual));
+ 
+ const TERMS = (
+   <>
+-    <strong>Pay once, keep every update.</strong> Prefer yearly? Plans start at ${LOWEST_ANNUAL}. Regional pricing is
+-    applied automatically.
++    <strong>一次购买，持续获得更新。</strong> 也可以选择年付，${LOWEST_ANNUAL} 起，系统会自动应用地区定价。
+   </>
+ );
+ 
+@@ -36,43 +35,43 @@ const reachOf = key => Object.fromEntries(PLANS.map(plan => [plan.id, PRO_PLAN_A
+ const componentsFor = id => {
+   const pro = PRO_PLAN_ACCESS[id]?.components || 0;
+   if (!pro) return { total: TOTAL_COMPONENTS };
+-  return { total: TOTAL_COMPONENTS + pro, note: `${TOTAL_COMPONENTS} free + ${pro} Pro` };
++  return { total: TOTAL_COMPONENTS + pro, note: `免费 ${TOTAL_COMPONENTS} 个 + Pro ${pro} 个` };
+ };
+ 
+ const ROWS = [
+   {
+-    label: 'Components',
+-    detail: `${TOTAL_COMPONENTS} free on this site, ${PRO_COUNTS.components} more with Pro`,
++    label: '组件',
++    detail: `本站提供 ${TOTAL_COMPONENTS} 个免费组件，Pro 另有 ${PRO_COUNTS.components} 个`,
+     values: Object.fromEntries(PLANS.map(plan => [plan.id, componentsFor(plan.id)]))
+   },
+   {
+-    label: 'Page sections',
+-    detail: `${PRO_COUNTS.blockCategories} categories, from heroes to footers`,
++    label: '页面区块',
++    detail: `${PRO_COUNTS.blockCategories} 个分类，涵盖首屏到页脚`,
+     values: reachOf('blocks')
+   },
+   {
+-    label: 'App UI',
+-    detail: 'Dashboards, tables, AI chat, forms and auth, in two styles',
++    label: '应用界面',
++    detail: '提供两种风格的仪表盘、表格、AI 对话、表单和登录界面',
+     values: reachOf('appUi')
+   },
+   {
+     label: 'Agent Kit',
+-    detail: 'Teaches your AI agent real design taste',
++    detail: '帮助 AI 助手做出更有设计感的页面',
+     values: reachOf('agentKit')
+   },
+   {
+-    label: 'Page builders',
+-    detail: 'Compose pages from blocks, then export the code',
+-    values: { free: 'Try', starter: 'Try', pro: true, ultimate: true }
++    label: '页面搭建器',
++    detail: '用区块搭建页面并导出代码',
++    values: { free: '试用', starter: '试用', pro: true, ultimate: true }
+   },
+   {
+-    label: 'Templates',
+-    detail: 'Complete Next.js sites, ready to deploy',
++    label: '模板',
++    detail: '可直接部署的完整 Next.js 网站',
+     values: reachOf('templates')
+   },
+   {
+-    label: 'Priority support',
+-    detail: 'Your emails go to the front of the queue',
++    label: '优先支持',
++    detail: '你的邮件将获得优先处理',
+     values: { ultimate: true }
+   }
+ ];
+@@ -84,7 +83,7 @@ const Value = ({ value }) => {
+     return (
+       <>
+         <LuCheck aria-hidden="true" />
+-        <span className="sr-only">Included</span>
++        <span className="sr-only">包含</span>
+       </>
+     );
+   }
+@@ -93,7 +92,7 @@ const Value = ({ value }) => {
+     return (
+       <>
+         <span className="prox-cmp-dash" aria-hidden="true" />
+-        <span className="sr-only">Not included</span>
++        <span className="sr-only">不包含</span>
+       </>
+     );
+   }
+@@ -114,7 +113,7 @@ const Value = ({ value }) => {
+ 
+ const ProComparison = () => (
+   <div className="prox-cmp">
+-    <div className="prox-cmp-table" role="table" aria-label="React Bits Free and Pro plans compared">
++    <div className="prox-cmp-table" role="table" aria-label="React Bits 免费版与 Pro 方案对比">
+       <div className="prox-cmp-panel" aria-hidden="true" />
+ 
+       <div className="prox-cmp-head" role="rowgroup">
+@@ -127,12 +126,12 @@ const ProComparison = () => (
+             <div key={plan.id} className={`prox-cmp-plan${planClass(plan)}`} role="columnheader">
+               <span className="prox-cmp-plan-top">
+                 <span className="prox-cmp-plan-name">{plan.name}</span>
+-                {plan.featured && <span className="prox-cmp-plan-flag">Most popular</span>}
++                {plan.featured && <span className="prox-cmp-plan-flag">最受欢迎</span>}
+               </span>
+ 
+               <span className="prox-cmp-price">
+                 <strong>${plan.price}</strong>
+-                <span>{plan.price ? 'one-time' : 'forever'}</span>
++                <span>{plan.price ? '一次付费' : '永久免费'}</span>
+               </span>
+ 
+               <span className="prox-cmp-plan-detail">{plan.detail}</span>
+@@ -145,7 +144,7 @@ const ProComparison = () => (
+                   {plan.cta}
+                 </a>
+               ) : (
+-                <span className="prox-cmp-owned">Already yours</span>
++                <span className="prox-cmp-owned">已拥有</span>
+               )}
+             </div>
+           ))}
+@@ -174,7 +173,7 @@ const ProComparison = () => (
+       className="prox-btn prox-btn-primary prox-cmp-choose"
+       {...proLinkProps('/#pricing', PLACEMENT, { params: { plan: 'choose' }, sameTab: true })}
+     >
+-      Choose your plan
++      选择方案
+     </a>
+ 
+     <p className="prox-cmp-terms prox-cmp-note">{TERMS}</p>
+diff --git a/src/components/common/Pro/ProCta.jsx b/src/components/common/Pro/ProCta.jsx
+index 46981b7..a1a00db 100644
+--- a/src/components/common/Pro/ProCta.jsx
++++ b/src/components/common/Pro/ProCta.jsx
+@@ -41,7 +41,7 @@ const ProCta = ({ title, description, placement, secondary, trackParams, showSha
+             className="pro-cta-btn pro-cta-btn-primary"
+             {...proLinkProps('/#pricing', placement, { params: trackParams, sameTab: true })}
+           >
+-            Get React Bits Pro
++            获取 React Bits Pro
+             {showArrows && <LuArrowUpRight size={15} />}
+           </a>
+ 
+diff --git a/src/components/common/Pro/ProShowcase.jsx b/src/components/common/Pro/ProShowcase.jsx
+index 4502481..d72f1f7 100644
+--- a/src/components/common/Pro/ProShowcase.jsx
++++ b/src/components/common/Pro/ProShowcase.jsx
+@@ -11,11 +11,11 @@ const CARD_SHARE = 0.2;
+ const RING_SIZE = 12;
+ 
+ const TABS = [
+-  { id: 'components', label: 'Components' },
+-  { id: 'blocks', label: 'Blocks' },
+-  { id: 'app-ui', label: 'App UI' },
+-  { id: 'templates', label: 'Templates' },
+-  { id: 'agent-kit', label: 'Agent Kit' }
++  { id: 'components', label: "组件" },
++  { id: 'blocks', label: "页面区块" },
++  { id: 'app-ui', label: "应用界面" },
++  { id: 'templates', label: "模板" },
++  { id: 'agent-kit', label: "AI 工具集" }
+ ].filter(tab => PRO_SHOWCASE_ITEMS[tab.id]?.length);
+ 
+ const fillRing = list =>
+@@ -117,7 +117,7 @@ const ProShowcase = () => {
+       <div
+         className="prox-showcase-tabs"
+         role="tablist"
+-        aria-label="Preview category"
++        aria-label="预览分类"
+         onMouseEnter={() => setPaused(true)}
+         onMouseLeave={() => setPaused(false)}
+       >
 diff --git a/src/components/common/ProCard.jsx b/src/components/common/ProCard.jsx
 index ffe3f67..6960fe1 100644
 --- a/src/components/common/ProCard.jsx
@@ -903,6 +1322,28 @@ index ffe3f67..6960fe1 100644
              </span>
            </div>
  
+diff --git a/src/components/common/ProCardMobile.jsx b/src/components/common/ProCardMobile.jsx
+index ba0c8c9..fa240eb 100644
+--- a/src/components/common/ProCardMobile.jsx
++++ b/src/components/common/ProCardMobile.jsx
+@@ -20,7 +20,7 @@ const ProCardMobile = () => {
+   };
+   const isProRoute = pathname.startsWith('/pro');
+   const destination = isProRoute ? '/#pricing' : config.path;
+-  const ctaLabel = isProRoute ? 'Get React Bits Pro' : 'Explore React Bits Pro';
++  const ctaLabel = isProRoute ? '获取 React Bits Pro' : '探索 React Bits Pro';
+   const [visible, setVisible] = useState(false);
+   const impressionRef = useProImpression('mobile-bar', { category: category || 'unknown' }, visible);
+ 
+@@ -47,7 +47,7 @@ const ProCardMobile = () => {
+         </span>
+         <span className="pro-mobile-bar-text">
+           <span className="pro-mobile-bar-label">
+-            Components, blocks, app UI, templates, Agent Kit &amp; page builders
++            组件、页面区块、应用界面、模板、AI 工具和页面搭建器
+           </span>
+           <strong>{ctaLabel}</strong>
+         </span>
 diff --git a/src/components/common/SearchDialog.jsx b/src/components/common/SearchDialog.jsx
 index 0f3ddae..0c9a1a4 100644
 --- a/src/components/common/SearchDialog.jsx
@@ -1027,8 +1468,21 @@ index 5aaa85e..0ea5c31 100644
          <LuArrowRight size={14} />
        </Link>
      </div>
+diff --git a/src/components/common/TabsFooter.jsx b/src/components/common/TabsFooter.jsx
+index bb37758..c820c7f 100644
+--- a/src/components/common/TabsFooter.jsx
++++ b/src/components/common/TabsFooter.jsx
+@@ -5,7 +5,7 @@ const DemoFooter = () => {
+   return (
+     <FadeContent blur className="preview-footer">
+       <p className="footer-description" style={{ opacity: 0.8 }}>
+-        Created with
++        使用以下工具创建
+         <AiFillHeart className="footer-heart" />
+         by{' '}
+         <a href="https://x.com/davidhaz" target="_blank" className="footer-creator-link cursor-target">
 diff --git a/src/components/common/TabsLayout.jsx b/src/components/common/TabsLayout.jsx
-index bbcaee3..a3b1ec2 100644
+index bbcaee3..bd250bf 100644
 --- a/src/components/common/TabsLayout.jsx
 +++ b/src/components/common/TabsLayout.jsx
 @@ -101,9 +101,9 @@ const TABLET_WIDTH = 768;
@@ -1044,6 +1498,17 @@ index bbcaee3..a3b1ec2 100644
  ];
  
  let rememberedDemoMode = 'none';
+@@ -197,8 +197,8 @@ const TabsLayout = ({ children, className }) => {
+       </span>
+     );
+ 
+-    if (saved) toast.success?.(<>Added {nameEl} to favorites</>) ?? toast(<>Added {nameEl} to favorites</>);
+-    else toast.error?.(<>Removed {nameEl} from favorites</>) ?? toast(<>Removed {nameEl} from favorites</>);
++    if (saved) toast.success?.(<>已将 {nameEl} 加入收藏</>) ?? toast(<>已将 {nameEl} 加入收藏</>);
++    else toast.error?.(<>已将 {nameEl} 移出收藏</>) ?? toast(<>已将 {nameEl} 移出收藏</>);
+   };
+   const contentMap = {
+     PreviewTab: null,
 @@ -312,7 +312,7 @@ const TabsLayout = ({ children, className }) => {
      const demo = previewRef.current?.querySelector('.demo-container');
      const request = demo?.requestFullscreen || demo?.webkitRequestFullscreen;
@@ -1170,10 +1635,10 @@ index bbcaee3..a3b1ec2 100644
                        )}
                      </MenuGroup>
 diff --git a/src/components/landingnew/CTA/CTA.jsx b/src/components/landingnew/CTA/CTA.jsx
-index bd3596f..92a16bc 100644
+index bd3596f..f341f06 100644
 --- a/src/components/landingnew/CTA/CTA.jsx
 +++ b/src/components/landingnew/CTA/CTA.jsx
-@@ -40,7 +40,7 @@ const CTA = () => {
+@@ -40,11 +40,10 @@ const CTA = () => {
            </Suspense>
          </div>
        )}
@@ -1181,12 +1646,30 @@ index bd3596f..92a16bc 100644
 +      <h2 className="ln-cta-headline">打造令人难忘的作品。</h2>
  
        <p className="ln-cta-sub">
-         Start with the free library. When you need the complete page, product UI and tools to ship it, React Bits Pro is
+-        Start with the free library. When you need the complete page, product UI and tools to ship it, React Bits Pro is
+-        ready.
++        从免费组件库开始。需要完整页面、产品界面和发布工具时，可以使用 React Bits Pro。
+       </p>
+ 
+       <div className="ln-cta-buttons">
+@@ -52,10 +51,10 @@ const CTA = () => {
+           {...proLinkProps('/#pricing', 'landing-final-cta', { sameTab: true })}
+           className="ln-cta-btn ln-cta-btn--primary"
+         >
+-          Get React Bits Pro <FiArrowRight size={15} />
++          获取 React Bits Pro <FiArrowRight size={15} />
+         </a>
+         <Link to="/get-started/index" className="ln-cta-btn ln-cta-btn--secondary">
+-          Browse free components
++          浏览免费组件
+         </Link>
+       </div>
+     </div>
 diff --git a/src/components/landingnew/FAQ/FAQ.jsx b/src/components/landingnew/FAQ/FAQ.jsx
-index 7a87ca0..66731b7 100644
+index 7a87ca0..f3f4488 100644
 --- a/src/components/landingnew/FAQ/FAQ.jsx
 +++ b/src/components/landingnew/FAQ/FAQ.jsx
-@@ -13,37 +13,31 @@ const LIFETIME_FROM = Math.min(...PRO_TIERS.map(tier => tier.lifetime));
+@@ -13,105 +13,88 @@ const LIFETIME_FROM = Math.min(...PRO_TIERS.map(tier => tier.lifetime));
  
  const QUESTIONS = [
    {
@@ -1230,8 +1713,20 @@ index 7a87ca0..66731b7 100644
 +    q: 'React Bits 只能用于 React 吗？',
      a: (
        <>
-         The components on this site are built for React, so they work in Next.js, Vite, Astro or Remix. Working in
-@@ -60,20 +54,20 @@ const QUESTIONS = [
+-        The components on this site are built for React, so they work in Next.js, Vite, Astro or Remix. Working in
+-        another framework? There are official ports for Vue and Svelte:{' '}
++        本站组件基于 React，可以在 Next.js、Vite、Astro 或 Remix 中使用。使用其他框架？这里也有 Vue 和 Svelte 版本：{' '}
+         <a className="ln-faq-link" href="https://vue-bits.dev/" target="_blank" rel="noopener noreferrer">
+           Vue Bits
+         </a>{' '}
+-        and{' '}
++        和{' '}
+         <a className="ln-faq-link" href="https://sveltebits.xyz/" target="_blank" rel="noopener noreferrer">
+           Svelte Bits
+         </a>
+-        .
++        。
+       </>
      )
    },
    {
@@ -1239,9 +1734,10 @@ index 7a87ca0..66731b7 100644
 +    q: '这些工具有什么用途？',
      a: (
        <>
-         Background Studio, Center Stage, Shape Magic, Texture Lab and Sound Lab are free apps that run in your browser.
-         Tune an animated background, turn a screenshot into a product shot, design a logo mark with 3D materials,
-         restyle photos and videos or shape interface sounds, then export code, images, video or audio.{' '}
+-        Background Studio, Center Stage, Shape Magic, Texture Lab and Sound Lab are free apps that run in your browser.
+-        Tune an animated background, turn a screenshot into a product shot, design a logo mark with 3D materials,
+-        restyle photos and videos or shape interface sounds, then export code, images, video or audio.{' '}
++        Background Studio、Center Stage、Shape Magic、Texture Lab 和 Sound Lab 都是可在浏览器中免费使用的工具。你可以调整动态背景、将截图制作成产品展示图、设计带有 3D 材质的标志、为照片和视频添加风格，或制作界面音效，然后导出代码、图片、视频或音频。{' '}
          <Link className="ln-faq-link" to="/tools">
 -          Open the tools
 +          打开工具
@@ -1254,8 +1750,15 @@ index 7a87ca0..66731b7 100644
 +    q: '在哪里购买 Pro，价格是多少？',
      a: (
        <>
-         On{' '}
-@@ -86,27 +80,23 @@ const QUESTIONS = [
+-        On{' '}
+-        <a className="ln-faq-link" {...proLinkProps('/', PLACEMENT, { sameTab: true })}>
++        前往         <a className="ln-faq-link" {...proLinkProps('/', PLACEMENT, { sameTab: true })}>
+           pro.reactbits.dev
+         </a>
+-        . Plans start at ${ANNUAL_FROM} a year, or ${LIFETIME_FROM} once for lifetime access with every future update.
+-        You can browse the whole catalogue before you buy, and one template and one agent skill are free.
++        购买。年度方案每年 ${ANNUAL_FROM} 起，终身方案一次付费 ${LIFETIME_FROM} 起，包含后续更新。购买前可以浏览完整目录，其中有一个模板和一个 AI 技能可免费使用。
+       </>
      )
    },
    {
@@ -1287,8 +1790,14 @@ index 7a87ca0..66731b7 100644
 +    q: '支持 AI 编程工具吗？',
      a: (
        <>
-         Yes. Every component has a Copy for AI menu, docs pages export to Markdown, llms.txt maps the whole library and
-@@ -124,8 +114,8 @@ const FAQ = () => {
+-        Yes. Every component has a Copy for AI menu, docs pages export to Markdown, llms.txt maps the whole library and
+-        the shadcn MCP server lets your agent install components for you. Pro adds agent skills that teach Claude Code,
+-        Cursor and Copilot to build pages that look designed.
++        支持。每个组件都提供“复制给 AI”菜单，文档页面可以导出为 Markdown，llms.txt 列出了整个组件库，shadcn MCP 服务器还能让 AI 助手帮你安装组件。Pro 还提供 AI 技能，帮助 Claude Code、Cursor 和 Copilot 制作更有设计感的页面。
+       </>
+     )
+   }
+@@ -124,8 +107,8 @@ const FAQ = () => {
      <section className="ln-faq-section">
        <div className="ln-faq-inner prox-faq-layout">
          <div className="prox-faq-aside">
@@ -1300,9 +1809,18 @@ index 7a87ca0..66731b7 100644
  
          <div className="prox-faq">
 diff --git a/src/components/landingnew/Features/Features.jsx b/src/components/landingnew/Features/Features.jsx
-index a2655e8..c84cbd8 100644
+index a2655e8..ca6bd90 100644
 --- a/src/components/landingnew/Features/Features.jsx
 +++ b/src/components/landingnew/Features/Features.jsx
+@@ -459,7 +459,7 @@ const AITerminal = () => {
+               <span />
+               <span />
+             </div>
+-            <span className="ln-feat-aichat-title">Editor</span>
++            <span className="ln-feat-aichat-title">编辑器</span>
+           </div>
+ 
+           <div className="ln-feat-aichat-prompt-row">
 @@ -570,38 +570,38 @@ const StarCard = () => {
  
  const CARDS = [
@@ -1364,19 +1882,35 @@ index a2655e8..c84cbd8 100644
        <div className="ln-features-grid">
          {CARDS.map((card, i) => (
 diff --git a/src/components/landingnew/Footer/Footer.jsx b/src/components/landingnew/Footer/Footer.jsx
-index d8a41ef..0bfb19f 100644
+index d8a41ef..d9f6b36 100644
 --- a/src/components/landingnew/Footer/Footer.jsx
 +++ b/src/components/landingnew/Footer/Footer.jsx
-@@ -23,7 +23,7 @@ const Footer = ({ wide = false, lead = null }) => (
+@@ -11,19 +11,19 @@ const Footer = ({ wide = false, lead = null }) => (
+         {lead}
+         <div className="ln-footer-top">
+           <div className="ln-footer-brand">
+-            <Link to="/" aria-label="React Bits home">
++            <Link to="/" aria-label="React Bits 首页">
+               <img className="ln-footer-logo" src={ReactBitsLogo} alt="React Bits" width="180" height="36" />
+             </Link>
+             <p>
+-              Animated React components.
++              React 动效组件。
+               <br />
+-              Open source. Fully customizable.
++              开源，自由定制。
+             </p>
+           </div>
  
-           <nav className="ln-footer-nav" aria-label="Footer">
+-          <nav className="ln-footer-nav" aria-label="Footer">
++          <nav className="ln-footer-nav" aria-label="页脚">
              <div className="ln-footer-col">
 -              <span className="ln-footer-col-title">Community</span>
 +              <span className="ln-footer-col-title">社区</span>
                <a href="https://github.com/DavidHDev/react-bits" target="_blank" rel="noopener noreferrer">
                  GitHub
                </a>
-@@ -35,15 +35,15 @@ const Footer = ({ wide = false, lead = null }) => (
+@@ -35,23 +35,23 @@ const Footer = ({ wide = false, lead = null }) => (
                </a>
              </div>
              <div className="ln-footer-col">
@@ -1396,10 +1930,39 @@ index d8a41ef..0bfb19f 100644
 -              <Link to="/pro">What&apos;s in Pro</Link>
 +              <Link to="/pro">Pro 包含什么</Link>
                <a {...proLinkProps('/docs/components', 'footer', { params: { section: 'components' }, sameTab: true })}>
-                 Components
+-                Components
++                组件
                </a>
+               <a {...proLinkProps('/docs/blocks', 'footer', { params: { section: 'blocks' }, sameTab: true })}>
+-                Blocks
++                页面区块
+               </a>
+               <a {...proLinkProps('/docs/templates', 'footer', { params: { section: 'templates' }, sameTab: true })}>
+-                Templates
++                模板
+               </a>
+             </div>
+           </nav>
+@@ -59,7 +59,7 @@ const Footer = ({ wide = false, lead = null }) => (
+           <div className="ln-footer-legal">
+             <span>© {new Date().getFullYear()} React Bits</span>
+             <span>
+-              Built with love by{' '}
++              用心打造：{' '}
+               <a href="https://x.com/davidhaz" target="_blank" rel="noopener noreferrer">
+                 @davidhaz
+               </a>
+@@ -69,7 +69,7 @@ const Footer = ({ wide = false, lead = null }) => (
+               target="_blank"
+               rel="noopener noreferrer"
+             >
+-              License
++              许可证
+             </a>
+           </div>
+         </div>
 diff --git a/src/components/landingnew/Hero/Hero.jsx b/src/components/landingnew/Hero/Hero.jsx
-index a9a2ef2..076dd53 100644
+index a9a2ef2..267be24 100644
 --- a/src/components/landingnew/Hero/Hero.jsx
 +++ b/src/components/landingnew/Hero/Hero.jsx
 @@ -19,11 +19,11 @@ const FIRST = 'dusk';
@@ -1450,6 +2013,15 @@ index a9a2ef2..076dd53 100644
              </a>
            </div>
          </header>
+@@ -720,7 +720,7 @@ const Hero = () => {
+             onPointerLeave={() => setHold(false)}
+             status={
+               <Link to={studioUrl} className="lh-studio">
+-                Open in Background Studio
++                在 Background Studio 中打开
+                 <HugeiconsIcon icon={ArrowUpRight01Icon} size={14} strokeWidth={1.8} />
+               </Link>
+             }
 diff --git a/src/components/landingnew/Hero/HeroChip.jsx b/src/components/landingnew/Hero/HeroChip.jsx
 index 7b105b9..016f8ec 100644
 --- a/src/components/landingnew/Hero/HeroChip.jsx
@@ -1473,7 +2045,7 @@ index 7b105b9..016f8ec 100644
          {ITEMS.map((entry, i) => (
            <span
 diff --git a/src/components/landingnew/HowItWorks/HowItWorks.jsx b/src/components/landingnew/HowItWorks/HowItWorks.jsx
-index 26e75e4..2a64722 100644
+index 26e75e4..8f5928a 100644
 --- a/src/components/landingnew/HowItWorks/HowItWorks.jsx
 +++ b/src/components/landingnew/HowItWorks/HowItWorks.jsx
 @@ -89,7 +89,7 @@ function CopyCommand() {
@@ -1485,15 +2057,16 @@ index 26e75e4..2a64722 100644
        <HugeiconsIcon icon={copied ? Tick02Icon : Copy01Icon} size={13} strokeWidth={1.8} />
      </button>
    );
-@@ -105,13 +105,13 @@ const HowItWorks = () => (
+@@ -105,13 +105,12 @@ const HowItWorks = () => (
          viewport={{ once: true, margin: '-60px' }}
          transition={{ duration: 0.5, ease: EASE }}
        >
 -        <h2 className="ln-how-title">One command, and the code is yours.</h2>
 +        <h2 className="ln-how-title">一条命令，将源码加入你的项目。</h2>
          <p className="ln-how-sub">
-           The CLI copies the component&apos;s source into your Vite, Next.js, Astro or Remix project. No wrapper
-           library, no runtime dependency, nothing to lock you in.
+-          The CLI copies the component&apos;s source into your Vite, Next.js, Astro or Remix project. No wrapper
+-          library, no runtime dependency, nothing to lock you in.
++          CLI 会将组件源码复制到你的 Vite、Next.js、Astro 或 Remix 项目中，无需额外封装或运行时依赖。
          </p>
          <Link to="/get-started/installation" className="ln-how-btn">
 -          Installation guide
@@ -1501,10 +2074,28 @@ index 26e75e4..2a64722 100644
            <HugeiconsIcon icon={ArrowRight02Icon} size={17} strokeWidth={1.8} />
          </Link>
        </m.div>
+@@ -125,7 +124,7 @@ const HowItWorks = () => (
+       >
+         <div className="ln-how-window ln-how-terminal">
+           <div className="ln-how-bar">
+-            Terminal
++            终端
+             <CopyCommand />
+           </div>
+           <div className="ln-how-well ln-how-term">
 diff --git a/src/components/landingnew/LiveDemo/LiveDemo.jsx b/src/components/landingnew/LiveDemo/LiveDemo.jsx
-index 9219c6b..759c41c 100644
+index 9219c6b..6479107 100644
 --- a/src/components/landingnew/LiveDemo/LiveDemo.jsx
 +++ b/src/components/landingnew/LiveDemo/LiveDemo.jsx
+@@ -87,7 +87,7 @@ const CARDS = [
+           textColor={light ? '#3f3f46' : '#f5f5f5'}
+           fillTextColor={light ? '#ffffff' : '#120f17'}
+         >
+-          Hold to confirm
++          按住确认
+         </HoldButton>
+       </div>
+     )
 @@ -103,7 +103,7 @@ const LiveDemo = () => {
    return (
      <section className="ln-demo-section" ref={sectionRef}>
@@ -1515,7 +2106,7 @@ index 9219c6b..759c41c 100644
          <div className="ln-demo-grid">
            {CARDS.map((card, i) => (
 diff --git a/src/components/landingnew/Navbar/Navbar.jsx b/src/components/landingnew/Navbar/Navbar.jsx
-index dda4696..aa0dd72 100644
+index dda4696..80a7bd8 100644
 --- a/src/components/landingnew/Navbar/Navbar.jsx
 +++ b/src/components/landingnew/Navbar/Navbar.jsx
 @@ -11,6 +11,7 @@ import { LuLayoutGrid, LuSearch, LuSettings2, LuSun, LuMoon } from 'react-icons/
@@ -1658,6 +2249,15 @@ index dda4696..aa0dd72 100644
                                    </Link>
                                  );
                                })}
+@@ -387,7 +388,7 @@ const Navbar = ({ showDocs }) => {
+                                   to="/favorites"
+                                   onClick={() => setMenuOpen(false)}
+                                 >
+-                                  Favorites
++                                  收藏
+                                 </Link>
+                               )}
+                             </div>
 @@ -400,7 +401,7 @@ const Navbar = ({ showDocs }) => {
                                  below Get Started and above Tools. */}
                              {mobileProSections.length > 0 && (
@@ -1667,6 +2267,15 @@ index dda4696..aa0dd72 100644
                                  <div className="ln-navbar-mobile-group">
                                    {mobileProSections.map(section => {
                                      const linkProps = proLinkProps(section.proPath, 'mobile-menu', {
+@@ -420,7 +421,7 @@ const Navbar = ({ showDocs }) => {
+                                         <SectionIcon size={14} aria-hidden="true" />
+                                         <span>{section.sidebarLabel || section.label}</span>
+                                         {section.freeCount && (
+-                                          <span className="ln-navbar-mobile-free-tag">{section.freeCount} Free</span>
++                                          <span className="ln-navbar-mobile-free-tag">{section.freeCount} 免费</span>
+                                         )}
+                                       </a>
+                                     );
 @@ -431,7 +432,7 @@ const Navbar = ({ showDocs }) => {
  
                              {mobileTools.length > 0 && (
@@ -1685,6 +2294,126 @@ index dda4696..aa0dd72 100644
                  </div>
                </div>
              </>,
+diff --git a/src/components/landingnew/ProSpotlight/ProSpotlight.jsx b/src/components/landingnew/ProSpotlight/ProSpotlight.jsx
+index 3f03349..829543f 100644
+--- a/src/components/landingnew/ProSpotlight/ProSpotlight.jsx
++++ b/src/components/landingnew/ProSpotlight/ProSpotlight.jsx
+@@ -23,15 +23,15 @@ const ProSpotlight = () => {
+       >
+         <header className="ln-prospot-header">
+           <div className="ln-prospot-copy">
+-            <h2>Build the whole product, not just the hero.</h2>
+-            <p>Page sections, app UI, full Next.js templates and agent skills, all as source you own.</p>
++            <h2>从首屏到完整产品，一站式构建。</h2>
++            <p>页面区块、应用界面、完整的 Next.js 模板和 AI 技能，均提供源码。</p>
+           </div>
+ 
+           <a
+             className="ln-prospot-btn ln-prospot-btn--primary"
+             {...proLinkProps('/#pricing', PLACEMENT, { sameTab: true })}
+           >
+-            Get React Bits Pro
++            获取 React Bits Pro
+             <HugeiconsIcon icon={ArrowRight02Icon} size={17} strokeWidth={1.8} />
+           </a>
+         </header>
+diff --git a/src/components/landingnew/Sponsors/Sponsors.jsx b/src/components/landingnew/Sponsors/Sponsors.jsx
+index c78dd9e..3213823 100644
+--- a/src/components/landingnew/Sponsors/Sponsors.jsx
++++ b/src/components/landingnew/Sponsors/Sponsors.jsx
+@@ -88,11 +88,11 @@ const Sponsors = () => (
+     >
+       <header className="ln-sp-header">
+         <div className="ln-sp-copy">
+-          <h2 className="ln-sp-title">Sponsors</h2>
+-          <p>React Bits stays free thanks to these teams.</p>
++          <h2 className="ln-sp-title">赞助商</h2>
++          <p>感谢这些团队的支持，让 React Bits 始终免费。</p>
+         </div>
+         <Link to="/sponsors#sponsor-plans" className="ln-sp-cta">
+-          Become a sponsor <ArrowRight size={15} />
++          成为赞助商 <ArrowRight size={15} />
+         </Link>
+       </header>
+ 
+diff --git a/src/components/landingnew/Testimonials/Testimonials.jsx b/src/components/landingnew/Testimonials/Testimonials.jsx
+index 488a46e..50adeab 100644
+--- a/src/components/landingnew/Testimonials/Testimonials.jsx
++++ b/src/components/landingnew/Testimonials/Testimonials.jsx
+@@ -6,55 +6,55 @@ const TWEETS = [
+   {
+     handle: '@shadcn',
+     avatar: 'https://pbs.twimg.com/profile_images/1593304942210478080/TUYae5z7_400x400.jpg',
+-    text: 'Everything about this is next level: the components, the registry, dynamic items.',
++    text: "组件、注册表和动态效果都很出色。",
+     url: 'https://x.com/shadcn/status/1962854085587275932'
+   },
+   {
+     handle: '@gregberge_',
+     avatar: 'https://pbs.twimg.com/profile_images/1722358890807861248/75S7CB3G_400x400.jpg',
+-    text: 'React Bits: A stellar collection of React components to make your landing pages shine ✨',
++    text: "React Bits 是一套出色的 React 组件，让你的落地页更加出彩 ✨",
+     url: 'https://x.com/gregberge_/status/1896425347866059041'
+   },
+   {
+     handle: '@GibsonSMurray',
+     avatar: null,
+-    text: 'React Bits has got to be the most artistic ui component lib I have seen in a while 🤌',
++    text: "React Bits 是我近来见过最有艺术感的 UI 组件库之一 🤌",
+     url: 'https://x.com/GibsonSMurray/status/1889909058838339626'
+   },
+   {
+     handle: '@orcdev',
+     avatar: 'https://pbs.twimg.com/profile_images/1756766826736893952/6Gvg6jha_400x400.jpg',
+-    text: "React Bits has become the ultimate visual animation library for React. This level of flexibility doesn't exist anywhere else.",
++    text: "React Bits 已成为出色的 React 视觉动画库，这样的灵活度很难在别处找到。",
+     url: 'https://x.com/orcdev/status/2005627805938422123'
+   },
+   {
+     handle: '@Logreg_n_coffee',
+     avatar: 'https://pbs.twimg.com/profile_images/1554006663853592576/Gxtolzbo_400x400.jpg',
+-    text: 'Literally the coolest react library in react —',
++    text: "真的很酷的 React 库。",
+     url: 'https://x.com/Logreg_n_coffee/status/1889573533425991992'
+   },
+   {
+     handle: '@syskey_dmg',
+     avatar: 'https://pbs.twimg.com/profile_images/1918646280223608832/nqBF4zh__400x400.jpg',
+-    text: 'Just discovered reactbits.dev — a sleek, minimal, and super dev-friendly React component library. Clean UI, easy to use, and perfect for modern projects.',
++    text: "刚发现 reactbits.dev：简洁、现代且对开发者友好的 React 组件库，界面清爽，容易上手。",
+     url: 'https://x.com/syskey_dmg/status/1929762648922398754'
+   },
+   {
+     handle: '@DIYDevs',
+     avatar: 'https://pbs.twimg.com/profile_images/1880284612062056448/4Y2C8Xnv_400x400.jpg',
+-    text: 'Have you heard of react bits? David Haz has lovingly put together a collection of animated and fully customizable React components.',
++    text: "听说过 React Bits 吗？David Haz 用心整理了一套带动画、可完全自定义的 React 组件。",
+     url: 'https://x.com/DIYDevs/status/1892964440900763761'
+   },
+   {
+     handle: '@irohandev',
+     avatar: null,
+-    text: 'Got to know about React Bits and its just wow, the components are incredibly well designed! Really loved the overall feel and quality.',
++    text: "刚认识 React Bits，组件设计让人眼前一亮！很喜欢整体体验和品质。",
+     url: 'https://x.com/irohandev/status/1934877463064268822'
+   },
+   {
+     handle: '@makwanadeepam',
+     avatar: 'https://pbs.twimg.com/profile_images/1794450494686932992/wqRqF4dt_400x400.jpg',
+-    text: 'Really impressed by reactbits.dev. Check it out. The Splash Cursor effect is amazing.',
++    text: "reactbits.dev 给我留下了深刻印象，值得一看。Splash Cursor 效果很棒。",
+     url: 'https://x.com/makwanadeepam/status/1879416558461890864'
+   }
+ ];
+@@ -103,7 +103,7 @@ const Column = ({ tweets, direction = 'up' }) => (
+   </div>
+ );
+ 
+-const Testimonials = ({ tweets = TWEETS, title = 'Loved by developers', className = '' }) => {
++const Testimonials = ({ tweets = TWEETS, title = "深受开发者喜爱", className = '' }) => {
+   const [col1, col2, col3] = toColumns(tweets);
+ 
+   return (
 diff --git a/src/components/landingnew/Tools/Tools.jsx b/src/components/landingnew/Tools/Tools.jsx
 index 5becd45..d7647f4 100644
 --- a/src/components/landingnew/Tools/Tools.jsx
@@ -1718,8 +2447,132 @@ index 5becd45..d7647f4 100644
          </header>
          <div className="ln-tools-grid">
            {TOOLS.map(tool => (
+diff --git a/src/components/navs/Header.jsx b/src/components/navs/Header.jsx
+index 69411b5..56a2d46 100644
+--- a/src/components/navs/Header.jsx
++++ b/src/components/navs/Header.jsx
+@@ -79,7 +79,7 @@ const SearchButton = ({ onClick }) => (
+   >
+     <Icon as={SearchIcon} boxSize={4} color={colors.borderSecondary} />
+     <Text mr={8} color={colors.accentMuted}>
+-      Search...
++      搜索…
+     </Text>
+     <Kbd
+       color={colors.accent}
+@@ -143,7 +143,7 @@ const ToolsLink = ({ isToolsPage, onMouseEnter, onMouseLeave, showMenu }) => {
+               }
+             }}
+           >
+-            New
++            新增
+           </Box>
+         )}
+       </Flex>
+@@ -204,7 +204,7 @@ const ToolsMenu = ({ isOpen }) => (
+               </Text>
+               {tool.comingSoon && (
+                 <Text fontSize="10px" color={colors.accentMuted}>
+-                  Coming Soon
++                  即将推出
+                 </Text>
+               )}
+             </Flex>
+@@ -267,20 +267,20 @@ const PreferencesMenu = ({
+       boxShadow="0 8px 32px rgba(0, 0, 0, 0.4)"
+     >
+       <Text fontSize="12px" fontWeight={600} color={colors.accentMuted} mb={1} px={1}>
+-        Preferences
++        偏好设置
+       </Text>
+ 
+       <Flex direction="column" gap={1}>
+         <Flex {...OPTION_ROW_STYLES}>
+           <Text fontSize="13px" color="#fff" fontWeight={500}>
+-            Language
++            语言
+           </Text>
+           <OptionToggle items={langItems} value={languagePreset} onChange={onLanguageChange} />
+         </Flex>
+ 
+         <Flex {...OPTION_ROW_STYLES}>
+           <Text fontSize="13px" color="#fff" fontWeight={500}>
+-            Styling
++            样式
+           </Text>
+           <OptionToggle items={styleItems} value={stylePreset} onChange={onStyleChange} />
+         </Flex>
+@@ -300,7 +300,7 @@ const PreferencesMenu = ({
+             <Icon as={HeartIcon} color="#fff" boxSize={3} />
+           </Flex>
+           <Text fontSize="13px" color="#fff" fontWeight={500}>
+-            Favorites
++            收藏
+           </Text>
+         </Flex>
+       </Flex>
+@@ -331,7 +331,7 @@ const MobileDrawer = ({ isOpen, onClose }) => (
+ 
+             <Flex direction="column" px={6} gap={2}>
+               <Text fontWeight="bold" color="#fff">
+-                Tools
++                工具
+               </Text>
+               {TOOLS.map(tool => (
+                 <RouterLink
+@@ -351,7 +351,7 @@ const MobileDrawer = ({ isOpen, onClose }) => (
+                   {tool.label}
+                   {tool.comingSoon && (
+                     <Box as="span" fontSize="10px" color={colors.accentMuted} fontWeight={600} ml={1}>
+-                      SOON
++                      即将推出
+                     </Box>
+                   )}
+                 </RouterLink>
+@@ -360,27 +360,27 @@ const MobileDrawer = ({ isOpen, onClose }) => (
+               <Separator my={4} borderColor={colors.borderPrimary} />
+ 
+               <Text fontWeight="bold" color="#fff">
+-                Useful Links
++                实用链接
+               </Text>
+ 
+               <RouterLink to="/get-started/index" onClick={onClose} style={{ color: colors.accentMuted }}>
+-                Back to Docs
++                返回文档
+               </RouterLink>
+ 
+               <RouterLink to="/favorites" onClick={onClose} style={{ color: colors.accentMuted }}>
+-                Favorites
++                收藏
+               </RouterLink>
+ 
+               <Separator my={4} borderColor={colors.borderPrimary} />
+ 
+               <Text fontWeight="bold" color="#fff">
+-                Other
++                其他
+               </Text>
+               <RouterLink to={GITHUB_URL} target="_blank" onClick={onClose} style={{ color: colors.accentMuted }}>
+                 GitHub <Icon boxSize={4} as={ArrowRight} transform="rotate(-45deg)" />
+               </RouterLink>
+               <RouterLink to="https://x.com/davidhaz" target="_blank" onClick={onClose} style={{ color: colors.accentMuted }}>
+-                Who made this? <Icon boxSize={4} as={ArrowRight} transform="rotate(-45deg)" />
++                谁制作了这个项目？ <Icon boxSize={4} as={ArrowRight} transform="rotate(-45deg)" />
+               </RouterLink>
+             </Flex>
+           </Flex>
+@@ -494,7 +494,7 @@ const Header = () => {
+ 
+           <FadeContent blur>
+             <button className="cta-button-docs" onClick={openGitHub}>
+-              Star On GitHub
++              在 GitHub 点星
+               <span ref={starCountRef}>
+                 <img src={Star} alt="Star Icon" />
+                 {stars}
 diff --git a/src/components/navs/Sidebar.jsx b/src/components/navs/Sidebar.jsx
-index 52a5c73..3f63122 100644
+index 52a5c73..83025e7 100644
 --- a/src/components/navs/Sidebar.jsx
 +++ b/src/components/navs/Sidebar.jsx
 @@ -24,6 +24,7 @@ import { CATEGORIES, TOTAL_COMPONENTS } from '../../constants/Categories';
@@ -1764,6 +2617,15 @@ index 52a5c73..3f63122 100644
          </Flex>
        </Link>
        {PRO_SECTIONS.map(section => {
+@@ -237,7 +238,7 @@ const ProLinks = ({ onClose }) => (
+             <Flex alignItems="center" gap="7px">
+               <Icon as={section.icon} boxSize={4} className="sidebar-pro-icon" />
+               <span>{section.sidebarLabel || section.label}</span>
+-              {section.freeCount && <span className="sidebar-pro-free-tag">{section.freeCount} Free</span>}
++              {section.freeCount && <span className="sidebar-pro-free-tag">{section.freeCount} 免费</span>}
+             </Flex>
+           </a>
+         );
 @@ -251,13 +252,13 @@ const UsefulLinks = ({ onClose }) => (
    <>
      <Separator my={4} />
@@ -1861,6 +2723,15 @@ index 52a5c73..3f63122 100644
                        </Text>
                        <Stack
                          className="sidebar-link-stack"
+@@ -839,7 +840,7 @@ const Sidebar = () => {
+                               <Icon as={section.icon} boxSize={3.5} className="sidebar-pro-icon" />
+                               <span>{section.sidebarLabel || section.label}</span>
+                               {section.freeCount && (
+-                                <span className="sidebar-pro-free-tag">{section.freeCount} Free</span>
++                                <span className="sidebar-pro-free-tag">{section.freeCount} 免费</span>
+                               )}
+                             </a>
+                           );
 @@ -849,7 +850,7 @@ const Sidebar = () => {
                    )}
                  </Fragment>
@@ -1870,6 +2741,291 @@ index 52a5c73..3f63122 100644
              </VStack>
            </Box>
          </Box>
+diff --git a/src/constants/Pro.js b/src/constants/Pro.js
+index b688adf..057b549 100644
+--- a/src/constants/Pro.js
++++ b/src/constants/Pro.js
+@@ -14,15 +14,15 @@ export const PRO_SUMMARY =
+ export const PRO_SECTIONS = [
+   {
+     slug: 'components',
+-    label: 'Components',
+-    pageTitle: 'Pro Components',
++    label: "组件",
++    pageTitle: "Pro 组件",
+     icon: Component,
+     manifestKey: 'components',
+     groupKey: 'components',
+     countKey: 'components',
+     countNoun: 'components',
+-    countLabel: 'animated components',
+-    tagline: 'Shaders, 3D, cursor effects and text, in Tailwind or plain CSS.',
++    countLabel: "个动态组件",
++    tagline: "着色器、3D、光标效果和文字动画，支持 Tailwind 或原生 CSS。",
+     description:
+       'Shaders, cursor effects, galleries and text animations, in Tailwind or vanilla CSS. One CLI command drops the real source into your project.',
+     seoTitle: 'React Bits Pro - Animated React Components',
+@@ -32,8 +32,8 @@ export const PRO_SECTIONS = [
+   },
+   {
+     slug: 'blocks',
+-    label: 'Blocks',
+-    pageTitle: 'Animated Blocks',
++    label: "页面区块",
++    pageTitle: "动态页面区块",
+     icon: Blocks,
+     manifestKey: 'blocks',
+     variantLevel: true,
+@@ -42,8 +42,8 @@ export const PRO_SECTIONS = [
+     countNoun: 'blocks',
+     categoryCountKey: 'blockCategories',
+     categoryNoun: 'categories',
+-    countLabel: 'page sections',
+-    tagline: 'Heroes, pricing, FAQs and footers that stack into a full landing page.',
++    countLabel: "个页面区块",
++    tagline: "首屏、定价、常见问题和页脚等区块，组合即可构建完整页面。",
+     description:
+       'Heroes, pricing, FAQs, footers and every other section a landing page needs, each a single editable file. A full page is a few minutes of work.',
+     seoTitle: 'React Bits Pro - React UI Blocks & Page Sections',
+@@ -53,18 +53,18 @@ export const PRO_SECTIONS = [
+   },
+   {
+     slug: 'app-ui',
+-    label: 'App UI',
+-    countLabel: 'app UI blocks',
+-    pageTitle: 'Application UI',
++    label: "应用界面",
++    countLabel: "个应用界面区块",
++    pageTitle: "应用界面",
+     icon: Box,
+     manifestKey: 'appUi',
+     variantLevel: true,
+     previewDir: 'app-ui',
+     countKey: 'appUi',
+-    countNoun: 'app UI blocks',
++    countNoun: "个应用界面区块",
+     categoryCountKey: 'appUiCategories',
+     categoryNoun: 'categories',
+-    tagline: 'Dashboards, tables, AI chat and auth, in two styles and one theme panel.',
++    tagline: "仪表盘、表格、AI 对话和登录界面，提供两种风格和统一主题面板。",
+     description:
+       'Dashboards, data tables, AI chat, forms, overlays and auth flows, in two styles: precise Default and roomy, warm Sorbet. Shared theme tokens restyle every screen at once, so they land looking like your product.',
+     seoTitle: 'React Bits Pro - React App UI, Dashboards & AI Interfaces',
+@@ -74,15 +74,15 @@ export const PRO_SECTIONS = [
+   },
+   {
+     slug: 'templates',
+-    label: 'Templates',
+-    pageTitle: 'Templates',
++    label: "模板",
++    pageTitle: "模板",
+     icon: LayoutTemplate,
+     manifestKey: 'templates',
+     freeCount: 1,
+     countKey: 'templates',
+     countNoun: 'templates',
+-    countLabel: 'full templates',
+-    tagline: 'Multi-page Next.js sites. Swap the copy and deploy.',
++    countLabel: "套完整模板",
++    tagline: "多页面 Next.js 网站，替换文案即可部署。",
+     description:
+       'Full multi-page Next.js templates, wired end to end. Download the project, swap the copy, deploy. The Portfolio template is free.',
+     seoTitle: 'React Bits Pro - React & Next.js Website Templates',
+@@ -92,16 +92,16 @@ export const PRO_SECTIONS = [
+   },
+   {
+     slug: 'agent-kit',
+-    label: 'Agent Kit',
+-    sidebarLabel: 'Skills',
+-    countLabel: 'agent skills',
+-    pageTitle: 'Agent Kit',
++    label: "AI 工具集",
++    sidebarLabel: "AI 技能",
++    countLabel: "个 AI 技能",
++    pageTitle: "AI 工具集",
+     icon: Bot,
+     manifestKey: 'agentKit',
+     freeCount: 1,
+     countKey: 'agentKit',
+     countNoun: 'skills, prompts & recipes',
+-    tagline: 'Give Claude Code, Cursor and Copilot real design taste.',
++    tagline: "帮助 Claude Code、Cursor 和 Copilot 做出更有设计感的页面。",
+     description:
+       'Skills that teach Claude Code, Cursor and Copilot to build pages that look designed. They autoload once installed, so asking for the style is enough.',
+     seoTitle: 'React Bits Pro - Agent Kit for Claude Code, Cursor & Copilot',
+@@ -113,137 +113,137 @@ export const PRO_SECTIONS = [
+ 
+ export const PRO_FAQ = [
+   {
+-    q: 'Is the free React Bits going away?',
+-    a: 'No. Every component on this site stays free, open source and maintained. Pro is a separate library that sits on top of it, and it is what funds the free one.'
++    q: "免费的 React Bits 会停止提供吗？",
++    a: "不会。本站组件会继续免费、开源并保持维护。Pro 是独立的扩展资源库，其收入也用于支持免费项目。"
+   },
+   {
+-    q: 'Do I need to install a package?',
+-    a: 'No. The shadcn CLI copies real source files into your project, or you can paste them in by hand. There is no react-bits dependency to add or upgrade, and nothing to rip out later.'
++    q: "需要安装软件包吗？",
++    a: "不需要。shadcn CLI 会将源码复制到项目中，你也可以手动粘贴；无需添加或升级 react-bits 依赖。"
+   },
+   {
+-    q: 'Can I use it on client work and SaaS?',
+-    a: 'Yes. One license covers one developer for unlimited commercial projects, including client work and your own products. The only thing you cannot do is repackage the code as a competing library or template.'
++    q: "可以用于客户项目和 SaaS 吗？",
++    a: "可以。一个许可证供一位开发者用于不限数量的商业项目，包括客户项目和自己的产品；但不能将代码重新打包成竞争性的组件库或模板。"
+   },
+   {
+-    q: 'Is it a subscription?',
+-    a: 'Your choice. Lifetime is a one-time payment that includes every future update. Annual is a yearly subscription you can cancel any time. Either way, code already in your project stays there permanently.'
++    q: "需要订阅吗？",
++    a: "可以自行选择。终身方案一次付费，包含后续更新；年度方案按年订阅，随时可以取消。无论选择哪种方案，已加入项目的代码都会保留。"
+   },
+   {
+-    q: 'Can I match it to my brand?',
+-    a: 'Yes, and you restyle every app UI block at once. Pick one of two styles, Default or Sorbet, then tune accent, base grey, font and radius: the blocks share CSS custom properties, so a live theme panel with six presets changes all of them without editing a single file.'
++    q: "可以调整成我的品牌风格吗？",
++    a: "可以，所有应用界面区块都能统一调整。选择 Default 或 Sorbet 风格后，可设置强调色、基础灰色、字体和圆角。区块共享 CSS 变量，通过带六个预设的实时主题面板即可整体修改。"
+   },
+   {
+-    q: 'How does this work with AI?',
+-    a: 'Agents wire up logic well and invent visuals badly, so you hand them ours. Every file is readable, idiomatic source, and a SKILL.md teaches your agent the whole library so it installs the right piece instead of guessing.'
++    q: "如何与 AI 配合使用？",
++    a: "将现成的视觉组件交给 AI 助手，由它负责连接逻辑。每个文件都是可读的源码，SKILL.md 会向助手介绍整个资源库，帮助它选择并安装合适的组件。"
+   },
+   {
+-    q: 'What stack does it use?',
+-    a: 'Next.js 16, React 19, TypeScript and Tailwind CSS 4, with motion, GSAP or Three.js where an effect needs it. It is React-specific, so it will not drop into Vue or Svelte as-is.'
++    q: "使用什么技术栈？",
++    a: "使用 Next.js 16、React 19、TypeScript 和 Tailwind CSS 4，按效果需要使用 motion、GSAP 或 Three.js。这些内容专为 React 制作，不能直接用于 Vue 或 Svelte。"
+   },
+   {
+-    q: 'How often does it get updates?',
+-    a: 'Every month, across the whole library: components, blocks, app UI, templates and agent skills. Lifetime buyers get all of it at no extra cost, so your library keeps growing without you doing anything.'
++    q: "多久更新一次？",
++    a: "整个资源库每月更新，涵盖组件、区块、应用界面、模板和 AI 技能。终身方案用户无需额外付费即可获得更新。"
+   },
+   {
+-    q: 'Can I judge the quality before paying?',
+-    a: 'Yes, and you should. The full catalogue is previewable on the Pro site, the Pro docs are open to browse, and a complete template plus an agent skill are free. All sales are final, so please look first.'
++    q: "购买前可以先了解质量吗？",
++    a: "可以，建议先仔细了解。Pro 网站提供完整目录预览，文档可公开浏览，还有一个完整模板和一个 AI 技能可免费使用。购买后不支持退款，请先确认是否适合你。"
+   }
+ ];
+ 
+ export const PRO_FREE_COPY = {
+-  'portfolio-template': 'A complete personal portfolio, animated and ready to deploy.',
+-  'terminal-dark': 'Teaches your agent to build dev-tool pages that look like real software.'
++  'portfolio-template': "完整的个人作品集，带动画效果，可直接部署。",
++  'terminal-dark': "帮助 AI 助手构建具有真实软件质感的开发工具页面。"
+ };
+ 
+ export const PRO_TESTIMONIALS = [
+   {
+     handle: '@shadcn',
+     avatar: 'https://pbs.twimg.com/profile_images/1593304942210478080/TUYae5z7_400x400.jpg',
+-    text: 'Everything about this is next level.',
++    text: "方方面面都很出色。",
+     url: 'https://x.com/shadcn/status/1962854085587275932'
+   },
+   {
+     handle: '@JuzzBk',
+     avatar: 'https://pbs.twimg.com/profile_images/2067474986286424064/hOqiQRjz_400x400.jpg',
+-    text: "I don't really invest in so many digital products but this is one of those I won't ever regret.",
++    text: "我不常购买数字产品，但这次绝对不会后悔。",
+     url: 'https://x.com/JuzzBk/status/2076791586374181298'
+   },
+   {
+     handle: '@MajorBaguette',
+     avatar: 'https://pbs.twimg.com/profile_images/1671069355872796677/l5NFDO8o_400x400.png',
+-    text: 'A product so well crafted that it becomes an instant classic in your stack? My last one is React Bits.',
++    text: "精心打造、让人很快离不开的工具？React Bits 就是我最近的一个发现。",
+     url: 'https://x.com/MajorBaguette/status/1968616151421776293'
+   },
+   {
+     handle: '@juandadotdev',
+     avatar: null,
+-    text: "Paid once, and he keeps shipping updates. Easiest value I've gotten from any tool.",
++    text: "一次付费，更新不断。这个工具买得很值。",
+     url: 'https://x.com/juandadotdev/status/2082117331103162412'
+   },
+   {
+     handle: '@MaartenSlebos',
+     avatar: null,
+-    text: 'I start from a template and customize it with my agents using the React Bits skill. Makes my life so much easier.',
++    text: "我从模板开始，再让 AI 助手借助 React Bits 技能进行定制，省事多了。",
+     url: 'https://x.com/MaartenSlebos'
+   },
+   {
+     handle: '@NeuralAA',
+     avatar: 'https://pbs.twimg.com/profile_images/1907255350740369408/hs1GAAg2_400x400.jpg',
+-    text: 'Incredibly creative components, with the hard things made fluid and performant.',
++    text: "组件很有创意，把复杂效果做得流畅又高效。",
+     url: 'https://x.com/NeuralAA/status/2083487874196890071'
+   },
+   {
+     handle: '@gregberge_',
+     avatar: 'https://pbs.twimg.com/profile_images/1722358890807861248/75S7CB3G_400x400.jpg',
+-    text: 'React Bits: A stellar collection of React components to make your landing pages shine ✨',
++    text: "React Bits 是一套出色的 React 组件，让你的落地页更加出彩 ✨",
+     url: 'https://x.com/gregberge_/status/1896425347866059041'
+   },
+   {
+     handle: '@justine_chang39',
+     avatar: 'https://pbs.twimg.com/profile_images/2038292993556533248/p5lPVFXv_400x400.jpg',
+-    text: '@davidhaz is cooking some of the most beautiful components I have ever seen with React Bits.',
++    text: "@davidhaz 正在用 React Bits 打造我见过的一些最漂亮的组件。",
+     url: 'https://x.com/justine_chang39/status/1968195651457724550'
+   },
+   {
+     handle: '@theorcdev',
+     avatar: 'https://pbs.twimg.com/profile_images/1756766826736893952/6Gvg6jha_400x400.jpg',
+-    text: "If you haven't seen React Bits yet, you need to. David is grinding harder than any warrior you've seen before.",
++    text: "如果你还没看过 React Bits，值得去看看。David 一直在努力更新。",
+     url: 'https://x.com/theorcdev/status/1963881697205715128'
+   },
+   {
+     handle: '@adeelibr',
+     avatar: 'https://pbs.twimg.com/profile_images/1859351824576245760/k0aPYRHF_400x400.jpg',
+-    text: 'An amazing list of curated react components - from text animation, hover effects, to really cool backgrounds.',
++    text: "精选的 React 组件集合很棒，从文字动画、悬停效果到酷炫背景都有。",
+     url: 'https://x.com/adeelibr/status/1969517849065422974'
+   },
+   {
+     handle: '@nolansym',
+     avatar: 'https://pbs.twimg.com/profile_images/1882700369060642816/CU7TLjtQ_400x400.jpg',
+-    text: 'Genuinely blown away by the animation quality.',
++    text: "动画质量令人惊叹。",
+     url: 'https://x.com/nolansym'
+   },
+   {
+     handle: '@GibsonSMurray',
+     avatar: 'https://pbs.twimg.com/profile_images/2072160805710143488/J0uL0tQ1_400x400.jpg',
+-    text: 'React Bits has got to be the most artistic component lib I have seen in a while 🤌',
++    text: "React Bits 是我近来见过最有艺术感的组件库之一 🤌",
+     url: 'https://x.com/GibsonSMurray/status/1889909058838339626'
+   },
+   {
+     handle: '@Logreg_n_coffee',
+     avatar: 'https://pbs.twimg.com/profile_images/1554006663853592576/Gxtolzbo_400x400.jpg',
+-    text: 'Literally the coolest library for React.',
++    text: "真的很酷的 React 组件库。",
+     url: 'https://x.com/Logreg_n_coffee/status/1889573533425991992'
+   },
+   {
+     handle: '@syskey_dmg',
+     avatar: 'https://pbs.twimg.com/profile_images/1918646280223608832/nqBF4zh__400x400.jpg',
+-    text: 'A sleek, minimal, and super dev-friendly React component library. Clean UI, easy to use, and perfect for modern projects.',
++    text: "简洁、现代且对开发者友好的 React 组件库，界面清爽，容易上手。",
+     url: 'https://x.com/syskey_dmg/status/1929762648922398754'
+   },
+   {
+     handle: '@mrterrycarson',
+     avatar: 'https://pbs.twimg.com/profile_images/833004663142117377/SjMv4aVQ_400x400.jpg',
+-    text: 'Great one to have for sure.',
++    text: "确实是值得收藏的好工具。",
+     url: 'https://x.com/mrterrycarson/status/2077031484712493338'
+   }
+ ];
 diff --git a/src/constants/Tools.js b/src/constants/Tools.js
 index 9887e32..117a65b 100644
 --- a/src/constants/Tools.js
@@ -4939,6 +6095,86 @@ index 88fb37c..1ebd27c 100644
    color: '',
    ...LOOK,
    intro: true
+diff --git a/src/docs/Changelog.jsx b/src/docs/Changelog.jsx
+index 7daa0d1..85b6c3f 100644
+--- a/src/docs/Changelog.jsx
++++ b/src/docs/Changelog.jsx
+@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
+ import { Rss } from 'lucide-react';
+ import CopyPageButton from './CopyPageButton';
+ import useScrollToTop from '../hooks/useScrollToTop';
+-import { CHANGELOG_DESCRIPTION, getChangelogEntries } from '../utils/changelog';
++import { changelogNoteZh } from '../utils/changelogZh';
++import { componentLabel, componentDescriptionsZh, zhLabel } from '../utils/zh';
++import { getChangelogEntries } from '../utils/changelog';
+ 
+ const INITIAL_MONTHS = 6;
+-const KIND_LABELS = { launch: 'New category', added: 'New', updated: 'Update' };
++const KIND_LABELS = { launch: '新增分类', added: '新增', updated: '更新' };
+ 
+ const toDate = date => new Date(`${date}T00:00:00Z`);
+ const monthLabel = date =>
+-  toDate(date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+-const dayLabel = date => toDate(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
++  toDate(date).toLocaleDateString('zh-CN', { month: 'long', year: 'numeric', timeZone: 'UTC' });
++const dayLabel = date => toDate(date).toLocaleDateString('zh-CN', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+ 
+ const groupByMonth = entries => {
+   const months = [];
+@@ -36,21 +38,21 @@ const Entry = ({ entry }) => (
+   <li className="changelog-entry">
+     <div className="changelog-entry-head">
+       <Link className="changelog-name" to={entry.path}>
+-        {entry.name}
++        {componentLabel(entry.name)}
+       </Link>
+       <span className="changelog-meta">
+         <span className={`changelog-kind is-${entry.type}`}>{KIND_LABELS[entry.type]}</span>
+         <span aria-hidden="true"> · </span>
+-        {entry.type === 'launch' ? `${entry.components.length} components` : entry.category}
++        {entry.type === 'launch' ? `${entry.components.length} 个组件` : zhLabel(entry.category)}
+       </span>
+     </div>
+-    <p className="changelog-note">{entry.note}</p>
++    <p className="changelog-note">{entry.type === 'launch' ? '新增微交互分类，包含开关、按钮、滑块、提示、菜单、加载效果等小巧精致的交互组件。' : entry.type === 'added' ? (componentDescriptionsZh[entry.name.replace(/\s+/g, '')] || entry.note) : changelogNoteZh(entry.note)}</p>
+     {entry.type === 'launch' ? (
+       <p className="changelog-includes">
+         {entry.components.map((component, index) => (
+           <Fragment key={component.path}>
+             {index > 0 ? ', ' : null}
+-            <Link to={component.path}>{component.name}</Link>
++            <Link to={component.path}>{componentLabel(component.name)}</Link>
+           </Fragment>
+         ))}
+       </p>
+@@ -68,15 +70,15 @@ const Changelog = () => {
+   return (
+     <section className="docs-section changelog">
+       <div className="docs-page-header">
+-        <h1 className="docs-title">Changelog</h1>
++        <h1 className="docs-title">更新日志</h1>
+         <CopyPageButton />
+       </div>
+ 
+-      <p className="docs-lead">{CHANGELOG_DESCRIPTION}</p>
++      <p className="docs-lead">关注 React Bits 的最新内容。</p>
+ 
+       <a className="changelog-rss" href="/rss.xml" target="_blank" rel="noreferrer">
+         <Rss size={14} aria-hidden="true" />
+-        RSS feed
++        RSS 订阅
+       </a>
+ 
+       {visibleMonths.map(month => (
+@@ -101,7 +103,7 @@ const Changelog = () => {
+ 
+       {!showAll && months.length > INITIAL_MONTHS ? (
+         <button type="button" className="changelog-older" onClick={() => setShowAll(true)}>
+-          Show earlier months
++          显示更早的月份
+         </button>
+       ) : null}
+     </section>
 diff --git a/src/docs/CopyPageButton.jsx b/src/docs/CopyPageButton.jsx
 index 26effd9..bb53b78 100644
 --- a/src/docs/CopyPageButton.jsx
@@ -5597,7 +6833,7 @@ index 15bec1e..a3dd096 100644
      </section>
    );
 diff --git a/src/pages/CategoryIndexPage.jsx b/src/pages/CategoryIndexPage.jsx
-index 396c11d..118e70c 100644
+index 396c11d..e5cae12 100644
 --- a/src/pages/CategoryIndexPage.jsx
 +++ b/src/pages/CategoryIndexPage.jsx
 @@ -7,6 +7,7 @@ import { componentMetadata } from '../constants/Information';
@@ -5608,6 +6844,19 @@ index 396c11d..118e70c 100644
  
  const CATEGORY_KEYS = {
    components: 'Components',
+@@ -32,10 +33,10 @@ const CategoryIndexPage = () => {
+     return (
+       <Box p={6}>
+         <Text color="var(--text-primary)" fontWeight={600} fontSize="18px">
+-          Not found
++          未找到
+         </Text>
+         <Text color="var(--text-muted)" fontSize="14px">
+-          There is no such category.
++          没有这个分类。
+         </Text>
+       </Box>
+     );
 @@ -44,7 +45,7 @@ const CategoryIndexPage = () => {
    return (
      <Box>
@@ -5617,6 +6866,23 @@ index 396c11d..118e70c 100644
          list={list}
          hasFavoriteButton
          sorting="alphabetical"
+diff --git a/src/pages/CategoryPage.jsx b/src/pages/CategoryPage.jsx
+index 8029b24..6936809 100644
+--- a/src/pages/CategoryPage.jsx
++++ b/src/pages/CategoryPage.jsx
+@@ -80,10 +80,10 @@ const CategoryPage = () => {
+             ) : (
+               <Box p={6}>
+                 <Text color="var(--text-primary)" fontWeight={600} fontSize="18px">
+-                  Not found
++                  未找到
+                 </Text>
+                 <Text color="var(--text-muted)" fontSize="14px">
+-                  This section is unavailable.
++                  此分类暂不可用。
+                 </Text>
+               </Box>
+             )}
 diff --git a/src/pages/IndexPage.jsx b/src/pages/IndexPage.jsx
 index 41535a2..aadece2 100644
 --- a/src/pages/IndexPage.jsx
@@ -5630,6 +6896,397 @@ index 41535a2..aadece2 100644
          list={componentMetadata}
          hasFavoriteButton
          sorting="newest"
+diff --git a/src/pages/NotFoundPage.jsx b/src/pages/NotFoundPage.jsx
+index 2bd51bf..62487f5 100644
+--- a/src/pages/NotFoundPage.jsx
++++ b/src/pages/NotFoundPage.jsx
+@@ -236,13 +236,13 @@ const NotFoundPage = () => {
+ 
+           <h1 ref={titleRef} className="nf-title">
+             <span className="nf-sr-only">404. </span>
+-            This page doesn’t exist
++            页面不存在
+           </h1>
+-          <p className="nf-lede">The link may be broken, or the page may have moved.</p>
++          <p className="nf-lede">链接可能已失效，或页面已移动。</p>
+ 
+           {suggestions.length > 0 && (
+             <nav className="nf-suggest" aria-label="Suggested components">
+-              <span className="nf-suggest-label">Did you mean</span>
++              <span className="nf-suggest-label">你是否想找</span>
+               {suggestions.map(item => (
+                 <Link key={item.path} to={item.path} className="nf-suggest-link">
+                   <span className="nf-suggest-name">{item.name}</span>
+@@ -260,7 +260,7 @@ const NotFoundPage = () => {
+           )}
+ 
+           <Link to="/get-started/index" className="nf-btn">
+-            Browse components
++            浏览组件
+           </Link>
+         </div>
+ 
+diff --git a/src/pages/ProPage.jsx b/src/pages/ProPage.jsx
+index 9a2813b..b0a1f65 100644
+--- a/src/pages/ProPage.jsx
++++ b/src/pages/ProPage.jsx
+@@ -67,13 +67,12 @@ const ProPage = () => {
+             />
+ 
+             <h1 className="prox-hero-title">
+-              The complete React toolkit <br />
+-              for crafting memorable UI
++              完整的 React 工具集 <br />
++              打造令人印象深刻的界面
+             </h1>
+ 
+             <p className="prox-hero-desc">
+-              React Bits stays free forever. Pro takes you from individual effects to complete pages, product UI,
+-              templates and an Agent Kit, all delivered as source you own.
++              React Bits 始终免费。Pro 提供从独立效果到完整页面、产品界面、模板和 AI 工具集的更多内容，均以源码形式交付。
+             </p>
+ 
+             <div className="prox-actions">
+@@ -81,13 +80,13 @@ const ProPage = () => {
+                 className="prox-btn prox-btn-primary"
+                 {...proLinkProps('/#pricing', HERO_PLACEMENT, { sameTab: true })}
+               >
+-                Get React Bits Pro
++                获取 React Bits Pro
+               </a>
+               <a
+                 className="prox-btn prox-btn-ghost"
+                 {...proLinkProps('/docs/components', 'pro-hub-hero-catalogue', { sameTab: true })}
+               >
+-                Browse the catalogue
++                浏览目录
+               </a>
+             </div>
+           </div>
+@@ -98,8 +97,8 @@ const ProPage = () => {
+         <section className="prox-section">
+           <div className="prox-inner">
+             <header className="prox-head">
+-              <h2 className="prox-title">Five libraries in one</h2>
+-              <p className="prox-sub">Every piece installs as source you own, ready to edit and ship.</p>
++              <h2 className="prox-title">五大资源库，一站获取</h2>
++              <p className="prox-sub">所有内容均以源码形式安装，可直接修改并用于项目。</p>
+             </header>
+ 
+             <ProPillars placement="pro-hub" />
+@@ -109,10 +108,9 @@ const ProPage = () => {
+         <section className="prox-section prox-section-alt" ref={comparisonImpressionRef}>
+           <div className="prox-inner">
+             <header className="prox-head prox-head-centered">
+-              <h2 className="prox-title">Build the whole product, not just the hero.</h2>
++              <h2 className="prox-title">从首屏到完整产品，一站式构建。</h2>
+               <p className="prox-sub">
+-                Free components make one section stand out. Pro covers everything else: page sections, app UI, full
+-                templates and an Agent Kit, plus {PRO_COUNTS.components} more components.
++                免费组件让页面亮点脱颖而出。Pro 还提供页面区块、应用界面、完整模板、AI 工具集，以及 {PRO_COUNTS.components} 个额外组件。
+               </p>
+             </header>
+ 
+@@ -124,12 +122,11 @@ const ProPage = () => {
+           <section className="prox-section">
+             <div className="prox-inner">
+               <header className="prox-head prox-free-head">
+-                <h2 className="prox-title">Try the workflow before you buy</h2>
++                <h2 className="prox-title">购买前先体验</h2>
+                 <p className="prox-sub">
+-                  Download a template and install an agent skill, no checkout needed. They show how Pro fits into your
+-                  project. To judge the full library, browse its{' '}
+-                  <a {...proLinkProps('/docs/components', 'pro-hub-free-previews', { sameTab: true })}>live previews</a>
+-                  .
++                  无需付款，即可下载模板并安装 AI 技能，体验 Pro 如何融入项目。想了解完整资源库，还可以浏览{' '}
++                  <a {...proLinkProps('/docs/components', 'pro-hub-free-previews', { sameTab: true })}>实时预览</a>
++                  。
+                 </p>
+               </header>
+ 
+@@ -153,7 +150,7 @@ const ProPage = () => {
+                       </span>
+                     )}
+                     <div className="prox-free-body">
+-                      <span className="prox-free-kind">Free template</span>
++                      <span className="prox-free-kind">免费模板</span>
+                       <h3 className="prox-free-title">{freeTemplate.name}</h3>
+                       <p className="prox-free-desc">{PRO_FREE_COPY[freeTemplate.slug] || freeTemplate.description}</p>
+                       <div className="prox-free-actions">
+@@ -164,7 +161,7 @@ const ProPage = () => {
+                           rel="noopener noreferrer"
+                           onClick={() => trackProClick('pro-hub-free-template', { item: freeTemplate.slug })}
+                         >
+-                          Download template
++                          下载模板
+                         </a>
+                         {freeTemplate.livePreviewUrl && (
+                           <a
+@@ -176,7 +173,7 @@ const ProPage = () => {
+                             rel="noopener noreferrer"
+                             onClick={() => trackProClick('pro-hub-free-template-live', { item: freeTemplate.slug })}
+                           >
+-                            Live site
++                            查看网站
+                             <LuArrowUpRight size={14} aria-hidden="true" />
+                           </a>
+                         )}
+@@ -191,7 +188,7 @@ const ProPage = () => {
+                       <img src={proAgentKitPreview(freeSkill)} alt="" loading="lazy" decoding="async" />
+                     </span>
+                     <div className="prox-free-body">
+-                      <span className="prox-free-kind">Free agent skill</span>
++                      <span className="prox-free-kind">免费 AI 技能</span>
+                       <h3 className="prox-free-title">{freeSkill.name}</h3>
+                       <p className="prox-free-desc">{PRO_FREE_COPY[freeSkill.slug] || freeSkill.summary}</p>
+                       <div className="prox-free-actions">
+@@ -202,13 +199,13 @@ const ProPage = () => {
+                           rel="noopener noreferrer"
+                           onClick={() => trackProClick('pro-hub-free-skill', { item: freeSkill.slug })}
+                         >
+-                          Install skill
++                          安装技能
+                         </a>
+                         <a
+                           className="prox-free-link"
+                           {...proLinkProps('/docs/agent-kit', 'pro-hub-free-skill-catalogue', { sameTab: true })}
+                         >
+-                          All skills
++                          全部技能
+                           <LuArrowUpRight size={14} aria-hidden="true" />
+                         </a>
+                       </div>
+@@ -225,9 +222,9 @@ const ProPage = () => {
+         <section className="prox-section">
+           <div className="prox-inner prox-faq-layout">
+             <div className="prox-faq-aside">
+-              <h2 className="prox-title">Questions, answered</h2>
++              <h2 className="prox-title">常见问题</h2>
+               <p className="prox-sub">
+-                The things people ask before buying. If yours is not here, email{' '}
++                这里解答购买前的常见问题。如果没有找到答案，请发邮件至{' '}
+                 <a href="mailto:pro@reactbits.dev">pro@reactbits.dev</a>.
+               </p>
+             </div>
+@@ -269,10 +266,10 @@ const ProPage = () => {
+ 
+         <div className="prox-inner prox-cta-wrap">
+           <ProCta
+-            title="Own the whole library."
+-            description="Every file is yours to edit, and lifetime access includes every future update."
++            title="把完整资源库收入囊中。"
++            description="所有文件都可自行编辑，终身方案包含后续全部更新。"
+             placement={CTA_PLACEMENT}
+-            secondary={{ to: 'https://pro.reactbits.dev/docs/introduction', label: 'Explore the library' }}
++            secondary={{ to: 'https://pro.reactbits.dev/docs/introduction', label: '浏览资源库' }}
+             showArrows={false}
+           />
+         </div>
+diff --git a/src/pages/ShowcasePage.jsx b/src/pages/ShowcasePage.jsx
+index 7827ae3..cddf06e 100644
+--- a/src/pages/ShowcasePage.jsx
++++ b/src/pages/ShowcasePage.jsx
+@@ -26,9 +26,9 @@ const ShowcasePage = () => {
+ 
+         <div className="showcase-header">
+           <div className="showcase-header-left">
+-            <h1 className="showcase-title">Showcase</h1>
++            <h1 className="showcase-title">作品展示</h1>
+             <p className="showcase-subtitle">
+-              See how developers around the world are using React Bits in their projects.
++              看看世界各地的开发者如何在项目中使用 React Bits。
+             </p>
+           </div>
+           <a
+@@ -37,7 +37,7 @@ const ShowcasePage = () => {
+             rel="noreferrer"
+             className="showcase-submit-btn"
+           >
+-            Submit Your Project <FaArrowRight size={12} />
++            提交你的项目 <FaArrowRight size={12} />
+           </a>
+         </div>
+ 
+diff --git a/src/pages/SponsorsPage.jsx b/src/pages/SponsorsPage.jsx
+index a83d89e..623eb70 100644
+--- a/src/pages/SponsorsPage.jsx
++++ b/src/pages/SponsorsPage.jsx
+@@ -16,31 +16,31 @@ const CONTACT_URL = 'mailto:contact@davidhaz.com?subject=React%20Bits%20Sponsors
+ const PLANS = [
+   {
+     key: 'diamond',
+-    label: 'Diamond',
++    label: "钻石",
+     price: 500,
+     checkoutUrl: 'https://buy.polar.sh/polar_cl_CAKYEZJI4v1T5QdfNfAVAmDhyNVfPVBj6lNaF0H6bII',
+     featured: true,
+     benefits: [
+-      'Largest logo on the docs sidebar',
+-      'Largest logo in the README',
+-      'Shoutout on X',
+-      'Featured on the sponsors page',
+-      'Direct line for feedback and requests'
++      "在文档侧边栏展示最大尺寸标志",
++      "在 README 中展示最大尺寸标志",
++      "在 X 上获得鸣谢",
++      "在赞助商页面重点展示",
++      "直接反馈问题和提出需求"
+     ]
+   },
+   {
+     key: 'platinum',
+-    label: 'Platinum',
++    label: "白金",
+     price: 250,
+     checkoutUrl: 'https://buy.polar.sh/polar_cl_d9UlbstPFQlba5YiLjFHjfhQ8LwVfhQTZKGxf1HiJZ7',
+-    benefits: ['Larger logo in the README', 'Larger logo on the docs sidebar', 'Shoutout on X']
++    benefits: ["在 README 中展示较大尺寸标志", "在文档侧边栏展示较大尺寸标志", "在 X 上获得鸣谢"]
+   },
+   {
+     key: 'silver',
+-    label: 'Silver',
++    label: "银级",
+     price: 100,
+     checkoutUrl: 'https://buy.polar.sh/polar_cl_XQulCE8GgwOmHo7wLjdDYkMZFm6nYogF3Igfl4cqAfM',
+-    benefits: ['Logo in the README', 'Logo on the docs sidebar', 'Listed on the sponsors page']
++    benefits: ["在 README 中展示标志", "在文档侧边栏展示标志", "列入赞助商页面"]
+   }
+ ];
+ 
+@@ -53,9 +53,9 @@ const SponsorsPage = () => {
+   const stars = useStars();
+ 
+   const stats = [
+-    { value: '500K+', label: 'Monthly visitors' },
+-    { value: formatStars(stars), label: 'GitHub stars' },
+-    { value: `${TOTAL_COMPONENTS}+`, label: 'Docs pages that show your logo' }
++    { value: '500K+', label: "每月访客" },
++    { value: formatStars(stars), label: "GitHub 星标" },
++    { value: `${TOTAL_COMPONENTS}+`, label: "展示标志的文档页面" }
+   ];
+ 
+   return (
+@@ -66,20 +66,19 @@ const SponsorsPage = () => {
+         <div className="pg-inner">
+           <header className="pg-head">
+             <div>
+-              <h1 className="pg-title">Sponsors</h1>
++              <h1 className="pg-title">赞助商</h1>
+               <p className="pg-sub">
+-                React Bits is free and open source. These teams help keep it that way, and their logos sit beside every
+-                page of the docs.
++                React Bits 免费且开源。感谢这些团队的支持，让我们能持续提供免费内容；他们的标志会展示在文档页面旁。
+               </p>
+             </div>
+ 
+             <div className="pg-actions">
+               <a href="#sponsor-plans" className="pg-btn pg-btn-primary">
+-                Become a sponsor
++                成为赞助商
+                 <LuArrowRight size={16} aria-hidden="true" />
+               </a>
+               <a href={CONTACT_URL} className="pg-btn pg-btn-secondary">
+-                Email us
++                联系我们
+               </a>
+             </div>
+           </header>
+@@ -88,10 +87,9 @@ const SponsorsPage = () => {
+ 
+           <section className="pg-section">
+             <header className="pg-section-head">
+-              <h2 className="pg-section-title">Reach developers while they build</h2>
++              <h2 className="pg-section-title">在开发过程中触达开发者</h2>
+               <p className="pg-section-sub">
+-                Your logo appears in the README and on every docs page, right where React developers come looking for
+-                UI.
++                你的标志将展示在 README 和每个文档页面，让寻找界面组件的 React 开发者看到。
+               </p>
+             </header>
+ 
+@@ -109,8 +107,8 @@ const SponsorsPage = () => {
+ 
+           <section className="pg-section" id="sponsor-plans">
+             <header className="pg-section-head">
+-              <h2 className="pg-section-title">Become a sponsor</h2>
+-              <p className="pg-section-sub">Monthly plans, billed through Polar. Cancel anytime.</p>
++              <h2 className="pg-section-title">成为赞助商</h2>
++              <p className="pg-section-sub">按月订阅，通过 Polar 计费，随时可以取消。</p>
+             </header>
+ 
+             <div className="spx-plans">
+@@ -119,12 +117,12 @@ const SponsorsPage = () => {
+                   <div className="pg-well spx-plan-well">
+                     <div className="spx-plan-top">
+                       <h3 className="spx-plan-name">{plan.label}</h3>
+-                      {plan.featured && <span className="spx-plan-note">Most visible</span>}
++                      {plan.featured && <span className="spx-plan-note">最醒目</span>}
+                     </div>
+ 
+                     <p className="spx-plan-price">
+                       ${plan.price}
+-                      <span>/month</span>
++                      <span>/月</span>
+                     </p>
+ 
+                     <a
+@@ -133,7 +131,7 @@ const SponsorsPage = () => {
+                       rel="noopener noreferrer"
+                       className={`pg-btn ${plan.featured ? 'pg-btn-primary' : 'pg-btn-secondary'} spx-plan-btn`}
+                     >
+-                      Sponsor as {plan.label}
++                      选择赞助级别： {plan.label}
+                     </a>
+                   </div>
+ 
+@@ -152,13 +150,13 @@ const SponsorsPage = () => {
+             <div className="pg-tile spx-contact">
+               <div className="pg-well spx-contact-well">
+                 <div>
+-                  <h3 className="spx-contact-title">Need a different package?</h3>
++                  <h3 className="spx-contact-title">需要其他赞助方案？</h3>
+                   <p className="spx-contact-sub">
+-                    Questions, or a plan that doesn&apos;t fit the tiers above. Email us and we&apos;ll work it out.
++                    有疑问，或以上方案不适合你？欢迎发邮件与我们商量。
+                   </p>
+                 </div>
+                 <a href={CONTACT_URL} className="pg-btn pg-btn-secondary">
+-                  Email us
++                  联系我们
+                   <LuArrowRight size={16} aria-hidden="true" />
+                 </a>
+               </div>
+diff --git a/src/pages/ToolsPage.jsx b/src/pages/ToolsPage.jsx
+index 5966b2d..68a8b5a 100644
+--- a/src/pages/ToolsPage.jsx
++++ b/src/pages/ToolsPage.jsx
+@@ -37,7 +37,7 @@ const ComingSoon = ({ label, toolSelector }) => (
+     <Box w="280px" flexShrink={0} display={{ base: 'none', lg: 'flex' }} flexDirection="column">
+       {toolSelector && <Box mb={4}>{toolSelector}</Box>}
+       <Text fontSize="13px" color={colors.accentMuted}>
+-        Settings will appear here when the tool is ready.
++        工具准备就绪后，设置会显示在这里。
+       </Text>
+     </Box>
+ 
+@@ -57,7 +57,7 @@ const ComingSoon = ({ label, toolSelector }) => (
+         {label}
+       </Text>
+       <Text fontSize="14px" color={colors.accentMuted}>
+-        Coming soon...
++        即将推出…
+       </Text>
+     </Flex>
+   </Flex>
+@@ -77,7 +77,7 @@ const ToolContent = ({ toolId, toolSelector, mobileToolSelector }) => {
+     <Suspense
+       fallback={
+         <Flex w="100%" h="100%" align="center" justify="center">
+-          <Text color={colors.accentMuted}>Loading...</Text>
++          <Text color={colors.accentMuted}>正在加载…</Text>
+         </Flex>
+       }
+     >
 diff --git a/src/tools/ToolSwitcher.jsx b/src/tools/ToolSwitcher.jsx
 index 7dc5de2..476f9c8 100644
 --- a/src/tools/ToolSwitcher.jsx
@@ -5805,9 +7462,27 @@ index f0b38cb..db0df01 100644
              disabled={busy}
            >
 diff --git a/src/tools/background-studio/components/MediaExport.jsx b/src/tools/background-studio/components/MediaExport.jsx
-index 0b70225..606073e 100644
+index 0b70225..8e8347b 100644
 --- a/src/tools/background-studio/components/MediaExport.jsx
 +++ b/src/tools/background-studio/components/MediaExport.jsx
+@@ -219,7 +219,7 @@ export default function MediaExport({ kind, state, stageSize, onBusyChange }) {
+         }
+       } catch (problem) {
+         if (problem?.name !== 'AbortError') {
+-          setError(mode === 'copy' ? 'Copying images is blocked here. Download it instead.' : problem.message);
++          setError(mode === 'copy' ? '此处无法复制图片，请改为下载。' : problem.message);
+         }
+       } finally {
+         jobRef.current = null;
+@@ -258,7 +258,7 @@ export default function MediaExport({ kind, state, stageSize, onBusyChange }) {
+       setResult({ url: URL.createObjectURL(blob), size: blob.size, name, blob });
+       toast.success('Video saved');
+     } catch (problem) {
+-      if (problem?.name !== 'AbortError') setError(problem.message || 'The video could not be rendered.');
++      if (problem?.name !== 'AbortError') setError(problem.message || '视频渲染失败。');
+     } finally {
+       jobRef.current = null;
+       setJob(null);
 @@ -319,7 +319,7 @@ export default function MediaExport({ kind, state, stageSize, onBusyChange }) {
          <div className="customize-frame bs-xp-card">
            <div className="preview-options bs-options">
@@ -8824,9 +10499,83 @@ index 51aa0d4..ad264f6 100644
        )}
      </div>
 diff --git a/src/tools/shape-magic/components/Toolbar.jsx b/src/tools/shape-magic/components/Toolbar.jsx
-index a999af3..b0b6cf9 100644
+index a999af3..713c872 100644
 --- a/src/tools/shape-magic/components/Toolbar.jsx
 +++ b/src/tools/shape-magic/components/Toolbar.jsx
+@@ -18,46 +18,46 @@ const ALT = MAC ? '⌥' : 'Alt ';
+ 
+ const SHORTCUTS = [
+   {
+-    title: 'Select',
++    title: '选择',
+     items: [
+-      ['Add to selection', '⇧ click'],
+-      ['Select several', 'Drag on empty space'],
+-      ['Select all', `${CMD}A`],
+-      ['Edit text', 'Double-click']
++      ['添加到选区', '按住 ⇧ 点击'],
++      ['多选', '在空白处拖动'],
++      ['全选', `${CMD}A`],
++      ['编辑文字', '双击']
+     ]
+   },
+   {
+-    title: 'Move and shape',
++    title: '移动与变形',
+     items: [
+-      ['Nudge', 'Arrows, ⇧ for more'],
+-      ['Move in a straight line', '⇧ while dragging'],
+-      ['Skip snapping', `Hold ${CMD}`],
+-      ['Rotate in 15° steps', '⇧ while rotating'],
+-      ['Duplicate while dragging', `Hold ${ALT}`]
++      ['微移', '方向键，按住 ⇧ 增大步长'],
++      ['沿直线移动', '拖动时按住 ⇧'],
++      ['暂时关闭吸附', `按住 ${CMD}`],
++      ['按 15° 旋转', '旋转时按住 ⇧'],
++      ['拖动时复制', `按住 ${ALT}`]
+     ]
+   },
+   {
+-    title: 'Arrange',
++    title: '排列',
+     items: [
+-      ['Align left, center, right', `${ALT}A  ${ALT}H  ${ALT}D`],
+-      ['Align top, middle, bottom', `${ALT}W  ${ALT}V  ${ALT}S`],
+-      ['Flip', '⇧H  ⇧V'],
+-      ['Forward, backward', `${CMD}]  ${CMD}[`],
+-      ['To front, to back', `⇧${CMD}]  ⇧${CMD}[`],
+-      ['Hide', `⇧${CMD}H`]
++      ['左对齐、水平居中、右对齐', `${ALT}A  ${ALT}H  ${ALT}D`],
++      ['顶部对齐、垂直居中、底部对齐', `${ALT}W  ${ALT}V  ${ALT}S`],
++      ['翻转', '⇧H  ⇧V'],
++      ['上移、下移一层', `${CMD}]  ${CMD}[`],
++      ['置于顶层、底层', `⇧${CMD}]  ⇧${CMD}[`],
++      ['隐藏', `⇧${CMD}H`]
+     ]
+   },
+   {
+-    title: 'Edit',
++    title: '编辑',
+     items: [
+-      ['Copy, cut, paste', `${CMD}C  ${CMD}X  ${CMD}V`],
+-      ['Duplicate', `${CMD}D`],
+-      ['Delete', '⌫'],
+-      ['Undo, redo', `${CMD}Z  ⇧${CMD}Z`],
+-      ['Add text', 'T'],
+-      ['Upload a logo', `${CMD}O`],
+-      ['Play or pause', 'Space'],
+-      ['Export', 'E']
++      ['复制、剪切、粘贴', `${CMD}C  ${CMD}X  ${CMD}V`],
++      ['复制', `${CMD}D`],
++      ['删除', '⌫'],
++      ['撤销、重做', `${CMD}Z  ⇧${CMD}Z`],
++      ['添加文字', 'T'],
++      ['上传标志', `${CMD}O`],
++      ['播放或暂停', '空格'],
++      ['导出', 'E']
+     ]
+   }
+ ];
 @@ -80,7 +80,7 @@ function Shortcuts({ onClose }) {
    }, [onClose]);
  
@@ -10275,6 +12024,178 @@ index a88bb74..7e09054 100644
    if (sample.kind === 'video') return loadVideo(sample.url, { name, sample: sample.id, url: sample.url });
    return loadImage(sample.url, { name, sample: sample.id, url: sample.url });
  }
+diff --git a/src/utils/changelogZh.js b/src/utils/changelogZh.js
+new file mode 100644
+index 0000000..9f6bb5d
+--- /dev/null
++++ b/src/utils/changelogZh.js
+@@ -0,0 +1,166 @@
++// Chinese text shown in the update log; source notes remain unchanged.
++const updateNotesZh = {
++  "Now with blur-in, rotate, 3D tilt and soft wipe reveals, staggered children for lists and grids, scroll-linked progress, replay on scroll and a mount trigger.": "新增模糊、旋转、3D 倾斜和柔和擦除入场，支持列表与网格的错峰动画、滚动进度、滚动重播及加载时触发。",
++  "Rebuilt as a smooth 3D liquid that stretches as it moves, with new looks, drips and a splashy click burst.": "重制为流畅的 3D 液体，移动时会拉伸，并新增外观、滴落和点击飞溅效果。",
++  "Sharper sparks with new shapes, colors, gravity and glow. Bursts can now spill past small buttons, appear behind your content, and fire from code.": "火花更加锐利，新增形状、颜色、重力和发光设置；粒子可超出小按钮、显示在内容后方，也可通过代码触发。",
++  "Rebuilt from scratch. It frames what you hover with measuring brackets, with new line styles and a click pulse.": "全面重制，使用测量括线框住悬停目标，并新增线条样式和点击脉冲。",
++  "Rebuilt with springy cubes that face the cursor, spin when you sweep past and ripple on click, plus new edge styles, shading and depth.": "重制为带弹性的立方体：朝向光标、在光标扫过时旋转、点击时泛起涟漪，并新增边缘样式、阴影和纵深。",
++  "Rebuilt with layered lightning strands, sparks and a soft glow. The current races around the edge as it powers on, surges near the cursor and jolts around on click, and now works in light mode.": "重制为分层闪电、火花和柔光效果；电流沿边缘启动，在光标附近增强，点击时跳动，并支持浅色模式。",
++  "Now fades in out of focus, from washed-out gray, or through grain, mist and pixel blocks, with staggered children and scroll-linked fades in and out.": "新增失焦、灰白、颗粒、雾气和像素块淡入，支持子元素错峰及随滚动淡入淡出。",
++  "Rebuilt with a more realistic glare that follows the cursor direction, a glinting edge and new shapes and modes.": "重制了随光标方向变化的逼真眩光与闪亮边缘，并新增形状和模式。",
++  "Smoother blur with no visible steps, plus a fade to any color, a color boost, hover to clear, and a blur that hides itself at the ends of a scroll.": "模糊过渡更加平滑，新增淡入指定颜色、颜色增强、悬停清晰及滚动两端自动隐藏模糊。",
++  "Added an onRender callback for capturing live frames and reflection effects.": "新增 onRender 回调，可捕获实时画面并制作反射效果。",
++  "Rebuilt as light that pours from the cursor and drifts softly as it fades, with a burst on click and a light mode.": "重制为从光标流出的柔和光线，逐渐漂散消失；支持点击迸发和浅色模式。",
++  "Rebuilt as real drifting smoke that stays sharp on any screen, many times faster and with no extra dependencies. Clicks release a puff, and it works on light pages too.": "重制为清晰的动态烟雾，运行更快且无需额外依赖；点击可释放烟雾，也支持浅色页面。",
++  "The eight fixed variants are now one trail you can tune: size, timing, zoom, flash, drift, tilt, rotation and a stacking pile. Four presets recreate the favourite looks.": "将八种固定样式合并为可调节的轨迹，可设置大小、时序、缩放、闪光、漂移、倾斜、旋转和堆叠；四个预设保留经典外观。",
++  "Now draggable with a soft fade that works on any background and an intro. Adds wave, arc and 3D orbit paths, a center lens, dock-style magnify, stepping, labels and perspective tilt.": "新增拖动、适配各种背景的柔和淡出和入场动画，以及波浪、弧线、3D 轨道、中心透镜、程序坞放大、步进、标签和透视倾斜。",
++  "Now moves on a real spring with a smooth pull at the edge of its range, and only the nearest magnet reacts when several overlap. Adds tilt, scale, axis locking and a movement cap.": "改用真实弹簧运动，靠近边界时平滑回弹；多个磁吸区域重叠时只响应最近的一个，并新增倾斜、缩放、轴向锁定和移动范围限制。",
++  "Rebuilt without dependencies. Blobs now cling, stretch and wobble as they merge, the cursor pushes through them, clicks splash them apart, and there are new outline, contour and lava lamp styles.": "无依赖重制：液滴融合时相互吸附、拉伸和晃动，光标可推动液滴，点击可将其溅开，并新增描边、轮廓和熔岩灯样式。",
++  "Rebuilt to match the new Siri orb: spectral strands twist inside frosted glass and swell into one smooth bulge where they come together. It livens up with a voice, a click or the cursor.": "重制为新款 Siri 球体效果：彩色光丝在磨砂玻璃内交织汇聚，并响应声音、点击和光标。",
++  "Rebuilt as liquid metal with reflections that bend around the edges. It now paints text as well as logos, tilts with the cursor and pours in on load.": "重制为边缘带折射的液态金属，可渲染文字和标志，跟随光标倾斜，并在加载时流入画面。",
++  "Rebuilt to be much lighter, with film dust, scratches, scanlines and flicker for a real film look.": "大幅减轻性能开销，新增胶片灰尘、划痕、扫描线和闪烁效果，呈现真实胶片质感。",
++  "The same fluid trail, now crisp and glossy, with visible pixels, depth and glow. New options add color shifts, drips, sparkle, click bursts, dither and image reveals.": "保留流体轨迹，画面更清晰有光泽，并增加像素、纵深和光晕；新增变色、滴落、闪光、点击迸发、抖色和图片显现效果。",
++  "Rebuilt to stay smooth on quick hovers, with new reveal patterns, pixel shapes and a choppy retro mode.": "快速悬停时更加平滑，并新增显现图案、像素形状和复古逐帧模式。",
++  "Rebuilt to be fast and seamless, with pixels that spring in from wherever the cursor enters and retreat the moment it leaves. New dot and spin styles and a pixel intro.": "重制为快速流畅的效果：像素从光标进入的位置弹出，离开时立即退回；新增圆点、旋转样式和像素入场。",
++  "Smoother, crisper ribbons that move the same at any frame rate. New shapes, a rolling wave, soft edges and more control over how they follow the cursor.": "丝带更清晰流畅，在不同帧率下保持一致；新增形状、滚动波浪、柔和边缘及更多光标跟随设置。",
++  "Rebuilt as a real lens blur that follows the cursor. Use any SVG or PNG as the shape, or switch to focus mode.": "重制为跟随光标的真实透镜模糊效果，可用任意 SVG 或 PNG 定义形状，也可切换到聚焦模式。",
++  "Strokes now flow unbroken with smoothly shifting colors, clicks burst into a real splash, and it rests when idle. New ink, smoke, lava and silk looks, a soft glow and a light theme.": "笔触连续流动、颜色平滑变化，点击可产生飞溅，闲置时自动休息；新增墨水、烟雾、熔岩、丝绸、柔光和浅色主题。",
++  "Rebuilt from scratch. The star glides evenly around any shape with a soft trail, hover laps and a click pulse.": "全面重制，星星沿任意形状均匀滑行并留下柔和轨迹，支持悬停绕行和点击脉冲。",
++  "Rebuilt with a real curl, soft shadows and no extra dependencies. The edge nearest the cursor lifts, thrown stickers swing, slide and bounce, and there are gloss, matte and holographic finishes.": "重制为带真实卷曲和柔和阴影的贴纸，无额外依赖；靠近光标的边缘会翘起，甩出的贴纸会摆动、滑动和弹跳，并提供亮面、哑光及全息材质。",
++  "Rebuilt without dependencies. The brackets now follow rounded corners, react to clicks, show labels and can stay inside one area.": "无依赖重制，括线可贴合圆角、响应点击、显示标签，并限定在指定区域内。",
++  "Rebuilt as a waterfall of light that lands on your content, pours over its corners and can reveal your UI around the cursor.": "重制为倾泻到内容上的瀑布光效，可流过边角并在光标周围显现界面。",
++  "Rebuilt with crisp, colorful particles that swirl into a ring with springy motion and streak when they move fast. Hold to charge and release to burst, plus presets, a liftoff intro and a light mode.": "重制为清晰的彩色粒子环，粒子带弹性旋转并在高速移动时留下光迹；按住蓄力、松开迸发，并新增预设、升空入场和浅色模式。",
++  "Rebuilt with real depth, so photos pass behind and in front of whatever sits in the middle, and it now fits any container. Drag to spin it, click a photo to bring it forward, and style the tiles, shadows and path.": "重制纵深效果，照片可从中心内容前后穿过并适应任意容器；支持拖动旋转、点击置前及调整卡片、阴影和路径。",
++  "Rebuilt so the layers never slip apart on load, with a scramble on hover, click ripples and custom characters.": "修复加载时图层错位的问题，并新增悬停扰乱、点击涟漪和自定义字符。",
++  "Text can now zoom, tilt in 3D, pull into focus or drift in, starting from the middle, the end or at random. It can also loop, replay on hover or click, start in a second color and keep the hovered word sharp.": "文字新增缩放、3D 倾斜、聚焦和漂入，可从中间、末尾或随机位置开始；支持循环、悬停或点击重播、入场强调色及保持悬停词清晰。",
++  "Fling the ring and it coasts back to its cruising speed, leans toward the cursor in 3D and can sit back like a planet’s orbit. Add an icon in the middle, an inner circle and natural spacing with gaps.": "甩动圆环后会逐渐恢复巡航速度，可朝光标 3D 倾斜或平放如行星轨道；支持中心图标、内圈和间隔设置。",
++  "Numbers can roll into place like an odometer, settle with a spring, shorten to 1.2K or 3.4M and replay on hover.": "数字可像里程表一样滚动到位、弹性回落，缩写为 1.2K 或 3.4M，并在悬停时重播。",
++  "Text can now travel along a wave, a closed ring or a straight line, with outlined letters and an accent mark between repeats. Scrolling the page gives the loop a burst of speed that eases off.": "文字可沿波浪、闭合圆环或直线移动，并支持描边文字和重复项间的装饰符号；滚动页面会加速循环，再逐渐恢复。",
++  "Letters can now roll in like a flip board or brighten out of faint glyphs, with an accent color that settles as they decode. Text can loop, and hovering can scramble just the letters near the cursor.": "字母可像翻页牌一样滚入或从淡字符逐渐显现，解码时强调色会渐变回原色；支持循环和仅扰乱光标附近的字母。",
++  "Rebuilt with smoother physics. Words or single letters knock each other loose as they fall, can be thrown and swept around, and fly back into place, with a new tiles style and light mode.": "重制物理效果，单词或字母下落时会相互碰撞，可抛掷、推动并返回原位，新增方块样式和浅色模式。",
++  "Text can now resolve out of heavy static when it first appears and tear into soft color fringes. The fuzz can follow the cursor, run all the time or fire in bursts on click.": "文字首次出现时可从强烈噪点中显现，并撕裂出柔和色边；噪点可跟随光标、持续运行或点击触发。",
++  "Pick from four glitch styles: sliced bands, a jittering color split, a scanning tear or swapped glyphs. Set how hard it glitches, add skew and flicker, and play short bursts on click.": "提供切片、抖动分色、扫描撕裂和字符替换四种故障样式，可设置强度、倾斜和闪烁，也可点击触发短暂故障。",
++  "Rebuilt with new flow and conic styles, a soft glow and colors that drift toward the cursor.": "重制并新增流动和锥形渐变、柔和光晕，以及向光标漂移的颜色。",
++  "Words can now flip, blur, zoom or drop in with a small bounce, rolling up or down. A highlight block smoothly resizes to fit each word and keeps the text readable on any color.": "单词可翻转、模糊、缩放或轻弹落入，并向上或向下滚动；高亮块会平滑调整大小，保持文字清晰可读。",
++  "Letters near the cursor can now rise, blur or swell like a lens, and a click sends a scramble wave through the text. Works with any typeface without the layout jumping.": "光标附近的字母可上浮、模糊或像透镜一样膨胀，点击会产生扰乱波；适用于各种字体且不会引起布局跳动。",
++  "Letters can now flip, scatter, blur or wave into place, by letter or by word, from above or below. Pick which go first and let them arrive in an accent color.": "字母或单词可从上下翻转、散开、模糊或波浪式入场，可设置顺序和入场强调色。",
++  "Text can now reveal by word, letter or line, rising, flipping or popping into place, and light up in an accent color as it appears. It can also play once on entering view.": "文字可按词、字或行上升、翻转或弹出，并在出现时显示强调色，也可在进入视野时仅播放一次。",
++  "Rows can lean and stretch with scroll speed, be grabbed and thrown with inertia, and alternate with outlined text. Set the text size, weight, color and spacing directly.": "文字行可随滚动速度倾斜拉伸，支持惯性拖拽、实心和描边交替，以及直接调整字号、字重、颜色和间距。",
++  "Rebuilt with more control over the shine, a travelling glow and new ways to play it, like on hover or scroll.": "重制并增加高光控制、流动光晕，以及悬停或滚动等触发方式。",
++  "Text can now flip, pop, blur, skew or wave into place, loop, and replay on hover or click. Pieces can arrive in an accent color, and letters lift or ripple under the cursor.": "文字新增翻转、弹出、模糊、倾斜和波浪入场，支持循环及悬停或点击重播；可设置入场强调色，字母也会随光标上浮或泛起波纹。",
++  "Rebuilt with a smoother trail that pops in, tapers and pulls back when you stop, plus chain and ribbon modes.": "重制更平滑的轨迹：出现时弹出，停止时收细回收，并新增链条和丝带模式。",
++  "Click to send a ripple of pressure through the letters, and let the word keep rolling or breathing while the cursor is away. Letters can warm toward an accent color as they swell, and you can set how softly they follow.": "点击可让字母产生压力波，光标离开时文字仍可滚动或呼吸；膨胀时可渐变为强调色，并可调节跟随的柔和程度。",
++  "Pick a bar, block or underscore cursor that glides and blinks softly, and let letters fade, blur or rise in as they type. Add occasional typos that get corrected, or a fixed lead-in before rotating words.": "可选择竖线、方块或下划线光标，带平滑移动与闪烁；文字可淡入、模糊或上升，也可模拟输入错误后修正或添加固定前缀。",
++  "Mark the focused word with a box, an underline or a soft highlight, and let it scale up slightly. The frame can spring between words and visit them in random order.": "可用方框、下划线或柔和高亮标记当前单词并略微放大，边框可弹性移动或随机切换。",
++  "Letters can now shift toward an accent color, grow and rise as the cursor gets close, and a gentle wave of weight runs through the text while idle. Adds a font size setting, and lines no longer rewrap while letters change weight.": "光标靠近时字母可变色、放大并上升，闲置时字重会产生柔和波动；新增字号设置，并避免字重变化时重新换行。",
++  "Letters can now flip like cards in 3D or spin in place with motion blur, and hovering can reshuffle just the letters near the cursor. Adds text and accent colors and a motion blur for sliding letters, and up or left shuffles no longer land on random symbols.": "字母可像卡片一样 3D 翻转或带运动模糊旋转，悬停可重排附近字母；新增文字色、强调色和滑动模糊，并修复特定方向出现随机符号的问题。",
++  "Text can now rain in, swirl into place or print behind a sweeping line, and particles can be drawn as squares or short strokes. Click to blow the particles apart and watch them spring back.": "文字可如雨落下、旋转聚合或随扫描线显现，粒子可显示为方块或短线；点击可将粒子吹散并弹回。",
++  "Boards can now cascade from the right, from the middle or in random order, with a soft sheen across falling flaps and adjustable depth. A new minimal style drops the tiles and flips bare characters split by a hinge line.": "翻页牌可从右侧、中间或随机依次翻转，支持柔和光泽与景深调节；新增极简样式，仅显示带中轴线的翻转字符。",
++  "Clicking now sends a shockwave through the text, and the lens can keep wandering across the words when the cursor leaves. Adds glass-like color fringing inside the lens, with smoother fringe edges in light and dark mode.": "点击可让文字产生冲击波，光标离开后透镜也可继续游走；新增玻璃般的色散，并优化深浅主题下的色边。",
++  "Click a letter to ripple the word, play a typed, assembled or font metrics intro, and show the font’s guide lines.": "点击字母可产生波纹，支持打字、拼合或字体度量入场，以及显示字体参考线。",
++  "Outlines can now be dashed or dotted and keep flowing around the letters, and they redraw when hovered. Filled letters can also lift off the page with a soft offset shadow.": "轮廓可设为流动的虚线或点线，悬停时重新绘制；填充文字也可上浮并投下柔和偏移阴影。",
++  "The extrusion can now fade into the page, and the word presses in on hover and springs back. It can also float gently while idle.": "立体延伸可逐渐融入页面，悬停时文字下压并回弹，闲置时也可轻轻漂浮。",
++  "Letters can now open like blinds or flip over like cards, and fold away near the cursor as it passes. Looping text can hold as long as you like before folding back up.": "字母可像百叶窗或卡片一样翻开，光标经过时折叠；循环文字可自定义折回前的停留时间。",
++  "Click the text to send out a burst of echoes, or let the echoes drift on their own or trail behind page scrolling. Echoes can also fade between two colors.": "点击文字可迸发回声，也可让回声自行漂移或跟随页面滚动，并支持双色渐变。",
++  "Two new entrances, letters growing in one by one and a focus pull, plus a soft light that follows the cursor and brings back full color. Letters can also be drawn as thin strokes that the image fills as it arrives.": "新增逐字放大和聚焦两种入场，柔光跟随光标恢复完整色彩；文字还可先以细描边显示，再由图片填充。",
++  "Add a second band that crosses the first in an X with a soft shadow, drag or fling the loop, and let page scrolling speed it up or reverse it. Letters can now be drawn as outlines.": "可添加交叉成 X 的第二条文字带并配以柔和阴影，支持拖动、甩动及随页面滚动加速或反向，字母也可设为描边。",
++  "Rebuilt so rows spring in from the edge they scroll in from and the selection glides between them. Rows can now show icons, images and labels, in both themes.": "重制为行从滚入的一侧弹出、选中状态平滑切换；行内可显示图标、图片和标签，支持深浅主题。",
++  "Rebuilt on springs, so hovering no longer flickers. The fan is easier to shape and cards can now be clicked.": "改用弹簧动画，悬停不再闪烁；扇形布局更易调整，卡片也可点击。",
++  "Rebuilt with a springy open, cards that rise, unfold or fade in, sliding link arrows, open on hover, a stacked layout for small screens and a light mode.": "新增弹性展开、卡片上升、展开或淡入、链接箭头滑动、悬停打开、小屏堆叠布局和浅色模式。",
++  "Rebuilt with springy swaps you can drag or fling, depth that follows the cursor, cleaner cards in both themes and a layout that fits any container.": "重制弹性切换，支持拖动和甩动、随光标变化的纵深、深浅主题卡片及自适应容器布局。",
++  "Rebuilt with momentum swiping, five transitions, photo cards, an autoplay timer and a cleaner frame in both themes.": "新增惯性滑动、五种切换效果、照片卡片、自动播放计时器及更简洁的深浅主题边框。",
++  "Redesigned with responsive cards in both themes, a smoother color spotlight and borders that light up near the cursor.": "重新设计自适应卡片和深浅主题，优化彩色聚光，并让边框在光标靠近时亮起。",
++  "Rebuilt with crisp, smooth edges and no extra dependencies. Cards now open to the full image, respond to hover and the keyboard, and the gallery can drift, snap, fade and change shape.": "重制流畅清晰的边缘，无额外依赖；卡片可展开为完整图片，支持悬停和键盘操作，画廊可漂移、吸附、淡出及改变形状。",
++  "Rebuilt with springy rolling digits, motion blur and a spin-in intro. Formats currency, percentages, separators and locales, and digits slide in and out as the number grows or shrinks.": "重制弹性滚动数字、运动模糊和旋入动画；支持货币、百分比、分隔符和区域格式，数字位数变化时会滑入或滑出。",
++  "Rebuilt to run smoother. The decay now shows at normal speeds, spreads evenly and frays gently when idle.": "优化运行流畅度，衰减效果在普通速度下可见，分布更均匀，闲置时边缘轻微散开。",
++  "Rebuilt with smoother magnification, a right-click menu, badges, auto hide and placement on any edge.": "优化放大效果，新增右键菜单、徽标、自动隐藏及屏幕任意边缘停靠。",
++  "Rebuilt with smoother springs and a rubber-band pull at both ends. Adds vertical and pill styles, icons and values inside the track, ticks, a handle, centered fills, and keyboard and scroll control.": "优化弹簧动画和两端橡皮筋回弹，新增垂直与胶囊样式、轨道内图标和数值、刻度、手柄、居中填充及键盘和滚轮控制。",
++  "Rebuilt around one liquid band that glides and stretches between rows and leans toward the cursor, with an intro sweep. New capsule and slab shapes, an editorial layout, notes per row and keyboard support.": "重制为在各行之间滑动、拉伸并朝向光标的液态高亮带，新增扫入动画、胶囊和方块形状、编辑式布局、行注释及键盘支持。",
++  "Rebuilt as a real glass object that bends your own text, image or video, with no 3D models or extra dependencies. Seven shapes that melt into each other on click, plus frost, tint, dispersion and shadows.": "重制为可折射文字、图片或视频的玻璃对象，无需 3D 模型或额外依赖；七种形状可点击融合，并支持磨砂、染色、色散和阴影。",
++  "Same look with less than half the GPU work. On high refresh rate screens it also draws fewer frames while the glass is at rest.": "保持原有效果，将 GPU 开销降至一半以下；高刷新率屏幕上玻璃静止时还会降低绘制帧数。",
++  "Rebuilt so it only scrolls when you use it, with optional columns and a camera you can pull back or push in.": "重制滚动行为，仅在操作时滚动，并支持自定义列数及相机远近。",
++  "Rebuilt from scratch. It can now also lie flat and open like a book, in solid, glass or matte, and its pages rise under the cursor.": "全面重制，新增平放并像书本一样打开的方式，提供实心、玻璃和哑光材质，页面会随光标上浮。",
++  "Rebuilt with real liquid glass that bends light at its edges, a smooth entrance, new card styles and presets.": "重制为边缘折射光线的液态玻璃，新增平滑入场、卡片样式和预设。",
++  "Turn any SVG logo into glass, and get real refraction in Safari and Firefox by passing in the image behind it. The new demo glass follows your cursor and can be dragged.": "任意 SVG 标志都可制作玻璃效果；传入背景图片后，Safari 和 Firefox 也能呈现折射。新演示中的玻璃可跟随光标并拖动。",
++  "Rebuilt so the active pill melts into droplets that flow to the new item, with a light theme, icons and sizes.": "重制活动胶囊：切换时融化成液滴并流向新选项，新增浅色主题、图标和尺寸设置。",
++  "Rebuilt to be lighter, with more ways to shape the tiles, autoplay, keyboard support and click to select.": "减轻性能开销，新增方块形状设置、自动播放、键盘支持和点击选择。",
++  "Rebuilt with no setup needed. Pass any image and the card swings with real momentum and flips on click.": "无需额外配置，传入任意图片即可让卡片带惯性摆动，并在点击时翻转。",
++  "Redesigned with animated artwork in every card, smoother cursor light and a click wave across the grid. Cards now take your own content, photos and links, with dark and light themes.": "重新设计卡片动画、光标光效和点击波纹；支持自定义内容、照片、链接以及深浅主题。",
++  "Rebuilt with springy reflow, tiles that appear as you scroll, hover zoom, lift and tilt, captions, a lightbox and drag to reorder. Columns now follow the container and tiles keep each image's shape.": "重制弹性重排、滚动入场、悬停缩放与倾斜、标题、灯箱和拖动排序；列数随容器调整，图片保持原有比例。",
++  "Rebuilt with automatic framing, studio lighting, momentum dragging, intros and many new options. New demo models.": "新增自动构图、影棚灯光、惯性拖动、入场动画、多种设置和演示模型。",
++  "Rebuilt with a smoother rising fill and rolling labels, a sliding active dot, a gliding pill option, a menu that folds in on small screens, and a light mode.": "优化上升填充、滚动标签和活动圆点，新增滑动胶囊、小屏折叠菜单和浅色模式。",
++  "Rebuilt with crisp pixels and a glowing reveal wave that can start from the cursor. It can run on hover, click or always on, with an edge fade that keeps card content readable.": "重制清晰像素与发光显现波，可从光标位置开始，并支持悬停、点击或持续播放；边缘淡出保证卡片内容可读。",
++  "Redesigned in the Carousel style, with smoother tilt, a light theme and holo that shows only through the pattern.": "按 Carousel 风格重新设计，优化倾斜效果，新增浅色主题，全息效果仅显示在图案区域。",
++  "Rebuilt with native pinning that never jitters, its own smooth scrolling, snapping and new depth styles. The demo is now a minimal photo deck with presets.": "重制固定定位与平滑滚动，避免抖动；新增吸附和纵深样式，演示改为带预设的简洁照片卡组。",
++  "Rebuilt with a smoother light that follows the cursor, glows along the edge and can be shared across a grid.": "优化随光标移动的光效，可沿边缘发光，也可在网格中共享。",
++  "Rebuilt with a crisp glass edge whose light glides around the rim toward the cursor, rests softly when idle and flashes on press.": "重制清晰的玻璃边缘：光线沿边缘向光标滑动，闲置时柔和停留，按下时闪光。",
++  "Rebuilt as inflated, squishy type and logos that dent, stretch and snap back with a jiggle.": "重制为充气般柔软的文字和标志，可凹陷、拉伸并晃动回弹。",
++  "Rebuilt as a liquid swarm that flows after the cursor, curls into eddies when you stop, pours around hovered buttons and splashes on click. No extra dependencies.": "重制为跟随光标流动的液态粒子群，停止时形成漩涡，绕过悬停按钮并在点击时飞溅，无额外依赖。",
++  "Rebuilt as a print on the page in mono, duotone or full color, with dots that swell into the photo.": "重制为页面上的单色、双色或全彩印刷效果，网点逐渐膨胀显现照片。",
++  "Rebuilt as a crisp, minimal grid with a soft spotlight, single cell or area highlights, tiles, dashed, dot and mark styles, clean click rings, an intro and a light mode.": "重制清晰简洁的网格，新增柔和聚光、单格或区域高亮、方块、虚线、圆点和标记样式，以及点击圆环、入场动画和浅色模式。",
++  "Rebuilt so cards never jump mid-drag. Throws carry momentum, with four new layouts and keyboard support.": "重制拖动逻辑，卡片不再跳动；甩动保留惯性，并新增四种布局和键盘支持。",
++  "Redesigned with a frosted panel in both themes and smoother transitions. Steps can now show titles, descriptions and icons, with dot, bar and vertical layouts.": "重新设计深浅主题磨砂面板和平滑过渡；步骤可显示标题、描述和图标，支持圆点、进度条和垂直布局。",
++  "Rebuilt with springy motion, glare, a soft shadow and floating depth layers, and no extra dependencies. Cards now flip to a back side, work with touch and phone tilt, and come with album, gallery and ticket demos.": "重制弹性运动、眩光、柔和阴影和浮动景深，无额外依赖；卡片可翻到背面，支持触摸和手机倾斜，并新增相册、画廊和票券演示。",
++  "Rebuilt as a satin metal card that reflects a looping video until you turn the camera on. It tilts toward the cursor, catches a sweeping light and comes in dark and light themes.": "重制为缎面金属卡片，开启摄像头前反射循环视频；卡片随光标倾斜，带扫光效果，并支持深浅主题。",
++  "Centered text cutouts using actual glyph bounds.": "根据实际字形边界居中文字镂空效果。",
++  "Rebuilt as silk ribbons of thick glass shards that stream smoothly on layered depths, light up along their edges and soften into the distance. Adds a chrome finish, survey markers, a cursor that parts the shards, a light wave on click, presets and an edge fade.": "重制为多层厚玻璃碎片组成的丝带，流动时边缘发光并随距离柔化；新增镀铬材质、测量标记、光标推开、点击光波、预设和边缘淡出。",
++  "Sharper fibers with crisp cores and a cleaner glow, plus a light mode that matches the dark one.": "纤维核心更清晰、光晕更干净，并新增与深色模式一致的浅色模式。",
++  "Rebuilt as layered ribbons of fine glowing fibers with soft depth of field, bright folds and new looks to pick from.": "重制为多层细发光纤维丝带，带柔和景深和明亮折痕，并提供多种外观。",
++  "Rebuilt with smoother, richer color blending and a softer edge that never bands. It reaches gently toward the cursor, fades in on load, and can rise from the bottom or stack extra layers.": "优化丰富流畅的颜色混合和柔和边缘，消除色带；颜色可轻柔地向光标移动、加载时淡入，并支持底部升起和叠加层。",
++  "Rebuilt on the same swirl with crisp pixels and no extra dependencies. The cursor now stirs the paint, clicks spin up whirlpools, and an intro spins it into place.": "保留旋涡外观并重制为清晰像素，无额外依赖；光标可搅动画面，点击产生旋涡，并新增旋转入场。",
++  "Rebuilt for smooth physics that handles thousands of balls, with soft modern finishes, and you can now grab, throw and blast them apart.": "重制物理效果，可流畅处理数千个球体，提供柔和现代的材质，并支持抓取、抛掷和炸开。",
++  "Rebuilt with brighter, glowing glints, a light that follows the cursor, a light theme and simpler controls, with no 3D library needed.": "优化明亮闪光和光标跟随光效，新增浅色主题与简洁控件，无需 3D 库。",
++  "Rebuilt as a real CRT that warms up into view, with true scanlines, phosphor masks, afterglow and bloom. The cursor bends the picture like a magnet, clicks flip the channel, and presets add amber, green and arcade looks.": "重制为逐渐亮起的 CRT 屏幕，包含扫描线、荧光遮罩、余辉和泛光；光标像磁铁一样扭曲画面，点击切换频道，并提供琥珀、绿色和街机预设。",
++  "Now reacts to the cursor, with a soft glow, any color and new shapes. Faster, and refined in light mode.": "新增光标互动、柔和光晕、自定义颜色和形状；运行更快，浅色模式也更精细。",
++  "Rebuilt on the same waves with crisp pixels and no extra dependencies. New dither patterns, retro palettes, cursor trails and click ripples, and an intro that sharpens into place.": "保留波浪效果并重制为清晰像素，无额外依赖；新增抖色图案、复古调色板、光标轨迹、点击涟漪和逐渐清晰的入场效果。",
++  "Rebuilt around a smooth magnifying lens that stays under the cursor and zooms closer while you hold. New dot layouts, swirl and pinch lenses, and an intro that pulls into focus.": "重制平滑放大透镜，始终跟随光标并在按住时进一步放大；新增圆点布局、旋涡和挤压透镜，以及聚焦入场。",
++  "Rebuilt with springy physics, so the dots wobble back, streak as they move and pass ripples to their neighbours.": "重制弹性物理效果，圆点会晃动回弹、移动时留下光迹，并将波纹传递给周围圆点。",
++  "Same terminal, now with phosphor glow, trails under the cursor, glitches on click, a cleaner light mode and new dot and character glyphs. Around 4x faster.": "保留终端外观，新增荧光、光标轨迹、点击故障、更简洁的浅色模式以及圆点和字符字形；运行速度约提升四倍。",
++  "Rebuilt with no extra dependencies. Stars now glide away from the cursor, a click jumps to warp speed and it arrives from hyperspace. New star colors, flares, depth and a cleaner light mode.": "无额外依赖重制，星星会避开光标，点击进入跃迁速度，并带超空间入场效果；新增星色、光芒、纵深和浅色模式。",
++  "Same blinds with satin shading that turns with the light, a soft glow, a gentle sway and a cleaner light mode. A click sends a wave of light through them, with no extra dependencies.": "保留百叶窗造型，新增随光线变化的缎面阴影、柔光、轻微摇摆和浅色模式；点击可产生光波，无额外依赖。",
++  "Rebuilt with crisp, steady streaks and round glowing heads. The light now warps in on load, bends around the cursor and stretches into warp trails while you hold.": "重制清晰稳定的光迹和圆形发光头部，加载时跃入画面，绕开光标，并在按住时拉成长轨迹。",
++  "Rebuilt as a glossy ferrofluid sea with no extra dependencies. Swells of spikes roll across it, the cursor raises a crown and clicks send out a ring of spikes.": "无额外依赖重制为有光泽的磁流体海面：尖刺如波浪般起伏，光标形成冠状凸起，点击向外扩散尖刺环。",
++  "The metal now ignites from its white-hot cores, the cursor heats the filaments it passes and clicks flare them white-hot. Adds filament width, haze, rotation and position controls, more colors, crisper fine detail, a richer light mode and no dependencies.": "金属从白热核心点亮，光标经过时加热丝线，点击产生白热闪光；新增丝线宽度、雾气、旋转和位置设置，更多颜色、清晰细节和浅色模式，无额外依赖。",
++  "Waves are now lit with soft light and shadow, rise from calm water on load, catch a light that follows the cursor and roll a swell in on click. Adds light direction, presets, a light mode and no dependencies.": "波浪新增柔和光影，从平静水面升起，光线跟随光标，点击产生涌浪；支持光线方向、预设和浅色模式，无额外依赖。",
++  "Threads now draw in one after another, the strand under the cursor lights up while the rest recede, and clicks send light into the pinch. Adds braids, a 3D twist, traveling pulses, rotation, soft ends, more threads and colors, and a cleaner light mode.": "丝线依次绘制，光标下的丝线亮起，其余淡出，点击向收拢处发送光波；新增编织、3D 扭转、移动脉冲、旋转、柔和末端、更多丝线与颜色及浅色模式。",
++  "Rebuilt as a 3D landscape of glowing contour lines that rises from a flat map, with land that lifts under the cursor, click pulses, optional survey markers and glitches, and a light mode.": "重制为从平面地图升起的 3D 发光等高线地形，光标下的地面会上升，并支持点击脉冲、测量标记、故障效果和浅色模式。",
++  "Redesigned with fine glowing fibres and comet-like pulses, and no extra dependencies. The cursor steers the tunnel, a click sends a ring of light down it, and light mode draws it in ink.": "重新设计发光细丝和彗星般的脉冲，无额外依赖；光标控制隧道方向，点击发出光环，浅色模式呈现墨线效果。",
++  "Rebuilt as waves of light sliced into glowing bars, seen in depth with a focus that follows the cursor.": "重制为有纵深的发光条纹，光波被切成条状，焦点随光标移动。",
++  "Crisp glass edges, travelling rings of light and twinkling squares, plus a clean light mode.": "新增清晰玻璃边缘、流动光环、闪烁方块和简洁浅色模式。",
++  "Rebuilt as a rolling field of glossy squares under two drifting colored lights, with square ripples, film grain and an intro that switches the squares on from the center.": "重制为两束彩色流动光下起伏的光泽方块，新增方形涟漪、胶片颗粒及从中心逐渐点亮的入场效果。",
++  "Crisper glowing lines and a scan head with an afterglow trail, plus lines that part around the cursor, click pings, a power-on intro and a light mode.": "优化发光线条和带余辉的扫描头，新增光标避让、点击脉冲、启动动画和浅色模式。",
++  "Rebuilt with richer colors, flowing waves and no extra dependencies. Drag the colors around or click to swirl them, and try stripes, rings, crisp poster edges or a satin sheen.": "重制更丰富的色彩和流动波浪，无额外依赖；可拖动颜色或点击产生旋涡，并提供条纹、圆环、海报边缘和缎面光泽。",
++  "Rebuilt as a lit 3D room with crisp lines, a glossy floor and sparkling scan points, with no extra dependencies. The view shifts like a window as you move, and clicks send a ping across the walls.": "无额外依赖重制为明亮的 3D 房间，带清晰线条、光泽地板和闪烁扫描点；视角随移动变化，点击会在墙面产生脉冲。",
++  "Rebuilt to be lighter. Images no longer stretch, and new modes range from crisp blocks to a liquid warp.": "降低性能开销，图片不再拉伸；新增从清晰方块到液态扭曲的多种模式。",
++  "Rebuilt to fit its container, with drift, parallax, a 3D tilt and a spotlight that follows the cursor.": "重制自适应容器布局，新增漂移、视差、3D 倾斜和跟随光标的聚光。",
++  "Rebuilt with a real glow and a transparent background. Every part of the road and lights is now customizable.": "重制真实光晕和透明背景，道路与灯光的各个部分都可自定义。",
++  "Rebuilt with full control over color, folds and motion, a liquid stir under the cursor, a swirl on click and presets.": "重制颜色、折痕和运动控制，新增光标搅动、点击旋涡和预设。",
++  "Redesigned as a crisp, calm field of letters that glitch in color, now much lighter to run. The cursor scrambles nearby letters, a click tears through the rows, and fonts, spacing and character sets are all adjustable.": "重新设计为清晰平静的字符场，运行更轻；光标可扰乱附近字符，点击可撕裂字符行，字体、间距和字符集均可调整。",
++  "Rebuilt on the same rays with a glowing source, drifting haze and crisper shafts, at a fraction of the cost. The cursor now casts a soft shadow and clicks send a wave of light down the beam.": "保留光线外观并大幅降低开销，新增发光源、漂浮薄雾和清晰光束；光标投下柔和阴影，点击沿光束发出光波。",
++  "Rebuilt with cleaner bolts that loop seamlessly, more options, a light mode, and strikes that land where you click.": "重制更干净、无缝循环的闪电，新增设置和浅色模式，并可在点击位置落下闪电。",
++  "Rebuilt with crisp, smoothly flowing lines and a soft band of light that drifts through them. Adds presets, a cursor spotlight, click ripples and a light mode.": "重制清晰流畅的线条和缓慢漂移的柔光带，新增预设、光标聚光、点击涟漪和浅色模式。",
++  "Rebuilt as a detailed radar scope with a glowing sweep, contacts that ping and fade, a sonar mode and a tilted floor view.": "重制为细致的雷达画面，包含发光扫描、闪烁渐隐的目标、声呐模式和倾斜地面视角。",
++  "The band now reaches toward a nearby cursor, clicks send a pulse of light along it, and it blooms in from a thin line. New presets, a tilt and a cleaner light mode, with no extra dependencies.": "光带会靠近光标、点击时传递光脉冲，并从细线逐渐展开；新增预设、倾斜和浅色模式，无额外依赖。",
++  "Rebuilt from scratch and moved to Backgrounds, lighter and about three times faster, with crisper lines and glow. Rings can now ripple, breathe, spin or lean in 3D, react to hover and clicks, split into prism fringes, and work in light mode.": "全面重制并移至背景分类，运行更轻、速度约提升三倍，线条和光晕更清晰；圆环支持波动、呼吸、旋转、3D 倾斜、悬停点击、棱镜色散及浅色模式。",
++  "Rebuilt as soft, glossy liquid chrome whose reflections follow the cursor, with a liquid wake and ripples on click. Adds presets, a light mode and a faster renderer.": "重制为柔和光泽的液态铬，反射随光标移动，点击产生液态尾迹和涟漪；新增预设、浅色模式并加快渲染。",
++  "Rebuilt with a crisper, more luminous ring that reaches toward the cursor and lights up where you hover. It pulses on click, powers on with an intro, and can tilt in 3D with custom colors, size and glow.": "重制更明亮清晰的光环，向光标延伸并在悬停处亮起；支持点击脉冲、启动入场、3D 倾斜和自定义颜色、大小与光晕。",
++  "Rebuilt with the same floating motion, now crisp and far faster with thousands of particles. New shapes, glow, twinkle, bokeh, constellation lines, drifting and cursor effects.": "保留漂浮效果，数千粒子也能更清晰快速地运行；新增形状、光晕、闪烁、散景、星座连线、漂移和光标效果。",
++  "Same pixel clouds, now smoother and softer, with drift, shimmer, glow, an accent color, a blast intro and a cursor that lights pixels up. New shapes and a perspective floor, much faster, no dependencies.": "保留像素云效果，优化平滑度和柔和度，新增漂移、闪烁、光晕、强调色、爆发入场及光标点亮像素；新增形状和透视地面，运行更快且无依赖。",
++  "Rebuilt as soft folds of satin light with bright highlights, a cursor that turns them in 3D and a new light mode.": "重制为柔和的缎面光线褶皱，带明亮高光、光标控制的 3D 转动和浅色模式。",
++  "Smoother, faster plasma with soft glow, white-hot cores and a cursor that stirs it, plus a new light mode.": "等离子效果更平滑快速，新增柔光、白热核心、光标搅动和浅色模式。",
++  "Same glowing prism, now several times faster with no extra dependencies. It tilts toward the cursor, fades in, takes custom colors, and has a cleaner light mode and a working 3D rotation.": "保留发光棱镜外观，运行快数倍且无额外依赖；支持朝向光标倾斜、淡入、自定义颜色、浅色模式和 3D 旋转。",
++  "Runs up to four times faster with the same look, and adds spirals, flowing color and finer control over the rays. The burst now ignites on load, leans toward the cursor and sends a wave of light outward on click.": "保持原有外观，运行速度最高提升四倍；新增螺旋、流动颜色和更精细的光线控制，加载时点亮，靠近光标并在点击时向外发出光波。",
++  "Rebuilt with crisp lines, real traveling waves from the cursor and clicks, dot and cross styles, and a perspective floor.": "重制清晰线条、由光标和点击产生的传播波纹，以及圆点、十字样式和透视地面。",
++  "Rebuilt on the same folds with deeper shading, glossy satin highlights and a soft glow. The light follows the cursor, clicks ripple through the fabric, and the folds rise in on load.": "保留褶皱形态，重制更深的阴影、光泽缎面高光和柔光；光线跟随光标，点击使织物泛起波纹，加载时褶皱升起。",
++  "Rebuilt with soft, shimmering light shafts that grow in from the corner and lean toward the cursor. Adds presets, side origins, drifting dust and a light mode.": "重制从角落延伸、随光标倾斜的柔和闪烁光束；新增预设、侧边起点、漂浮尘埃和浅色模式。",
++  "Rebuilt with eight cell shapes, a glowing cursor trail and click ripples. The grid can now tilt into perspective and light up in rainbow colors.": "重制八种网格形状、发光光标轨迹和点击涟漪；网格支持透视倾斜和彩虹发光。",
++  "Rebuilt to run several times faster, with presets, much more control over the threads and a cursor that parts them.": "重制后运行快数倍，新增预设、更多丝线控制及光标拨开效果。",
++  "Rebuilt with perfectly smooth, crisp lines. They bend around the cursor and spring back, part in a soft ripple on click, and now come dashed, rotated or in light mode, with an intro.": "重制平滑清晰的线条，线条会绕开光标并回弹，点击产生柔和涟漪；新增虚线、旋转、浅色模式和入场动画。",
++  "Now a background that fills its container, with the square still available. Lines swing on springs, ripple out from the cursor and spin with each click, with new field modes, arrow and compass shapes, and a 3D tilt.": "改为填满容器的背景，仍可使用正方形；线条弹性摆动、从光标向外扩散，点击时旋转，并新增场景模式、箭头和罗盘形状及 3D 倾斜。",
++  "Rebuilt with smoother, glowing swirls, a sweeping intro and puffs on click. Runs several times faster and adds presets and a light mode.": "重制平滑发光的旋涡、扫入动画和点击烟雾；速度提升数倍，新增预设和浅色模式。",
++  "Redrawn with crisp, finely glowing lines and no extra dependencies. The lines part smoothly around the cursor, curl when clicked, and come in dotted and dashed styles with a clean ink light mode.": "无额外依赖重绘清晰细腻的发光线条；线条平滑绕开光标，点击时卷曲，并提供点线、虚线和墨线浅色模式。",
++  "Rebuilt to run about four times faster with the same look. It now ignites on load, follows the cursor, surges on click and has a soft glow, presets and more controls.": "保持原有效果，重制后速度约提升四倍；新增加载点亮、光标跟随、点击增强、柔光、预设和更多控件。",
++  "Rebuilt with crisp pixel-art flakes in layers of depth, a soft glow, wind and cursor play, snow that can pile up, and a light mode.": "重制具有纵深层次的清晰像素雪花，新增柔光、风、光标互动、积雪和浅色模式。"
++};
++
++export const changelogNoteZh = note => updateNotesZh[note] || note;
 diff --git a/src/utils/componentSearch.js b/src/utils/componentSearch.js
 index fcfe610..daf4243 100644
 --- a/src/utils/componentSearch.js
